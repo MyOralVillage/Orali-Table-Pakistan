@@ -11,6 +11,7 @@ import android.view.View;
  * @author Alexander Yang
  * @author Hamza Mahfooz
  * @author Peter Panagiotis Roubatsis
+ * @author Rahul Vaish
  * @see org.myoralvillage.cashcalculatormodule.views.CountingTableView
  */
 public abstract class SwipeListener implements View.OnTouchListener {

@@ -50,6 +50,7 @@ import java.util.Locale;
  * @author Peter Panagiotis Roubatsis
  * @author Yujie Wu
  * @author Zhipeng Zou
+ * @author Rahul Vaish
 */
 public class CashCalculatorFragment extends Fragment {
     /**
