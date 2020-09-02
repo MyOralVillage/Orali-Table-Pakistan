@@ -61,7 +61,7 @@ public class NumberPadView extends LinearLayout implements View.OnTouchListener 
                 findViewById(R.id.two), findViewById(R.id.three), findViewById(R.id.four),
                 findViewById(R.id.five), findViewById(R.id.six), findViewById(R.id.seven),
                 findViewById(R.id.eight), findViewById(R.id.nine), findViewById(R.id.check),
-                findViewById(R.id.back)}) {
+                findViewById(R.id.back), findViewById(R.id.togglecash)}) {
             button.setOnClickListener(listener);
         }
     }
@@ -85,6 +85,9 @@ public class NumberPadView extends LinearLayout implements View.OnTouchListener 
                     stringBuilder.setLength(stringBuilder.length() - 1);
                     back(stringBuilderToBigDecimal(stringBuilder));
                 }
+                break;
+            case "toglecash":
+                listener.onVerticalSwipe();
                 break;
             default:
                 if (stringBuilder.length() == 0 && text.equals("0")) {

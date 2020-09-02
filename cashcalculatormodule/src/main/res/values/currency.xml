@@ -72,6 +72,12 @@
         <item>@drawable/currency_pkr_1</item>
         <item>0.7</item>
         <item>0.0</item>
+
+        <item>0</item>
+        <item>@drawable/cash_num_toggle</item>
+        <item>@drawable/cash_num_toggle</item>
+        <item>1.0</item>
+        <item>0.0</item>>
     </array>
 
     <array name="currency_KES">
@@ -134,6 +140,12 @@
         <item>@drawable/currency_kes_1</item>
         <item>0.85</item>
         <item>0.0</item>
+
+        <item>0</item>
+        <item>@drawable/cash_num_toggle</item>
+        <item>@drawable/cash_num_toggle</item>
+        <item>1.0</item>
+        <item>0.0</item>>
     </array>
     <array name="currency_USD">
         <item>1000</item>
@@ -201,6 +213,12 @@
         <item>@drawable/currency_usd_0_01</item>
         <item>0.85</item>
         <item>0.0</item>
+
+        <item>0</item>
+        <item>@drawable/cash_num_toggle</item>
+        <item>@drawable/cash_num_toggle</item>
+        <item>1.0</item>
+        <item>0.0</item>
     </array>
     <array name="currency_BDT">
         <item>1000</item>
@@ -250,6 +268,12 @@
         <item>@drawable/currency_bdt_2_folded</item>
         <item>1.0</item>
         <item>0.09</item>
+
+        <item>0</item>
+        <item>@drawable/cash_num_toggle</item>
+        <item>@drawable/cash_num_toggle</item>
+        <item>1.0</item>
+        <item>0.0</item>
     </array>
 
     <array name="currency_INR">
@@ -295,6 +319,12 @@
         <item>1.0</item>
         <item>0.08</item>
 
+        <item>5</item>
+        <item>@drawable/currency_inr_5</item>
+        <item>@drawable/currency_inr_5</item>
+        <item>1.0</item>
+        <item>0.09</item>
+
         <item>2</item>
         <item>@drawable/currency_inr_2</item>
         <item>@drawable/currency_inr_2</item>
@@ -308,9 +338,10 @@
         <item>0.09</item>
 
         <item>0</item>
-        <item>@drawable/zeronetwothree</item>
-        <item>@drawable/zeronetwothree</item>
+        <item>@drawable/cash_num_toggle</item>
+        <item>@drawable/cash_num_toggle</item>
         <item>1.0</item>
-        <item>0.09</item>
+        <item>0.04</item>
+
     </array>
 </resources>

@@ -13,6 +13,7 @@ import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 
 import org.myoralvillage.cashcalculatormodule.R;
+import org.myoralvillage.cashcalculatormodule.config.CashCalculatorModuleConstants;
 import org.myoralvillage.cashcalculatormodule.models.AreaModel;
 import org.myoralvillage.cashcalculatormodule.models.CurrencyModel;
 import org.myoralvillage.cashcalculatormodule.models.DenominationModel;
@@ -31,6 +32,7 @@ import java.util.List;
  * @author Hamza Mahfooz
  * @author Lingjing Zou
  * @author Peter Panagiotis Roubatsis
+ * @author Rahul Vaish
  *
  * @see HorizontalScrollView
  */
@@ -39,6 +41,7 @@ public class CurrencyScrollbarView extends HorizontalScrollView {
     private CurrencyScrollbarListener currencyScrollbarListener;
     private CurrencyModel currCurrency;
     private ScrollbarDenominationsView denominationsView;
+    private String currencyCode;
 
     /**
      * Retrieves the Currency model associated with this view.
@@ -99,6 +102,9 @@ public class CurrencyScrollbarView extends HorizontalScrollView {
                 for(int i = 0; i <= index; i++)
                     current = denominationModelIterator.next();
 
+                if(ifToggle(index)){
+                    currencyScrollbarListener.onVerticalSwipe();
+                }
                 if (index >= 0) currencyScrollbarListener.onTapDenomination(current);
             }
 
@@ -116,6 +122,43 @@ public class CurrencyScrollbarView extends HorizontalScrollView {
             int scrollbar = linearLayout.getWidth()/2;
             scrollTo(scrollbar - view, 0);
         });
+    }
+
+    /**
+     * Check is Toggle from CurrencyScrollbar to Numeral.
+     *
+     * @param index the last index on CurrencyScrollbar, which refers to non-money image.
+     *
+     */
+    public boolean ifToggle(int index){
+        switch(this.currencyCode){
+            case "INR":
+                if(index == CashCalculatorModuleConstants.TOTAL_INR_DENOMINATIONS){
+                    return true;
+                }
+                 break;
+            case "PKR":
+                if(index == CashCalculatorModuleConstants.TOTAL_PKR_DENOMINATIONS){
+                    return true;
+                }
+                break;
+            case "BDT":
+                if(index == CashCalculatorModuleConstants.TOTAL_BDT_DENOMINATIONS){
+                    return true;
+                }
+                break;
+            case "USD":
+                if(index == CashCalculatorModuleConstants.TOTAL_USD_DENOMINATIONS){
+                    return true;
+                }
+                break;
+            case "KES":
+                if(index == CashCalculatorModuleConstants.TOTAL_KES_DENOMINATIONS){
+                    return true;
+                }
+                break;
+        }
+        return false;
     }
 
     /**
@@ -151,7 +194,7 @@ public class CurrencyScrollbarView extends HorizontalScrollView {
                 currencyCode, getResources(), getContext());
 
         this.currCurrency = currency;
-
+        this.currencyCode = String.valueOf(this.currCurrency.getCurrency());
         float inchesToPixels = getResources().getDisplayMetrics().ydpi;
 
         for (DenominationModel denomination : currency.getDenominations()) {
