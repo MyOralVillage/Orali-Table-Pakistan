@@ -17,6 +17,7 @@ buildscript {
 allprojects {
     repositories {
         google()
+        maven { url "http://maven.usehover.com/releases" }
         jcenter()
         
     }
