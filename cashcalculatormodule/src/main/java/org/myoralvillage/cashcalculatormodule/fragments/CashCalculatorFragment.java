@@ -112,6 +112,10 @@ public class CashCalculatorFragment extends Fragment {
     private Locale locale;
 
     /**
+     * To export the currency displaying on CountingTable to Views.
+     */
+    public static String currencyOnCountingTable="";
+    /**
      * Called to have the <code>CashCalculatorFragment</code> instantiate its user interface view.
      *
      * @param inflater _
@@ -350,7 +354,8 @@ public class CashCalculatorFragment extends Fragment {
             case NUMERIC:
                 sum.setVisibility(View.INVISIBLE);
                 numberInputView.setVisibility(View.VISIBLE);
-                numberInputView.setText(formatCurrency(service.getValue()));
+                currencyOnCountingTable= formatCurrency(service.getValue());
+                numberInputView.setText(currencyOnCountingTable);
                 service.setValue(BigDecimal.ZERO);
                 break;
         }

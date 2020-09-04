@@ -1,6 +1,7 @@
 package org.myoralvillage.cashcalculatormodule.views;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -10,9 +11,12 @@ import android.widget.LinearLayout;
 import androidx.annotation.Nullable;
 
 import org.myoralvillage.cashcalculatormodule.R;
+import org.myoralvillage.cashcalculatormodule.fragments.CashCalculatorFragment;
 import org.myoralvillage.cashcalculatormodule.views.listeners.NumberPadListener;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A view class used to monitor and render the display of the number pad.
@@ -20,6 +24,7 @@ import java.math.BigDecimal;
  * @author Hamza Mahfooz
  * @author Peter Panagiotis Roubatsis
  * @author Yujie Wu
+ * @author Rahul Vaish
  *
  * @see LinearLayout
  * @see android.view.View.OnTouchListener
@@ -29,13 +34,30 @@ public class NumberPadView extends LinearLayout implements View.OnTouchListener 
     private static final long MAX_TOUCH_DURATION = 250;
     private float touchDownX;
     private float touchDownY;
+    private int initStringBuilderCount=0;
+    //Creating a 0-9 collection to filter other ASCII characters.
+    private static List<Character> zeroToNine = new ArrayList<Character>();
+    static{
+        zeroToNine.add('0');
+        zeroToNine.add('1');
+        zeroToNine.add('2');
+        zeroToNine.add('3');
+        zeroToNine.add('4');
+        zeroToNine.add('5');
+        zeroToNine.add('6');
+        zeroToNine.add('7');
+        zeroToNine.add('8');
+        zeroToNine.add('9');
+        zeroToNine.add('.');
+    }
 
     /**
      * the value that is being entered in this view.
      *
      * @see StringBuilder
      */
-    private final StringBuilder stringBuilder = new StringBuilder();
+    private  StringBuilder stringBuilder = new StringBuilder("");
+
 
     /**
      * Constructs a <code>CountingTableSurfaceView</code> in the given Android context with the
@@ -56,7 +78,6 @@ public class NumberPadView extends LinearLayout implements View.OnTouchListener 
      */
     private void initializeNumberpad(){
         View.OnClickListener listener = this::clickView;
-
         for (View button : new View[] {findViewById(R.id.zero), findViewById(R.id.one),
                 findViewById(R.id.two), findViewById(R.id.three), findViewById(R.id.four),
                 findViewById(R.id.five), findViewById(R.id.six), findViewById(R.id.seven),
@@ -66,7 +87,24 @@ public class NumberPadView extends LinearLayout implements View.OnTouchListener 
         }
     }
 
+    public void initializeStringBuilder(int initStringBuilderCount){
+        StringBuffer numberOnCountingTable = new StringBuffer();
+        if(initStringBuilderCount==1){
+            String currOnCountingTable = CashCalculatorFragment.currencyOnCountingTable.substring(1);
+            for( char partOfNumber : currOnCountingTable.toCharArray() ){
+                if (zeroToNine.contains(partOfNumber)){
+                    numberOnCountingTable.append(partOfNumber);
+                }
+            }
+            double doubleNumberOnCountingTable = Double.parseDouble(String.valueOf(numberOnCountingTable));
+            int intNumberOnCountingTable = (int) doubleNumberOnCountingTable;
+            stringBuilder.append(intNumberOnCountingTable);
+        }
+    }
+
     public void clickView(View v) {
+        initStringBuilderCount++;
+        initializeStringBuilder(initStringBuilderCount);
         String text;
 
         if (v instanceof Button) {
@@ -88,6 +126,7 @@ public class NumberPadView extends LinearLayout implements View.OnTouchListener 
                 break;
             case "toglecash":
                 listener.onVerticalSwipe();
+                initStringBuilderCount=0;
                 break;
             default:
                 if (stringBuilder.length() == 0 && text.equals("0")) {

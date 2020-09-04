@@ -101,7 +101,7 @@ public class CurrencyScrollbarView extends HorizontalScrollView {
 
                 for(int i = 0; i <= index; i++)
                     current = denominationModelIterator.next();
-
+                //Check if the last element of the CurrencyScrollbar is pressed - this will change the CurrencyScrollbar to NumericPad.
                 if(ifToggle(index)){
                     currencyScrollbarListener.onVerticalSwipe();
                 }
@@ -125,7 +125,7 @@ public class CurrencyScrollbarView extends HorizontalScrollView {
     }
 
     /**
-     * Check is Toggle from CurrencyScrollbar to Numeral.
+     * Check if Toggle is required from CurrencyScrollbar to Numeral.
      *
      * @param index the last index on CurrencyScrollbar, which refers to non-money image.
      *
