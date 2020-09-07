@@ -89,7 +89,7 @@ public class NumberPadView extends LinearLayout implements View.OnTouchListener 
 
     public void initializeStringBuilder(int initStringBuilderCount){
         StringBuffer numberOnCountingTable = new StringBuffer();
-        if(initStringBuilderCount==1){
+        if(initStringBuilderCount==1 && stringBuilder.length() == 0){
             String currOnCountingTable = CashCalculatorFragment.currencyOnCountingTable.substring(1);
             for( char partOfNumber : currOnCountingTable.toCharArray() ){
                 if (zeroToNine.contains(partOfNumber)){
