@@ -90,15 +90,17 @@ public class NumberPadView extends LinearLayout implements View.OnTouchListener 
     public void initializeStringBuilder(int initStringBuilderCount){
         StringBuffer numberOnCountingTable = new StringBuffer();
         if(initStringBuilderCount==1 && stringBuilder.length() == 0){
-            String currOnCountingTable = CashCalculatorFragment.currencyOnCountingTable.substring(1);
-            for( char partOfNumber : currOnCountingTable.toCharArray() ){
-                if (zeroToNine.contains(partOfNumber)){
-                    numberOnCountingTable.append(partOfNumber);
+            if(null!=CashCalculatorFragment.currencyOnCountingTable && CashCalculatorFragment.currencyOnCountingTable.length()>=1) {
+                String currOnCountingTable = CashCalculatorFragment.currencyOnCountingTable.substring(1);
+                for (char partOfNumber : currOnCountingTable.toCharArray()) {
+                    if (zeroToNine.contains(partOfNumber)) {
+                        numberOnCountingTable.append(partOfNumber);
+                    }
                 }
+                double doubleNumberOnCountingTable = Double.parseDouble(String.valueOf(numberOnCountingTable));
+                int intNumberOnCountingTable = (int) doubleNumberOnCountingTable;
+                stringBuilder.append(intNumberOnCountingTable);
             }
-            double doubleNumberOnCountingTable = Double.parseDouble(String.valueOf(numberOnCountingTable));
-            int intNumberOnCountingTable = (int) doubleNumberOnCountingTable;
-            stringBuilder.append(intNumberOnCountingTable);
         }
     }
 
