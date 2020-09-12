@@ -32,7 +32,8 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         settingButtonListener();
         mainActivityButtonListener();
-        modeSwitchButtonListener();
+        //Removed the Cash-Numeric switch from the Home Screen
+        //modeSwitchButtonListener();
     }
 
     private void mainActivityButtonListener() {
@@ -66,7 +67,7 @@ public class SplashActivity extends AppCompatActivity {
         setting.setOnClickListener(e -> switchToSetting());
     }
 
-    private void modeSwitchButtonListener() {
+    /*private void modeSwitchButtonListener() {
         Switch modeSwitch = (Switch) findViewById(R.id.mode_switch);
         modeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -74,7 +75,7 @@ public class SplashActivity extends AppCompatActivity {
                 numericMode = isChecked;
             }
         });
-    }
+    }*/
 
     private void switchToSetting() {
         Intent intent = new Intent(this, SettingActivity.class);
