@@ -1,85 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <array name="currency_PKR">
-        <item>100000</item>
-        <item>@drawable/currency_pkr_100000</item>
-        <item>@drawable/currency_pkr_100000</item>
-        <item>0.5</item>
-        <item>0.0</item>
-
-        <item>10000</item>
-        <item>@drawable/currency_pkr_10000</item>
-        <item>@drawable/currency_pkr_10000_folded</item>
-        <item>1.0</item>
-        <item>0.0</item>
-
-        <item>5000</item>
-        <item>@drawable/currency_pkr_5000</item>
-        <item>@drawable/currency_pkr_5000_folded</item>
-        <item>1.0</item>
-        <item>0.0</item>
-
-        <item>1000</item>
-        <item>@drawable/currency_pkr_1000</item>
-        <item>@drawable/currency_pkr_1000_folded</item>
-        <item>1.0</item>
-        <item>0.031</item>
-
-        <item>500</item>
-        <item>@drawable/currency_pkr_500</item>
-        <item>@drawable/currency_pkr_500_folded</item>
-        <item>1.0</item>
-        <item>0.062</item>
-
-        <item>100</item>
-        <item>@drawable/currency_pkr_100</item>
-        <item>@drawable/currency_pkr_100_folded</item>
-        <item>1.0</item>
-        <item>0.093</item>
-
-        <item>50</item>
-        <item>@drawable/currency_pkr_50</item>
-        <item>@drawable/currency_pkr_50_folded</item>
-        <item>1.0</item>
-        <item>0.124</item>
-
-        <item>20</item>
-        <item>@drawable/currency_pkr_20</item>
-        <item>@drawable/currency_pkr_20_folded</item>
-        <item>1.0</item>
-        <item>0.155</item>
-
-        <item>10</item>
-        <item>@drawable/currency_pkr_10</item>
-        <item>@drawable/currency_pkr_10_folded</item>
-        <item>1.0</item>
-        <item>0.186</item>
-
-        <item>5</item>
-        <item>@drawable/currency_pkr_5</item>
-        <item>@drawable/currency_pkr_5_folded</item>
-        <item>0.85</item>
-        <item>0.0</item>
-
-        <item>2</item>
-        <item>@drawable/currency_pkr_2</item>
-        <item>@drawable/currency_pkr_2_folded</item>
-        <item>0.75</item>
-        <item>0.0</item>
-
-        <item>1</item>
-        <item>@drawable/currency_pkr_1</item>
-        <item>@drawable/currency_pkr_1</item>
-        <item>0.7</item>
-        <item>0.0</item>
-
-        <item>0</item>
-        <item>@drawable/cash_num_toggle</item>
-        <item>@drawable/cash_num_toggle</item>
-        <item>1.0</item>
-        <item>0.0</item>>
-    </array>
-
     <array name="currency_KES">
         <item>10000</item>
         <item>@drawable/currency_kes_10000</item>
@@ -220,120 +140,78 @@
         <item>1.0</item>
         <item>0.0</item>
     </array>
-    <array name="currency_BDT">
-        <item>1000</item>
-        <item>@drawable/currency_bdt_1000</item>
-        <item>@drawable/currency_bdt_1000_folded</item>
-        <item>1.0</item>
-        <item>0.012</item>
 
-        <item>500</item>
-        <item>@drawable/currency_bdt_500</item>
-        <item>@drawable/currency_bdt_500_folded</item>
-        <item>1.0</item>
-        <item>0.024</item>
-
-        <item>100</item>
-        <item>@drawable/currency_bdt_100</item>
-        <item>@drawable/currency_bdt_100_folded</item>
-        <item>1.0</item>
-        <item>0.036</item>
-
-        <item>50</item>
-        <item>@drawable/currency_bdt_50</item>
-        <item>@drawable/currency_bdt_50_folded</item>
-        <item>1.0</item>
-        <item>0.048</item>
-
-        <item>20</item>
-        <item>@drawable/currency_bdt_20</item>
-        <item>@drawable/currency_bdt_20_folded</item>
-        <item>1.0</item>
-        <item>0.06</item>
-
-        <item>10</item>
-        <item>@drawable/currency_bdt_10</item>
-        <item>@drawable/currency_bdt_10_folded</item>
-        <item>1.0</item>
-        <item>0.07</item>
-
-        <item>5</item>
-        <item>@drawable/currency_bdt_5</item>
-        <item>@drawable/currency_bdt_5_folded</item>
-        <item>1.0</item>
-        <item>0.08</item>
-
-        <item>2</item>
-        <item>@drawable/currency_bdt_2</item>
-        <item>@drawable/currency_bdt_2_folded</item>
-        <item>1.0</item>
-        <item>0.09</item>
-
-        <item>0</item>
-        <item>@drawable/cash_num_toggle</item>
-        <item>@drawable/cash_num_toggle</item>
-        <item>1.0</item>
-        <item>0.0</item>
-    </array>
-
-    <array name="currency_INR">
+    <array name="currency_ETB">
         <item>20000</item>
-        <item>@drawable/currency_inr_20000</item>
-        <item>@drawable/currency_inr_20000</item>
+<!--        <item>@drawable/currency_etb_20000</item>-->
+<!--        <item>@drawable/currency_etb_20000</item>-->
+        <item>@drawable/currency_etb_100</item>
+        <item>@drawable/currency_etb_100</item>
         <item>1.0</item>
         <item>0.012</item>
 
         <item>2000</item>
-        <item>@drawable/currency_inr_2000</item>
-        <item>@drawable/currency_inr_2000_folded</item>
+<!--        <item>@drawable/currency_etb_2000</item>-->
+<!--        <item>@drawable/currency_etb_2000_folded</item>-->
+        <item>@drawable/currency_etb_100</item>
+        <item>@drawable/currency_etb_100</item>
         <item>1.0</item>
         <item>0.024</item>
 
         <item>500</item>
-        <item>@drawable/currency_inr_500</item>
-        <item>@drawable/currency_inr_500_folded</item>
+<!--        <item>@drawable/currency_etb_500</item>-->
+<!--        <item>@drawable/currency_etb_500_folded</item>-->
+        <item>@drawable/currency_etb_100</item>
+        <item>@drawable/currency_etb_100</item>
         <item>1.0</item>
         <item>0.036</item>
 
         <item>100</item>
-        <item>@drawable/currency_inr_100</item>
-        <item>@drawable/currency_inr_100_folded</item>
+        <item>@drawable/currency_etb_100</item>
+<!--        <item>@drawable/currency_etb_100_folded</item>-->
+        <item>@drawable/currency_etb_100</item>
         <item>1.0</item>
         <item>0.048</item>
 
         <item>50</item>
-        <item>@drawable/currency_inr_50</item>
-        <item>@drawable/currency_inr_50_folded</item>
+        <item>@drawable/currency_etb_50</item>
+<!--        <item>@drawable/currency_etb_50_folded</item>-->
+        <item>@drawable/currency_etb_50</item>
         <item>1.0</item>
         <item>0.06</item>
 
         <item>20</item>
-        <item>@drawable/currency_inr_20</item>
-        <item>@drawable/currency_inr_20_folded</item>
+<!--        <item>@drawable/currency_etb_20</item>-->
+<!--        <item>@drawable/currency_etb_20_folded</item>-->
+        <item>@drawable/currency_etb_50</item>
+        <item>@drawable/currency_etb_50</item>
         <item>1.0</item>
         <item>0.07</item>
 
         <item>10</item>
-        <item>@drawable/currency_inr_10</item>
-        <item>@drawable/currency_inr_10_folded</item>
+        <item>@drawable/currency_etb_10_coin</item>
+<!--        <item>@drawable/currency_etb_10_folded</item>-->
+        <item>@drawable/currency_etb_10_coin</item>
         <item>1.0</item>
         <item>0.08</item>
 
         <item>5</item>
-        <item>@drawable/currency_inr_5</item>
-        <item>@drawable/currency_inr_5</item>
+        <item>@drawable/currency_etb_5_coin</item>
+        <item>@drawable/currency_etb_5_coin</item>
         <item>1.0</item>
         <item>0.09</item>
 
         <item>2</item>
-        <item>@drawable/currency_inr_2</item>
-        <item>@drawable/currency_inr_2</item>
+<!--        <item>@drawable/currency_etb_2</item>-->
+<!--        <item>@drawable/currency_etb_2</item>-->
+        <item>@drawable/currency_etb_10_coin</item>
+        <item>@drawable/currency_etb_10_coin</item>
         <item>1.0</item>
         <item>0.09</item>
 
         <item>1</item>
-        <item>@drawable/currency_inr_1</item>
-        <item>@drawable/currency_inr_1</item>
+        <item>@drawable/currency_etb_1</item>
+        <item>@drawable/currency_etb_1</item>
         <item>1.0</item>
         <item>0.09</item>
 
@@ -342,6 +220,5 @@
         <item>@drawable/cash_num_toggle</item>
         <item>1.0</item>
         <item>0.04</item>
-
     </array>
 </resources>

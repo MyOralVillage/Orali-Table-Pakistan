@@ -97,7 +97,7 @@ public class CurrencyService {
         File file = new File(context.getFilesDir(), FILE_NAME);
 
         try {
-            String json = null;
+            /*String json = "{\"currencies\":[\"KES\",\"ETB\",\"USD\"]}";
             boolean write = true;
 
             if (isOnline()) {
@@ -105,7 +105,9 @@ public class CurrencyService {
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                 InputStream in = new BufferedInputStream(urlConnection.getInputStream());
 
-                json = readStream(in);
+//                json = readStream(in);
+
+
 
                 urlConnection.disconnect();
             } else {
@@ -113,18 +115,21 @@ public class CurrencyService {
                     json = readStream(new FileInputStream(file));
                     write = false;
                 }
-            }
-
+            }*/
+            String json = "{\"currencies\":[\"KES\",\"ETB\",\"USD\"]}";
             if (json != null) {
                 strings = parseJson(json);
-                if (write) {
+                /*if (write) {
                     file.createNewFile();
                     try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file))) {
                         bufferedWriter.write(json);
                     }
-                }
+                }*/
             }
-        } catch (IOException | JSONException ignored) {
+//        } catch (IOException | JSONException ignored) {
+//        }
+        } catch (JSONException ignored) {
+
         }
 
         if (strings == null) {

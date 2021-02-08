@@ -3,9 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/4Share-app.iml" filepath="$PROJECT_DIR$/.idea/4Share-app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/CashCalculator.iml" filepath="$PROJECT_DIR$/CashCalculator.iml" group="CashCalculator" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="CashCalculator/app" />
-      <module fileurl="file://$PROJECT_DIR$/cashcalculatormodule/cashcalculatormodule.iml" filepath="$PROJECT_DIR$/cashcalculatormodule/cashcalculatormodule.iml" group="CashCalculator/cashcalculatormodule" />
+      <module fileurl="file://$PROJECT_DIR$/CashCalculator.iml" filepath="$PROJECT_DIR$/CashCalculator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/CashCalculator.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/CashCalculator.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/cashcalculatormodule/CashCalculator.cashcalculatormodule.iml" filepath="$PROJECT_DIR$/.idea/modules/cashcalculatormodule/CashCalculator.cashcalculatormodule.iml" />
     </modules>
   </component>
 </project>
