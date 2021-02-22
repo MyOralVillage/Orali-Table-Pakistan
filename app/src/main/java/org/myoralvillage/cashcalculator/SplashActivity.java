@@ -2,15 +2,11 @@ package org.myoralvillage.cashcalculator;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.media.Image;
 import android.os.Bundle;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
-import android.widget.Switch;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -30,7 +26,7 @@ public class SplashActivity extends AppCompatActivity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash);
-        settingButtonListener();
+        flagSelectListener();
         mainActivityButtonListener();
         //Removed the Cash-Numeric switch from the Home Screen
         //modeSwitchButtonListener();
@@ -60,11 +56,11 @@ public class SplashActivity extends AppCompatActivity {
         });
     }
 
-    private void settingButtonListener() {
-        Button setting = findViewById(R.id.setting);
+    private void flagSelectListener() {
+        Button btnSelectCountry = findViewById(R.id.btn_select_country);
 
-        setDefaultImage(setting);
-        setting.setOnClickListener(e -> switchToSetting());
+        setDefaultImage(btnSelectCountry);
+        btnSelectCountry.setOnClickListener(e -> openCountrySelector());
     }
 
     /*private void modeSwitchButtonListener() {
@@ -77,7 +73,7 @@ public class SplashActivity extends AppCompatActivity {
         });
     }*/
 
-    private void switchToSetting() {
+    private void openCountrySelector() {
         Intent intent = new Intent(this, SettingActivity.class);
         intent.putExtra("numericMode", numericMode);
         startActivity(intent);

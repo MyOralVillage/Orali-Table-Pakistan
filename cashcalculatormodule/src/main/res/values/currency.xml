@@ -142,29 +142,36 @@
     </array>
 
     <array name="currency_ETB">
-        <item>20000</item>
-<!--        <item>@drawable/currency_etb_20000</item>-->
-<!--        <item>@drawable/currency_etb_20000</item>-->
-        <item>@drawable/currency_etb_100</item>
-        <item>@drawable/currency_etb_100</item>
-        <item>1.0</item>
-        <item>0.012</item>
+<!--        <item>20000</item>-->
+<!--&lt;!&ndash;        <item>@drawable/currency_etb_20000</item>&ndash;&gt;-->
+<!--&lt;!&ndash;        <item>@drawable/currency_etb_20000</item>&ndash;&gt;-->
+<!--        <item>@drawable/currency_etb_100</item>-->
+<!--        <item>@drawable/currency_etb_100</item>-->
+<!--        <item>1.0</item>-->
+<!--        <item>0.012</item>-->
 
-        <item>2000</item>
-<!--        <item>@drawable/currency_etb_2000</item>-->
-<!--        <item>@drawable/currency_etb_2000_folded</item>-->
-        <item>@drawable/currency_etb_100</item>
-        <item>@drawable/currency_etb_100</item>
-        <item>1.0</item>
-        <item>0.024</item>
+<!--        <item>2000</item>-->
+<!--&lt;!&ndash;        <item>@drawable/currency_etb_2000</item>&ndash;&gt;-->
+<!--&lt;!&ndash;        <item>@drawable/currency_etb_2000_folded</item>&ndash;&gt;-->
+<!--        <item>@drawable/currency_etb_100</item>-->
+<!--        <item>@drawable/currency_etb_100</item>-->
+<!--        <item>1.0</item>-->
+<!--        <item>0.024</item>-->
 
-        <item>500</item>
-<!--        <item>@drawable/currency_etb_500</item>-->
-<!--        <item>@drawable/currency_etb_500_folded</item>-->
-        <item>@drawable/currency_etb_100</item>
-        <item>@drawable/currency_etb_100</item>
+<!--        <item>500</item>-->
+<!--&lt;!&ndash;        <item>@drawable/currency_etb_500</item>&ndash;&gt;-->
+<!--&lt;!&ndash;        <item>@drawable/currency_etb_500_folded</item>&ndash;&gt;-->
+<!--        <item>@drawable/currency_etb_100</item>-->
+<!--        <item>@drawable/currency_etb_100</item>-->
+<!--        <item>1.0</item>-->
+<!--        <item>0.036</item>-->
+
+        <item>200</item>
+        <item>@drawable/currency_etb_200</item>
+        <!--        <item>@drawable/currency_etb_100_folded</item>-->
+        <item>@drawable/currency_etb_200</item>
         <item>1.0</item>
-        <item>0.036</item>
+        <item>0.048</item>
 
         <item>100</item>
         <item>@drawable/currency_etb_100</item>
@@ -180,18 +187,18 @@
         <item>1.0</item>
         <item>0.06</item>
 
-        <item>20</item>
+        <item>25</item>
 <!--        <item>@drawable/currency_etb_20</item>-->
 <!--        <item>@drawable/currency_etb_20_folded</item>-->
-        <item>@drawable/currency_etb_50</item>
-        <item>@drawable/currency_etb_50</item>
+        <item>@drawable/currency_etb_25</item>
+        <item>@drawable/currency_etb_25</item>
         <item>1.0</item>
         <item>0.07</item>
 
         <item>10</item>
-        <item>@drawable/currency_etb_10_coin</item>
+        <item>@drawable/currency_etb_10</item>
 <!--        <item>@drawable/currency_etb_10_folded</item>-->
-        <item>@drawable/currency_etb_10_coin</item>
+        <item>@drawable/currency_etb_10</item>
         <item>1.0</item>
         <item>0.08</item>
 
@@ -201,13 +208,13 @@
         <item>1.0</item>
         <item>0.09</item>
 
-        <item>2</item>
-<!--        <item>@drawable/currency_etb_2</item>-->
-<!--        <item>@drawable/currency_etb_2</item>-->
-        <item>@drawable/currency_etb_10_coin</item>
-        <item>@drawable/currency_etb_10_coin</item>
-        <item>1.0</item>
-        <item>0.09</item>
+<!--        <item>2</item>-->
+<!--&lt;!&ndash;        <item>@drawable/currency_etb_2</item>&ndash;&gt;-->
+<!--&lt;!&ndash;        <item>@drawable/currency_etb_2</item>&ndash;&gt;-->
+<!--        <item>@drawable/currency_etb_10_coin</item>-->
+<!--        <item>@drawable/currency_etb_10_coin</item>-->
+<!--        <item>1.0</item>-->
+<!--        <item>0.09</item>-->
 
         <item>1</item>
         <item>@drawable/currency_etb_1</item>

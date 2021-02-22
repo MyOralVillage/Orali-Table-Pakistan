@@ -8,7 +8,7 @@
     tools:context=".SplashActivity">
 
     <Button
-        android:id="@+id/setting"
+        android:id="@+id/btn_select_country"
         android:layout_width="154dp"
         android:layout_height="83dp"
         android:layout_marginStart="16dp"

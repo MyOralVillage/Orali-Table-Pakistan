@@ -701,11 +701,12 @@ public class IntroVideoActivity extends AppCompatActivity {
     }
 
     private boolean usesDecimal() {
-        if (getDenomination(numDenominations - 1).getValue().compareTo(new BigDecimal("1")) >= 0) {
-            return false;
-        } else {
-            return true;
-        }
+        return false;
+//        if (getDenomination(numDenominations - 1).getValue().compareTo(new BigDecimal("1")) >= 0) {
+//            return false;
+//        } else {
+//            return true;
+//        }
     }
 
     @Override
