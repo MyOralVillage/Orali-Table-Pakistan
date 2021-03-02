@@ -3,6 +3,8 @@ package org.myoralvillage.cashcalculatormodule.views;
 import android.content.Context;
 import android.graphics.Color;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -13,6 +15,7 @@ import org.myoralvillage.cashcalculatormodule.models.AppStateModel;
 import org.myoralvillage.cashcalculatormodule.models.CurrencyModel;
 import org.myoralvillage.cashcalculatormodule.models.MathOperationModel;
 import org.myoralvillage.cashcalculatormodule.services.CountingService;
+import org.myoralvillage.cashcalculatormodule.util.TwoFingerSwipeDetector;
 import org.myoralvillage.cashcalculatormodule.views.listeners.CountingTableListener;
 import org.myoralvillage.cashcalculatormodule.views.listeners.SwipeListener;
 
@@ -190,6 +193,9 @@ public class CountingTableView extends RelativeLayout {
         if (appState.getAppMode() == AppStateModel.AppMode.IMAGE) {
             countingTableSurfaceView.initDenominationModels(currencyModel.getDenominations());
         }
+
+        TwoFingerSwipeDetector twoFingerSwipeDetector = new TwoFingerSwipeDetector();
+
         countingTableSurfaceView.setOnTouchListener(new SwipeListener(getContext()) {
             @Override
             public void swipeLeft() {
@@ -220,6 +226,13 @@ public class CountingTableView extends RelativeLayout {
                 // Dragging towards the top
                 if (listener != null)
                     listener.onSwipeMultiplication();
+            }
+
+            @Override
+            public boolean onTouch(final View view, final MotionEvent motionEvent) {
+//                Log.d("TOUCH TOUCH","BABY");
+                twoFingerSwipeDetector.detectTwoFingerSwipe(motionEvent);
+                return true;
             }
         });
 
