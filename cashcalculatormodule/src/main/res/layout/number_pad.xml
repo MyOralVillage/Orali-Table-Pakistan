@@ -83,7 +83,7 @@
                 android:layout_column="12"
                 android:contentDescription="@string/toglecash"
                 android:onClick="toggleCash"
-                android:src="@drawable/cash_num_toggle" />
+                android:src="@drawable/cash_num_toggle_kes" />
 
         </TableRow>
 

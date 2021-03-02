@@ -1,39 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Used from CurrencyModel.java, with arrayId generated dynamically -->
     <array name="currency_KES">
-        <item>10000</item>
-        <item>@drawable/currency_kes_10000</item>
-        <item>@drawable/currency_kes_10000</item>
-        <item>0.9</item>
-        <item>0.0</item>
+        <item>1000</item>                           <!-- i = 1 -->
+        <item>@drawable/currency_kes_1000</item>    <!-- int imageResourceId = array.getResourceId(i + 1, 0); -->
+        <item>@drawable/currency_kes_1000</item>    <!-- int imageResourceIDFolded = array.getResourceId(i + 2, 0); -->
+        <item>1.0</item>                            <!-- float scaleFactor = array.getFloat(i + 3, 1.0f); -->
+        <item>0.012</item>                          <!-- float verticalOffsetInInches = array.getFloat(i + 4, 0.0f); -->
 
-        <item>1000</item>
-        <item>@drawable/currency_kes_1000</item>
-        <item>@drawable/currency_kes_1000_folded</item>
-        <item>1.0</item>
-        <item>0.012</item>
-
-        <item>500</item>
+        <item>500</item>                            <!-- i = 1 -->
+        <item>@drawable/currency_kes_500</item>     <!-- ....goes on -->
         <item>@drawable/currency_kes_500</item>
-        <item>@drawable/currency_kes_500_folded</item>
         <item>1.0</item>
         <item>0.024</item>
 
         <item>200</item>
         <item>@drawable/currency_kes_200</item>
-        <item>@drawable/currency_kes_200_folded</item>
+        <item>@drawable/currency_kes_200</item>
         <item>1.0</item>
         <item>0.036</item>
 
         <item>100</item>
         <item>@drawable/currency_kes_100</item>
-        <item>@drawable/currency_kes_100_folded</item>
+        <item>@drawable/currency_kes_100</item>
         <item>1.0</item>
         <item>0.048</item>
 
         <item>50</item>
         <item>@drawable/currency_kes_50</item>
-        <item>@drawable/currency_kes_50_folded</item>
+        <item>@drawable/currency_kes_50</item>
         <item>1.0</item>
         <item>0.06</item>
 
@@ -62,11 +57,12 @@
         <item>0.0</item>
 
         <item>0</item>
-        <item>@drawable/cash_num_toggle</item>
-        <item>@drawable/cash_num_toggle</item>
+        <item>@drawable/cash_num_toggle_kes</item>
+        <item>@drawable/cash_num_toggle_kes</item>
         <item>1.0</item>
         <item>0.0</item>>
     </array>
+
     <array name="currency_USD">
         <item>1000</item>
         <item>@drawable/currency_usd_1000</item>
@@ -135,86 +131,37 @@
         <item>0.0</item>
 
         <item>0</item>
-        <item>@drawable/cash_num_toggle</item>
-        <item>@drawable/cash_num_toggle</item>
+        <item>@drawable/cash_num_toggle_kes</item>
+        <item>@drawable/cash_num_toggle_kes</item>
         <item>1.0</item>
         <item>0.0</item>
     </array>
 
     <array name="currency_ETB">
-<!--        <item>20000</item>-->
-<!--&lt;!&ndash;        <item>@drawable/currency_etb_20000</item>&ndash;&gt;-->
-<!--&lt;!&ndash;        <item>@drawable/currency_etb_20000</item>&ndash;&gt;-->
-<!--        <item>@drawable/currency_etb_100</item>-->
-<!--        <item>@drawable/currency_etb_100</item>-->
-<!--        <item>1.0</item>-->
-<!--        <item>0.012</item>-->
-
-<!--        <item>2000</item>-->
-<!--&lt;!&ndash;        <item>@drawable/currency_etb_2000</item>&ndash;&gt;-->
-<!--&lt;!&ndash;        <item>@drawable/currency_etb_2000_folded</item>&ndash;&gt;-->
-<!--        <item>@drawable/currency_etb_100</item>-->
-<!--        <item>@drawable/currency_etb_100</item>-->
-<!--        <item>1.0</item>-->
-<!--        <item>0.024</item>-->
-
-<!--        <item>500</item>-->
-<!--&lt;!&ndash;        <item>@drawable/currency_etb_500</item>&ndash;&gt;-->
-<!--&lt;!&ndash;        <item>@drawable/currency_etb_500_folded</item>&ndash;&gt;-->
-<!--        <item>@drawable/currency_etb_100</item>-->
-<!--        <item>@drawable/currency_etb_100</item>-->
-<!--        <item>1.0</item>-->
-<!--        <item>0.036</item>-->
 
         <item>200</item>
         <item>@drawable/currency_etb_200</item>
-        <!--        <item>@drawable/currency_etb_100_folded</item>-->
         <item>@drawable/currency_etb_200</item>
         <item>1.0</item>
         <item>0.048</item>
 
         <item>100</item>
         <item>@drawable/currency_etb_100</item>
-<!--        <item>@drawable/currency_etb_100_folded</item>-->
         <item>@drawable/currency_etb_100</item>
         <item>1.0</item>
         <item>0.048</item>
 
         <item>50</item>
         <item>@drawable/currency_etb_50</item>
-<!--        <item>@drawable/currency_etb_50_folded</item>-->
         <item>@drawable/currency_etb_50</item>
         <item>1.0</item>
         <item>0.06</item>
 
-        <item>25</item>
-<!--        <item>@drawable/currency_etb_20</item>-->
-<!--        <item>@drawable/currency_etb_20_folded</item>-->
-        <item>@drawable/currency_etb_25</item>
-        <item>@drawable/currency_etb_25</item>
-        <item>1.0</item>
-        <item>0.07</item>
-
         <item>10</item>
         <item>@drawable/currency_etb_10</item>
-<!--        <item>@drawable/currency_etb_10_folded</item>-->
         <item>@drawable/currency_etb_10</item>
         <item>1.0</item>
         <item>0.08</item>
-
-        <item>5</item>
-        <item>@drawable/currency_etb_5_coin</item>
-        <item>@drawable/currency_etb_5_coin</item>
-        <item>1.0</item>
-        <item>0.09</item>
-
-<!--        <item>2</item>-->
-<!--&lt;!&ndash;        <item>@drawable/currency_etb_2</item>&ndash;&gt;-->
-<!--&lt;!&ndash;        <item>@drawable/currency_etb_2</item>&ndash;&gt;-->
-<!--        <item>@drawable/currency_etb_10_coin</item>-->
-<!--        <item>@drawable/currency_etb_10_coin</item>-->
-<!--        <item>1.0</item>-->
-<!--        <item>0.09</item>-->
 
         <item>1</item>
         <item>@drawable/currency_etb_1</item>
@@ -223,8 +170,8 @@
         <item>0.09</item>
 
         <item>0</item>
-        <item>@drawable/cash_num_toggle</item>
-        <item>@drawable/cash_num_toggle</item>
+        <item>@drawable/cash_num_toggle_kes</item>
+        <item>@drawable/cash_num_toggle_kes</item>
         <item>1.0</item>
         <item>0.04</item>
     </array>
