@@ -56,6 +56,11 @@ public interface CountingTableListener {
     void onTapPreviousHistory();
 
     /**
+     * Invoked when the user swipes with two fingers, symbolising to go to the history mode.
+     */
+    void onMemorySwipe();
+
+    /**
      * Invoked when there is a change to the value of the denominations on the <code>CountingTableView</code>.
      *
      * @param denomination the denomination to be updated.

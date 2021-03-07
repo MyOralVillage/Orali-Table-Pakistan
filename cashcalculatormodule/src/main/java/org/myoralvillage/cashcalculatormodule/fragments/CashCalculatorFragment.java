@@ -1,22 +1,14 @@
 package org.myoralvillage.cashcalculatormodule.fragments;
 
-
-import android.content.Context;
+import android.app.Fragment;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.ContactsContract;
+import android.util.Log;
 import android.view.View;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import android.widget.HorizontalScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.ViewFlipper;
 
-import androidx.annotation.RequiresApi;
-import androidx.fragment.app.Fragment;
 
 import org.myoralvillage.cashcalculatormodule.R;
 import org.myoralvillage.cashcalculatormodule.models.AppStateModel;
@@ -199,6 +191,7 @@ public class CashCalculatorFragment extends Fragment {
                         getActivity().finish();
                     }
                 }
+                Log.d("SWIPE","1");
             }
 
             @Override
@@ -298,6 +291,11 @@ public class CashCalculatorFragment extends Fragment {
                 service.gotoPreviousHistorySlide();
                 updateAll();
                 sum.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onMemorySwipe() {
+                Log.d("SWIPE","2");
             }
         });
     }

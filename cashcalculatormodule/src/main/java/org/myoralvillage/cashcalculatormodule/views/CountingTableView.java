@@ -194,8 +194,6 @@ public class CountingTableView extends RelativeLayout {
             countingTableSurfaceView.initDenominationModels(currencyModel.getDenominations());
         }
 
-        TwoFingerSwipeDetector twoFingerSwipeDetector = new TwoFingerSwipeDetector();
-
         countingTableSurfaceView.setOnTouchListener(new SwipeListener(getContext()) {
             @Override
             public void swipeLeft() {
@@ -209,6 +207,13 @@ public class CountingTableView extends RelativeLayout {
                 // Dragging towards the left
                 if (listener != null)
                     listener.onSwipeSubtraction();
+            }
+
+            @Override
+            public void swipeRightTwoFingers() {
+                // Two finger swipe
+                if (listener != null)
+                    listener.onMemorySwipe();
             }
 
             @Override
@@ -228,12 +233,17 @@ public class CountingTableView extends RelativeLayout {
                     listener.onSwipeMultiplication();
             }
 
-            @Override
-            public boolean onTouch(final View view, final MotionEvent motionEvent) {
-//                Log.d("TOUCH TOUCH","BABY");
-                twoFingerSwipeDetector.detectTwoFingerSwipe(motionEvent);
-                return true;
-            }
+            /**
+             * Passing all other touch events to two finger swipe detector.
+             * @param view the view the touch event has been passed to.
+             * @param motionEvent The MotionEvent object containing full information about the event.
+             * @return
+             */
+//            @Override
+//            public boolean onTouch(final View view, final MotionEvent motionEvent) {
+////                twoFingerSwipeDetector.detectTwoFingerSwipe(motionEvent);
+//                return true;
+//            }
         });
 
         countingTableSurfaceView.setCountingTableSurfaceListener((model, oldCount, newCount) -> {

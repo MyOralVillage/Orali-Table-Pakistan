@@ -16,49 +16,46 @@ public class TwoFingerSwipeDetector {
     // We will only detect a swipe if the difference is at least 100 pixels
     private static final int THRESHOLD = 50;
 
-    public void detectTwoFingerSwipe(MotionEvent event) {
-        Log.d("NO OF FINGERS", "" + event.getPointerCount());
-//        if (event.getPointerCount() == 2) {
-            switch (event.getAction() & MotionEvent.ACTION_MASK) {
+    public boolean detectTwoFingerSwipe(MotionEvent event) {
 
-                // MotionEvent.ACTION_DOWN means one finger.
-                // MotionEvent.ACTION_POINTER_DOWN is two fingers.
-                case MotionEvent.ACTION_POINTER_DOWN:
+        switch (event.getAction() & MotionEvent.ACTION_MASK) {
 
-                    // This happens when you touch the screen with two fingers
-                    mode = SWIPE;
-                    // You can also use event.getY(1) or the average of the two
-                    startX = event.getX(0);
+            // MotionEvent.ACTION_DOWN means one finger.
+            // MotionEvent.ACTION_POINTER_DOWN is two fingers.
+            case MotionEvent.ACTION_POINTER_DOWN:
+                // This happens when you touch the screen with two fingers
+                mode = SWIPE;
+                // You can also use event.getY(1) or the average of the two
+                startX = event.getX(0);
 
-                    break;
-                case MotionEvent.ACTION_POINTER_UP:
+                break;
+            case MotionEvent.ACTION_POINTER_UP:
 
-                    // This happens when you release the second finger
-                    mode = NONE;
-                    if (Math.abs(startX - stopX) > THRESHOLD) {
+                // This happens when you release the second finger
+                mode = NONE;
+                if (Math.abs(startX - stopX) > THRESHOLD) {
 
-                        if (startX > stopX) {
+                    if (startX > stopX) {
 
-                            // Swipe left.
-                            Log.e("Swipe", "LEFT");
-                        } else {
+                        // Swipe left.
+                        Log.e("Swipe", "LEFT");
+                    } else {
 
-                            // Swipe right.
-                            Log.e("Swipe", "RIGHT");
-                        }
+                        // Swipe right.
+                        Log.e("Swipe", "RIGHT");
                     }
+                }
 
-                    break;
-                case MotionEvent.ACTION_MOVE:
+                break;
+            case MotionEvent.ACTION_MOVE:
 
-                    if (mode == SWIPE) {
+                if (mode == SWIPE) {
 
-                        stopX = event.getX(0);
-                    }
+                    stopX = event.getX(0);
+                }
 
-                    break;
-            }
-//        }
-
+                break;
+        }
+        return true;
     }
 }
