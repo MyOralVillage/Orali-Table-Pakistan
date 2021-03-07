@@ -1,22 +1,14 @@
 package org.myoralvillage.cashcalculatormodule.fragments;
 
-
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.ContactsContract;
+import android.util.Log;
 import android.view.View;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import android.widget.HorizontalScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ViewFlipper;
 
-import androidx.annotation.RequiresApi;
-import androidx.fragment.app.Fragment;
 
 import org.myoralvillage.cashcalculatormodule.R;
 import org.myoralvillage.cashcalculatormodule.models.AppStateModel;
@@ -31,6 +23,7 @@ import org.myoralvillage.cashcalculatormodule.views.listeners.CurrencyScrollbarL
 import org.myoralvillage.cashcalculatormodule.views.listeners.NumberPadListener;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
@@ -285,6 +278,15 @@ public class CashCalculatorFragment extends Fragment {
             }
 
             @Override
+            public void onMemorySwipe() {
+                Toast.makeText(getActivity(), "Trying to enter history mode", Toast.LENGTH_LONG).show();
+                numberInputView.setVisibility(View.INVISIBLE);
+                service.enterHistorySlideshow();
+                updateAll();
+                sum.setVisibility(View.VISIBLE);
+            }
+
+            @Override
             public void onTapNextHistory() {
                 numberInputView.setVisibility(View.INVISIBLE);
                 service.gotoNextHistorySlide();
@@ -299,6 +301,8 @@ public class CashCalculatorFragment extends Fragment {
                 updateAll();
                 sum.setVisibility(View.VISIBLE);
             }
+
+
         });
     }
 

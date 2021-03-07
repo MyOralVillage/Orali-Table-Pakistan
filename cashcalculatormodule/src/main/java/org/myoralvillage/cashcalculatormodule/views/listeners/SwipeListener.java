@@ -1,9 +1,12 @@
 package org.myoralvillage.cashcalculatormodule.views.listeners;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+
+import org.myoralvillage.cashcalculatormodule.util.TwoFingerSwipeDetector;
 
 /**
  * A listener class for receiving gesture detection on the view, <code>CountingTableView</code>.
@@ -21,6 +24,7 @@ public abstract class SwipeListener implements View.OnTouchListener {
      * @see GestureDetector
      */
     private GestureDetector gestureDetector;
+    private TwoFingerSwipeDetector twoFingerSwipeDetector = new TwoFingerSwipeDetector();
 
     /**
      * Constructs a new <code>SwipeListener</code> with the specified context for the gesture detector
@@ -37,11 +41,73 @@ public abstract class SwipeListener implements View.OnTouchListener {
      * allows listeners to get a chance to respond before the target view.
      *
      * @param view the view the touch event has been passed to.
-     * @param motionEvent The MotionEvent object containing full information about the event.
+     * @param event The MotionEvent object containing full information about the event.
      * @return true if the listener has consumed the event; false otherwise.
+     *
+     * REF : https://stackoverflow.com/a/62678103/243709
      */
-    public boolean onTouch(final View view, final MotionEvent motionEvent) {
-        return gestureDetector.onTouchEvent(motionEvent);
+
+    final int NONE = 0;
+    final int SWIPE = 1;
+    float p1StartX = 0, p1StopX = 0;
+    float p2StartX = 0, p2StopX = 0;
+    int mode = NONE;
+    float startX, stopX;
+    // We will only detect a swipe if the difference is at least 100 pixels
+    final int DOUBLE_SWIPE_THRESHOLD = 50;
+    float p1Diff, p2Diff;
+
+    public boolean onTouch(final View view, final MotionEvent event) {
+        if(event.getPointerCount() == 2){
+
+
+            switch (event.getAction() & MotionEvent.ACTION_MASK)
+            {
+                case MotionEvent.ACTION_POINTER_DOWN:
+                    // This happens when you touch the screen with two fingers
+                    mode = SWIPE;
+                    // event.getY(1) is for the second finger
+                    p1StartX = event.getX(0);
+                    p2StartX = event.getX(1);
+                    break;
+
+                case MotionEvent.ACTION_POINTER_UP:
+                    // This happens when you release the second finger
+                    mode = NONE;
+                    p1Diff = p1StartX - p1StopX;
+                    p2Diff = p2StartX - p2StopX;
+
+                    // this is to make sure that fingers go in same direction and
+                    // swipe have certain length to consider it a swipe
+                    if(Math.abs(p1Diff) > DOUBLE_SWIPE_THRESHOLD
+                            && Math.abs(p2Diff) >DOUBLE_SWIPE_THRESHOLD &&
+                            ( (p1Diff>0 && p2Diff>0) || (p1Diff < 0 && p2Diff<0) ))
+                    {
+                        if(p1StartX > p1StopX)
+                        {
+                            // Swipe left
+                            swipeRightTwoFingers();
+                        }
+                        else
+                        {
+                            //Swipe right, do nothing
+                        }
+                    }
+                    mode = NONE;
+                    break;
+
+                case MotionEvent.ACTION_MOVE:
+                    if(mode == SWIPE)
+                    {
+                        p1StopX = event.getY(0);
+                        p2StopX = event.getY(1);
+                    }
+                    break;
+            }
+            return true;
+        }
+
+        return gestureDetector.onTouchEvent(event);
     }
 
     /**
@@ -155,6 +221,11 @@ public abstract class SwipeListener implements View.OnTouchListener {
      * Invoked when a gesture detection indicating a swipe right on the view.
      */
     public abstract void swipeRight();
+
+    /**
+     * Invoked when a gesture detection indicating a swipe right on the view with two fingers.
+     */
+    public abstract void swipeRightTwoFingers();
 
     /**
      * Invoked when a gesture detection indicating a long press on the view.
