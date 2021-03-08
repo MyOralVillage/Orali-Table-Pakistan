@@ -2,14 +2,20 @@
 <resources>
     <!-- Used from CurrencyModel.java, with arrayId generated dynamically -->
     <array name="currency_KES">
-        <item>1000</item>                           <!-- i = 1 -->
-        <item>@drawable/currency_kes_1000</item>    <!-- int imageResourceId = array.getResourceId(i + 1, 0); -->
-        <item>@drawable/currency_kes_1000</item>    <!-- int imageResourceIDFolded = array.getResourceId(i + 2, 0); -->
+        <item>10000</item>                           <!-- i = 1 -->
+        <item>@drawable/currency_kes_10000</item>    <!-- int imageResourceId = array.getResourceId(i + 1, 0); -->
+        <item>@drawable/currency_kes_10000</item>    <!-- int imageResourceIDFolded = array.getResourceId(i + 2, 0); -->
         <item>1.0</item>                            <!-- float scaleFactor = array.getFloat(i + 3, 1.0f); -->
         <item>0.012</item>                          <!-- float verticalOffsetInInches = array.getFloat(i + 4, 0.0f); -->
 
-        <item>500</item>                            <!-- i = 1 -->
-        <item>@drawable/currency_kes_500</item>     <!-- ....goes on -->
+        <item>1000</item>                            <!-- i = 1 -->
+        <item>@drawable/currency_kes_1000</item>     <!-- ....goes on -->
+        <item>@drawable/currency_kes_1000</item>
+        <item>1.0</item>
+        <item>0.012</item>
+
+        <item>500</item>
+        <item>@drawable/currency_kes_500</item>
         <item>@drawable/currency_kes_500</item>
         <item>1.0</item>
         <item>0.024</item>
