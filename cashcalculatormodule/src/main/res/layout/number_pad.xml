@@ -81,7 +81,10 @@
                 android:id="@+id/togglecash"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_column="12"
+                android:layout_width="170dp"
+                android:layout_height="match_parent"
                 android:contentDescription="@string/toglecash"
+                android:scaleType="centerCrop"
                 android:onClick="toggleCash"
                 android:src="@drawable/cash_num_toggle_kes" />
 
