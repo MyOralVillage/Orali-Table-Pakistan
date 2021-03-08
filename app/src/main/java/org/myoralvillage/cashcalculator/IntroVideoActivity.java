@@ -106,8 +106,8 @@ public class IntroVideoActivity extends AppCompatActivity {
         getFadeOut(black, 0).start();
         if (usesDecimal()) {
 
-            switch (getIntent().getIntExtra("animationStage", 0)) {
-                case 0:
+            switch (getIntent().getIntExtra("animationStage", 0)) { //tells you what level of tutorial we are at
+                case 0: //demonstrating putting notes on table
                     wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
                     runAddDenomination(-9);
                     wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
@@ -123,7 +123,7 @@ public class IntroVideoActivity extends AppCompatActivity {
                     wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
                     runSwitchToAddition();
                     break;
-                case 1:
+                case 1: // demonstrating addition
                     wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
                     runAddDenomination(-6);
                     wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
@@ -137,7 +137,7 @@ public class IntroVideoActivity extends AppCompatActivity {
                     wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
                     runSwitchToSubtraction();
                     break;
-                case 2:
+                case 2: //..and so on
                     wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
                     runAddDenomination(-7);
                     wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
