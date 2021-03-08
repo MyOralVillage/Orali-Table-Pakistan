@@ -163,6 +163,12 @@
         <item>1.0</item>
         <item>0.08</item>
 
+        <item>5</item>
+        <item>@drawable/currency_etb_5</item>
+        <item>@drawable/currency_etb_5</item>
+        <item>1.0</item>
+        <item>0.08</item>
+
         <item>1</item>
         <item>@drawable/currency_etb_1</item>
         <item>@drawable/currency_etb_1</item>

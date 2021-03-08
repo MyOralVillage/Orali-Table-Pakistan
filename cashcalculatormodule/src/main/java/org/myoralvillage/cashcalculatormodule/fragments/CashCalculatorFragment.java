@@ -1,6 +1,5 @@
 package org.myoralvillage.cashcalculatormodule.fragments;
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,6 +22,7 @@ import org.myoralvillage.cashcalculatormodule.views.listeners.CurrencyScrollbarL
 import org.myoralvillage.cashcalculatormodule.views.listeners.NumberPadListener;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
