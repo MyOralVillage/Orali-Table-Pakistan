@@ -6,7 +6,6 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
-import org.myoralvillage.cashcalculatormodule.util.TwoFingerSwipeDetector;
 
 /**
  * A listener class for receiving gesture detection on the view, <code>CountingTableView</code>.
@@ -24,7 +23,6 @@ public abstract class SwipeListener implements View.OnTouchListener {
      * @see GestureDetector
      */
     private GestureDetector gestureDetector;
-    private TwoFingerSwipeDetector twoFingerSwipeDetector = new TwoFingerSwipeDetector();
 
     /**
      * Constructs a new <code>SwipeListener</code> with the specified context for the gesture detector
