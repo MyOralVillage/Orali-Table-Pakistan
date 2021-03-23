@@ -1,5 +1,6 @@
 package org.myoralvillage.cashcalculatormodule.fragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +14,7 @@ import org.myoralvillage.cashcalculatormodule.R;
 import org.myoralvillage.cashcalculatormodule.models.AppStateModel;
 import org.myoralvillage.cashcalculatormodule.models.CurrencyModel;
 import org.myoralvillage.cashcalculatormodule.models.DenominationModel;
+import org.myoralvillage.cashcalculatormodule.models.MathOperationModel;
 import org.myoralvillage.cashcalculatormodule.services.AppService;
 import org.myoralvillage.cashcalculatormodule.views.CountingTableView;
 import org.myoralvillage.cashcalculatormodule.views.CurrencyScrollbarView;
@@ -24,10 +26,17 @@ import org.myoralvillage.cashcalculatormodule.views.listeners.NumberPadListener;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.Currency;
 import java.util.Locale;
 
@@ -172,6 +181,10 @@ public class CashCalculatorFragment extends Fragment {
      * @see CountingTableView
      */
     private void initializeCountingView() {
+
+        //loading previous values of operations
+        service.getAppState().setOperations(deserialize());
+
         TextView sum = view.findViewById(R.id.sum_view);
         countingTableView = view.findViewById(R.id.counting_table);
         countingTableView.initialize(currCurrency, service.getAppState(), locale);
@@ -191,7 +204,6 @@ public class CashCalculatorFragment extends Fragment {
                         getActivity().finish();
                     }
                 }
-                Log.d("SWIPE","1");
             }
 
             @Override
@@ -252,6 +264,10 @@ public class CashCalculatorFragment extends Fragment {
                         }
                         break;
                 }
+
+                //saving the new state of operations list
+                serialize(service.getAppState().getOperations());
+
                 updateAll();
             }
 
@@ -515,5 +531,45 @@ public class CashCalculatorFragment extends Fragment {
 
     public NumberPadView getNumberPadView() {
         return numberPadView;
+    }
+
+    /**
+     * Saves the given ArrayList<> object onto disk
+     * @param history ArrayList of MathOperationModel representing the latest state of operations list
+     */
+    private void serialize(ArrayList<MathOperationModel> history){
+        try{
+            FileOutputStream fos = getContext().openFileOutput("history", Context.MODE_PRIVATE);
+            ObjectOutputStream os = new ObjectOutputStream(fos);
+            os.writeObject(history);
+            os.close();
+            fos.close();
+        }catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Retrieves saved state of history
+     * @return
+     */
+    private ArrayList<MathOperationModel> deserialize(){
+        ArrayList<MathOperationModel> deserializedList = new ArrayList<MathOperationModel>();
+        try{
+            FileInputStream fis = getContext().openFileInput("history");
+            ObjectInputStream is = new ObjectInputStream(fis);
+            deserializedList = (ArrayList<MathOperationModel>) is.readObject();
+            is.close();
+            fis.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return deserializedList;
     }
 }

@@ -29,7 +29,7 @@ public class AppStateModel implements Serializable {
      *
      * @see MathOperationModel
      */
-    private List<MathOperationModel> operations;
+    private ArrayList<MathOperationModel> operations;
 
     /**
      * An integer used to record the index of the current operation after a list of operations are
@@ -44,7 +44,7 @@ public class AppStateModel implements Serializable {
      * @param appMode The mode of the Cash Calculator.
      * @param operations A list of mathematical operations for the appMode.
      */
-    public AppStateModel(AppMode appMode, List<MathOperationModel> operations) {
+    public AppStateModel(AppMode appMode, ArrayList<MathOperationModel> operations) {
         this.appMode = appMode;
         this.operations = operations;
     }
@@ -64,8 +64,16 @@ public class AppStateModel implements Serializable {
      * @return list of operations of this model.
      * @see MathOperationModel
      */
-    public List<MathOperationModel> getOperations() {
+    public ArrayList<MathOperationModel> getOperations() {
         return operations;
+    }
+
+    /**
+     * Sets operations list with previously saved operations
+     * @param operations
+     */
+    public void setOperations(ArrayList<MathOperationModel> operations) {
+        this.operations = operations;
     }
 
     /**
@@ -127,7 +135,7 @@ public class AppStateModel implements Serializable {
      * @return A new <code>AppStateModel</code> in IMAGE mode and the standard operation.
      */
     public static AppStateModel getDefault() {
-        List<MathOperationModel> operations = new ArrayList<>();
+        ArrayList<MathOperationModel> operations = new ArrayList<>();
         operations.add(MathOperationModel.createStandard(new BigDecimal(0)));
 
         return new AppStateModel(AppMode.IMAGE, operations);

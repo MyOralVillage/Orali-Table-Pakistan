@@ -246,6 +246,8 @@ public class AppService {
         if (subtractIndex >= 0)
             return calculateOperationsResult(collapseOperationAtIndex(operations, subtractIndex));
 
+        //TODO: Serialize appState.getOperations() here
+
         return BigDecimal.ZERO;
     }
 
