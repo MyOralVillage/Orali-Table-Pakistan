@@ -23,9 +23,6 @@ import org.myoralvillage.cashcalculatormodule.views.listeners.CountingTableListe
 import org.myoralvillage.cashcalculatormodule.views.listeners.CurrencyScrollbarListener;
 import org.myoralvillage.cashcalculatormodule.views.listeners.NumberPadListener;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -39,6 +36,8 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Currency;
 import java.util.Locale;
+
+import androidx.fragment.app.Fragment;
 
 /**
  * CashCalculatorFragment creates the whole Cash Calculator application, including the Counting Table
@@ -124,7 +123,7 @@ public class CashCalculatorFragment extends Fragment {
      * @param savedInstanceState _
      */
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         Bundle extras = getActivity().getIntent().getExtras();
         if (extras != null && extras.containsKey(APP_STATE_KEY))
             service = new AppService((AppStateModel) extras.getSerializable(APP_STATE_KEY));
