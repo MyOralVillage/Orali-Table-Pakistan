@@ -51,6 +51,7 @@ import androidx.fragment.app.Fragment;
  * @author Yujie Wu
  * @author Zhipeng Zou
  * @author Rahul Vaish
+ * @author Aman Alam
 */
 public class CashCalculatorFragment extends Fragment {
     /**
@@ -182,7 +183,10 @@ public class CashCalculatorFragment extends Fragment {
     private void initializeCountingView() {
 
         //loading previous values of operations
-        service.getAppState().setOperations(deserialize());
+        ArrayList<MathOperationModel> restored = deserialize();
+        if(restored.size() > 0){
+            service.getAppState().setOperations(restored);
+        }
 
         TextView sum = view.findViewById(R.id.sum_view);
         countingTableView = view.findViewById(R.id.counting_table);
