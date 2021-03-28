@@ -147,31 +147,31 @@
 
         <item>200</item>
         <item>@drawable/currency_etb_200</item>
-        <item>@drawable/currency_etb_200</item>
+        <item>@drawable/currency_etb_200_folded</item>
         <item>1.0</item>
         <item>0.024</item>
 
         <item>100</item>
         <item>@drawable/currency_etb_100</item>
-        <item>@drawable/currency_etb_100</item>
+        <item>@drawable/currency_etb_100_folded</item>
         <item>0.90</item>
         <item>0.048</item>
 
         <item>50</item>
         <item>@drawable/currency_etb_50</item>
-        <item>@drawable/currency_etb_50</item>
+        <item>@drawable/currency_etb_50_folded</item>
         <item>0.80</item>
         <item>0.072</item>
 
         <item>10</item>
         <item>@drawable/currency_etb_10</item>
-        <item>@drawable/currency_etb_10</item>
+        <item>@drawable/currency_etb_10_folded</item>
         <item>0.70</item>
         <item>0.08</item>
 
         <item>5</item>
         <item>@drawable/currency_etb_5</item>
-        <item>@drawable/currency_etb_5</item>
+        <item>@drawable/currency_etb_5_folded</item>
         <item>0.60</item>
         <item>0.096</item>
 
