@@ -2,39 +2,39 @@
 <resources>
     <!-- Used from CurrencyModel.java, with arrayId generated dynamically -->
     <array name="currency_KES">
-        <item>10000</item>                           <!-- i = 1 -->
-        <item>@drawable/currency_kes_10000</item>    <!-- int imageResourceId = array.getResourceId(i + 1, 0); -->
-        <item>@drawable/currency_kes_10000</item>    <!-- int imageResourceIDFolded = array.getResourceId(i + 2, 0); -->
-        <item>0.9</item>                            <!-- float scaleFactor = array.getFloat(i + 3, 1.0f); : size of the note's image -->
-        <item>0.0</item>                          <!-- float verticalOffsetInInches = array.getFloat(i + 4, 0.0f);  : padding from top in the scrollbar-->
+        <item>10000</item>                              <!-- i = 1 -->
+        <item>@drawable/currency_kes_10000</item>       <!-- int imageResourceId = array.getResourceId(i + 1, 0); -->
+        <item>@drawable/currency_kes_10000</item>       <!-- int imageResourceIDFolded = array.getResourceId(i + 2, 0); -->
+        <item>0.9</item>                                <!-- float scaleFactor = array.getFloat(i + 3, 1.0f); : size of the note's image -->
+        <item>0.0</item>                                <!-- float verticalOffsetInInches = array.getFloat(i + 4, 0.0f);  : padding from top in the scrollbar-->
 
-        <item>1000</item>                            <!-- i = 1 -->
-        <item>@drawable/currency_kes_1000</item>     <!-- ....goes on -->
-        <item>@drawable/currency_kes_1000</item>
+        <item>1000</item>                               <!-- i = 1 -->
+        <item>@drawable/currency_kes_1000</item>        <!-- ....goes on -->
+        <item>@drawable/currency_kes_1000_folded</item>
         <item>1.0</item>
         <item>0.012</item>
 
         <item>500</item>
         <item>@drawable/currency_kes_500</item>
-        <item>@drawable/currency_kes_500</item>
+        <item>@drawable/currency_kes_500_folded</item>
         <item>1.0</item>
         <item>0.024</item>
 
         <item>200</item>
         <item>@drawable/currency_kes_200</item>
-        <item>@drawable/currency_kes_200</item>
+        <item>@drawable/currency_kes_200_folded</item>
         <item>1.0</item>
         <item>0.036</item>
 
         <item>100</item>
         <item>@drawable/currency_kes_100</item>
-        <item>@drawable/currency_kes_100</item>
+        <item>@drawable/currency_kes_100_folded</item>
         <item>1.0</item>
         <item>0.048</item>
 
         <item>50</item>
         <item>@drawable/currency_kes_50</item>
-        <item>@drawable/currency_kes_50</item>
+        <item>@drawable/currency_kes_50_folded</item>
         <item>1.0</item>
         <item>0.06</item>
 
