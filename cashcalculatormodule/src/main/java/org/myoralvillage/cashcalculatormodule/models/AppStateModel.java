@@ -32,6 +32,11 @@ public class AppStateModel implements Serializable {
     private ArrayList<MathOperationModel> operations;
 
     /**
+     * Used to store retrieved calculations from disk, until they are required
+     */
+    private ArrayList<MathOperationModel> retrievedOperations;
+
+    /**
      * An integer used to record the index of the current operation after a list of operations are
      * performed. This integer is useful in traversing the history of the Cash Calculator module.
      */
@@ -74,6 +79,14 @@ public class AppStateModel implements Serializable {
      */
     public void setOperations(ArrayList<MathOperationModel> operations) {
         this.operations = operations;
+    }
+
+    public ArrayList<MathOperationModel> getRetrievedOperations() {
+        return retrievedOperations;
+    }
+
+    public void setRetrievedOperations(ArrayList<MathOperationModel> retrievedOperations) {
+        this.retrievedOperations = retrievedOperations;
     }
 
     /**

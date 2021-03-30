@@ -185,7 +185,7 @@ public class CashCalculatorFragment extends Fragment {
         //loading previous values of operations
         ArrayList<MathOperationModel> restored = deserialize();
         if(restored.size() > 0){
-            service.getAppState().setOperations(restored);
+            service.getAppState().setRetrievedOperations(restored);
         }
 
         TextView sum = view.findViewById(R.id.sum_view);
@@ -314,7 +314,11 @@ public class CashCalculatorFragment extends Fragment {
 
             @Override
             public void onMemorySwipe() {
-                Log.d("SWIPE","2");
+                Log.d("SWIPE","Restore Memory");
+                if(null != service.getAppState().getRetrievedOperations() && service.getAppState().getRetrievedOperations().size() > 0) {
+                    service.getAppState().setOperations(service.getAppState().getRetrievedOperations());
+                    updateAll();
+                }
             }
         });
     }

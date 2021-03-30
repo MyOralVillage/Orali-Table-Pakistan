@@ -83,12 +83,13 @@ public abstract class SwipeListener implements View.OnTouchListener {
                     {
                         if(p1StartX > p1StopX)
                         {
-                            // Swipe left
-                            swipeRightTwoFingers();
+                            // Swipe right to left
+                            swipeRightToLeftWithTwoFingers();
                         }
                         else
                         {
-                            //Swipe right, do nothing
+                            //Swipe left to right
+                            swipeLeftToRightWithTwoFingers();
                         }
                     }
                     mode = NONE;
@@ -221,9 +222,14 @@ public abstract class SwipeListener implements View.OnTouchListener {
     public abstract void swipeRight();
 
     /**
-     * Invoked when a gesture detection indicating a swipe right on the view with two fingers.
+     * Invoked when a gesture detection indicating a swipe from right to left on the view with two fingers.
      */
-    public abstract void swipeRightTwoFingers();
+    public abstract void swipeRightToLeftWithTwoFingers();
+
+    /**
+     * Invoked when a gesture detection indicating a swipe from left to right on the view with two fingers.
+     */
+    public abstract void swipeLeftToRightWithTwoFingers();
 
     /**
      * Invoked when a gesture detection indicating a long press on the view.

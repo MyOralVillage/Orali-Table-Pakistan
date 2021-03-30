@@ -209,7 +209,14 @@ public class CountingTableView extends RelativeLayout {
             }
 
             @Override
-            public void swipeRightTwoFingers() {
+            public void swipeRightToLeftWithTwoFingers() {
+                // Two finger swipe
+                if (listener != null)
+                    listener.onMemorySwipe();
+            }
+
+            @Override
+            public void swipeLeftToRightWithTwoFingers() {
                 // Two finger swipe
                 if (listener != null)
                     listener.onMemorySwipe();
@@ -232,17 +239,6 @@ public class CountingTableView extends RelativeLayout {
                     listener.onSwipeMultiplication();
             }
 
-            /**
-             * Passing all other touch events to two finger swipe detector.
-             * @param view the view the touch event has been passed to.
-             * @param motionEvent The MotionEvent object containing full information about the event.
-             * @return
-             */
-//            @Override
-//            public boolean onTouch(final View view, final MotionEvent motionEvent) {
-////                twoFingerSwipeDetector.detectTwoFingerSwipe(motionEvent);
-//                return true;
-//            }
         });
 
         countingTableSurfaceView.setCountingTableSurfaceListener((model, oldCount, newCount) -> {
