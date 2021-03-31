@@ -315,10 +315,10 @@ public class CashCalculatorFragment extends Fragment {
             @Override
             public void onMemorySwipe() {
                 Log.d("SWIPE","Restore Memory");
-                if(null != service.getAppState().getRetrievedOperations() && service.getAppState().getRetrievedOperations().size() > 0) {
-                    service.getAppState().setOperations(service.getAppState().getRetrievedOperations());
-                    updateAll();
-                }
+//                if(null != service.getAppState().getRetrievedOperations() && service.getAppState().getRetrievedOperations().size() > 0) {
+//                    service.getAppState().setOperations(service.getAppState().getRetrievedOperations());
+//                    updateAll();
+//                }
             }
         });
     }
