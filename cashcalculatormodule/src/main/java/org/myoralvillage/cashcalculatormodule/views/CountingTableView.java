@@ -319,11 +319,16 @@ public class CountingTableView extends RelativeLayout {
 
     private void updateHistoryButtons() {
         //TODO Create a new ResultSwipingMode where previous and next won't be visible
-        if (appState.isInHistorySlideshow()) {
+        if (appState.isInHistorySlideshow()
+                && !appState.isInResultSwipingMode()) {
             enterHistoryButton.setVisibility(View.INVISIBLE);
             leftHistoryButton.setVisibility(View.VISIBLE);
             rightHistoryButton.setVisibility(View.VISIBLE);
-        } else {
+        } else if(appState.isInResultSwipingMode()){
+            enterHistoryButton.setVisibility(View.VISIBLE);
+            leftHistoryButton.setVisibility(View.INVISIBLE);
+            rightHistoryButton.setVisibility(View.INVISIBLE);
+        }else {
             if (appState.getOperations().size() == 1)
                 enterHistoryButton.setVisibility(View.INVISIBLE);
             else enterHistoryButton.setVisibility(View.VISIBLE);

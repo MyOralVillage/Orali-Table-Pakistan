@@ -311,6 +311,12 @@ public class CashCalculatorFragment extends Fragment {
 
             @Override
             public void onTapEnterHistory() {
+                if(service.getAppState().isInResultSwipingMode()){
+                    service.getAppState().setOperations(
+                            service.getAppState().getAllOperationsOfResult(
+                                    service.getAppState().getOperations().get(0)));
+                    service.getAppState().setInResultSwipingMode(false);
+                }
                 numberInputView.setVisibility(View.INVISIBLE);
                 service.enterHistorySlideshow();
                 updateAll();
@@ -336,14 +342,39 @@ public class CashCalculatorFragment extends Fragment {
             @Override
             public void onMemorySwipe() {
                 Log.d("SWIPE","Restore Memory");
+                if(null != service.getAppState().getAllResults()
+//                        && !service.getAppState().isInHistorySlideshow()
+                        && service.getAppState().getAllResults().size() > 0) {
+
+                    ArrayList<MathOperationModel> results = new ArrayList<MathOperationModel>();
+
+                    if(service.getAppState().isInResultSwipingMode()
+                            && service.getAppState().getCurrentResultIndex() < service.getAppState().getAllResults().size() - 1){
+
+                        service.getAppState().setCurrentResultIndex(service.getAppState().getCurrentResultIndex() + 1);
+                        for (int i = service.getAppState().getCurrentResultIndex(); i< service.getAppState().getAllResults().size(); i++){
+                            results.add(service.getAppState().getAllResults().get(i));
+                        }
+                    }else{
+                        /**
+                         * initialize the result swiping mode only if current result index is 0, which
+                         * means that the user hasn't gone through the list completely yet. Otherwise
+                         * when the if condition fails, this re-initializes the array and the swiping
+                         * loops. We don't want that.
+                         */
+
+                        if(service.getAppState().getCurrentResultIndex() == 0) {
+                            service.getAppState().setInResultSwipingMode(true);
+                            results = service.getAppState().getAllResults();
+                        }
+                    }
+                    service.getAppState().setOperations(results);
+                    updateAll();
+                }else{
+                    Log.d("4Share Log", "Not responding to two finger swipe");
+                }
                 //TODO if not in result swiping mode, put in it.
                 //TODO if already in result swiping mode, then go to the previous result, until finished
-
-                if(null != service.getAppState().getAllResults() && service.getAppState().getAllResults().size() > 0) {
-                    service.getAppState().setOperations(service.getAppState().getAllResults());
-                    updateAll();
-
-                }
             }
         });
     }

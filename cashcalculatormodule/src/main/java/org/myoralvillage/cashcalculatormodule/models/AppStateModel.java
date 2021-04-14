@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -45,12 +46,14 @@ public class AppStateModel implements Serializable {
      * operations) can be used.
      */
     private LinkedHashMap<MathOperationModel, ArrayList<MathOperationModel>> operationsHistory = new LinkedHashMap<MathOperationModel, ArrayList<MathOperationModel>>();
-
+    private boolean isInResultSwipingMode = false;
     /**
      * An integer used to record the index of the current operation after a list of operations are
      * performed. This integer is useful in traversing the history of the Cash Calculator module.
      */
     private int currentOperationIndex;
+
+    private int currentResultIndex = 0;
 
     /**
      * Constructs a new <code>AppStateModel</code> in the specified Cash Calculator mode and the list
@@ -100,10 +103,8 @@ public class AppStateModel implements Serializable {
     }
 
     public ArrayList<MathOperationModel> getAllResults(){
-        ArrayList<MathOperationModel> allResults = new ArrayList<MathOperationModel>();
-        for(MathOperationModel result : this.operationsHistory.keySet()){
-            allResults.add(result);
-        }
+        ArrayList<MathOperationModel> allResults = new ArrayList<MathOperationModel>(this.operationsHistory.keySet());
+        Collections.reverse(allResults);
         return allResults;
     }
 
@@ -180,12 +181,28 @@ public class AppStateModel implements Serializable {
         this.currentOperationIndex = currentOperationIndex;
     }
 
+    public int getCurrentResultIndex() {
+        return currentResultIndex;
+    }
+
+    public void setCurrentResultIndex(int currentResultIndex) {
+        this.currentResultIndex = currentResultIndex;
+    }
+
     /**
      * Is the application currently in the history slideshow mode?
      * @return True if it is in the memory mode, return False otherwise.
      */
     public boolean isInHistorySlideshow() {
         return getCurrentOperationIndex() < (getOperations().size() - 1);
+    }
+
+    public boolean isInResultSwipingMode(){
+        return this.isInResultSwipingMode;
+    }
+
+    public void setInResultSwipingMode(boolean isInResultSwipingMode){
+        this.isInResultSwipingMode = isInResultSwipingMode;
     }
 
     //TODO Create a new ResultSwipingMode where previous and next won't be visible

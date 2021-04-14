@@ -135,6 +135,9 @@ public class AppService {
     }
 
     //TODO Create a new ResultSwipingMode where previous and next won't be visible
+    public void enterResultSwipingMode(){
+        appState.setInResultSwipingMode(true);
+    }
 
     /**
      * Show the next operation performed on the <code>CashCalculator</code>. If this current history
