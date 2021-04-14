@@ -1,11 +1,14 @@
 package org.myoralvillage.cashcalculatormodule.services;
 
+import android.util.Log;
+
 import org.myoralvillage.cashcalculatormodule.models.AppStateModel;
 import org.myoralvillage.cashcalculatormodule.models.MathOperationModel;
 import org.myoralvillage.cashcalculatormodule.models.MathOperationModel.MathOperationMode;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -73,8 +76,10 @@ public class AppService {
      */
     public void reset() {
         AppStateModel.AppMode mode = appState.getAppMode();
+        LinkedHashMap<MathOperationModel, ArrayList<MathOperationModel>> operationsHistory = appState.getAllHistory();
         appState = AppStateModel.getDefault();
         appState.setAppMode(mode);
+        appState.putAllHistory(operationsHistory);
         resetCurrentOperation();
     }
 
@@ -129,6 +134,8 @@ public class AppService {
         appState.setCurrentOperationIndex(0);
     }
 
+    //TODO Create a new ResultSwipingMode where previous and next won't be visible
+
     /**
      * Show the next operation performed on the <code>CashCalculator</code>. If this current history
      * slide was the last element in the history slides, return to the standard mode, removing the
@@ -151,7 +158,7 @@ public class AppService {
             if (appState.getOperations().get(i).getMode() == MathOperationMode.STANDARD) {
                 BigDecimal result = calculateOperationsResult(appState.getOperations().subList(standardIndex, i));
                 appState.getOperations().remove(i);
-                appState.getOperations().add(i, MathOperationModel.createStandard(result));
+                appState.getOperations().add(i, MathOperationModel.createStandard(result, MathOperationMode.STANDARD));
                 standardIndex = i;
             }
         }
@@ -191,7 +198,7 @@ public class AppService {
      */
     public void calculate() {
         BigDecimal result = calculateOperationsResult(appState.getOperations());
-        addOperation(MathOperationModel.createStandard(result));
+        addOperation(MathOperationModel.createStandard(result, MathOperationMode.RESULT));
     }
 
     /**
@@ -245,8 +252,6 @@ public class AppService {
 
         if (subtractIndex >= 0)
             return calculateOperationsResult(collapseOperationAtIndex(operations, subtractIndex));
-
-        //TODO: Serialize appState.getOperations() here
 
         return BigDecimal.ZERO;
     }

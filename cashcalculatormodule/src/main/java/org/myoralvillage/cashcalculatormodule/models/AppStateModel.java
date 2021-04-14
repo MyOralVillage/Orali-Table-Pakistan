@@ -5,6 +5,8 @@ import androidx.annotation.Nullable;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -35,6 +37,14 @@ public class AppStateModel implements Serializable {
      * Used to store retrieved calculations from disk, until they are required
      */
     private ArrayList<MathOperationModel> retrievedOperations;
+
+    /**
+     * HashMap that stores all the operations history. The key are the results, the values are the
+     * list of operations in the result. So that when two swipes are performed, all the keys (results)
+     * can be traversed, and when the user wants to see operations under a result, the values (list of
+     * operations) can be used.
+     */
+    private LinkedHashMap<MathOperationModel, ArrayList<MathOperationModel>> operationsHistory = new LinkedHashMap<MathOperationModel, ArrayList<MathOperationModel>>();
 
     /**
      * An integer used to record the index of the current operation after a list of operations are
@@ -85,8 +95,57 @@ public class AppStateModel implements Serializable {
         return retrievedOperations;
     }
 
-    public void setRetrievedOperations(ArrayList<MathOperationModel> retrievedOperations) {
-        this.retrievedOperations = retrievedOperations;
+    public void setRetrievedOperations(LinkedHashMap<MathOperationModel, ArrayList<MathOperationModel>> retrievedOperations) {
+        this.operationsHistory = retrievedOperations;
+    }
+
+    public ArrayList<MathOperationModel> getAllResults(){
+        ArrayList<MathOperationModel> allResults = new ArrayList<MathOperationModel>();
+        for(MathOperationModel result : this.operationsHistory.keySet()){
+            allResults.add(result);
+        }
+        return allResults;
+    }
+
+    public ArrayList<MathOperationModel> getAllOperationsOfResult(MathOperationModel hashKey) {
+        return operationsHistory.get(hashKey);
+    }
+
+    public LinkedHashMap<MathOperationModel, ArrayList<MathOperationModel>> getAllHistory() {
+        return operationsHistory;
+    }
+
+    public void putAllHistory(LinkedHashMap<MathOperationModel, ArrayList<MathOperationModel>> operationsHistory) {
+        this.operationsHistory = operationsHistory;
+    }
+
+    /**
+     * Finds the index of the RESULT type just previous to the current one
+     * @param operations
+     * @return
+     */
+    private static int findSecondLastResult(ArrayList<MathOperationModel> operations) {
+        boolean isLastOperationResult = false;
+        if (operations.get(operations.size() - 1).getType() == MathOperationModel.MathOperationMode.RESULT){
+            isLastOperationResult = true;
+        }
+
+        int index = 0;
+        int limit = (isLastOperationResult?operations.size()-1:operations.size());
+        for (int i = 0; i < limit; i++)
+            if (operations.get(i).getType() == MathOperationModel.MathOperationMode.RESULT)
+                index = i;
+
+        return index;
+    }
+
+    public void addToOperationsHistory(MathOperationModel result, ArrayList<MathOperationModel> resultOperations) {
+        ArrayList<MathOperationModel> operationsForThisResult = new ArrayList<MathOperationModel>();
+        int previousResultIndex = findSecondLastResult(resultOperations);
+        for (int i = previousResultIndex; i<resultOperations.size(); i++) {
+            operationsForThisResult.add(resultOperations.get(i));
+        }
+        this.operationsHistory.put(result, operationsForThisResult);
     }
 
     /**
@@ -129,6 +188,8 @@ public class AppStateModel implements Serializable {
         return getCurrentOperationIndex() < (getOperations().size() - 1);
     }
 
+    //TODO Create a new ResultSwipingMode where previous and next won't be visible
+
     /**
      * Returns the operation from the list, <code>operations</code>, based on the value of
      * the current Operation Index
@@ -149,7 +210,7 @@ public class AppStateModel implements Serializable {
      */
     public static AppStateModel getDefault() {
         ArrayList<MathOperationModel> operations = new ArrayList<>();
-        operations.add(MathOperationModel.createStandard(new BigDecimal(0)));
+        operations.add(MathOperationModel.createStandard(new BigDecimal(0), MathOperationModel.MathOperationMode.STANDARD));
 
         return new AppStateModel(AppMode.IMAGE, operations);
     }

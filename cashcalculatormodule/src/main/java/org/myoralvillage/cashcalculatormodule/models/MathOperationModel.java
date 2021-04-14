@@ -10,6 +10,7 @@ import java.math.BigDecimal;
  *
  * @author Hamza Mahfooz
  * @author Peter Panagiotis Roubatsis
+ * @author Aman Alam
  * @see java.lang.Object
  */
 public class MathOperationModel implements Serializable {
@@ -19,6 +20,12 @@ public class MathOperationModel implements Serializable {
      * @see MathOperationMode
      */
     private MathOperationMode mode;
+
+    /**
+     * Tells if the stored values is a result of an operation. User for storing and retrieving
+     * Calculation history
+     */
+    private MathOperationMode type;
 
     /**
      * A value used to represent the amount that the original total value will be affected according
@@ -33,9 +40,10 @@ public class MathOperationModel implements Serializable {
      * @param value The value that will affect the original total value.
      * @see MathOperationMode
      */
-    private MathOperationModel(MathOperationMode mode, BigDecimal value) {
+    private MathOperationModel(MathOperationMode mode, BigDecimal value, MathOperationMode type) {
         this.mode = mode;
         this.value = value;
+        this.type = type;
     }
 
     /**
@@ -46,6 +54,14 @@ public class MathOperationModel implements Serializable {
      */
     public MathOperationMode getMode() {
         return mode;
+    }
+
+    /**
+     * Get the type of the current value, to know whether it is a result
+     * @return
+     */
+    public MathOperationMode getType() {
+        return type;
     }
 
     /**
@@ -76,19 +92,20 @@ public class MathOperationModel implements Serializable {
      * @return a new <code>MathOperationModel</code> (copy of this model) with a new value.
      */
     public MathOperationModel copyWithValue(BigDecimal value) {
-        return new MathOperationModel(mode, value);
+        return new MathOperationModel(mode, value, type );
     }
 
     /**
      * Constructs a new <code>MathOperationModel</code> in the mode, standard, with the specified
-     * <code>value</code>.
+     * <code>value</code>, and type.
+     * type is going to be the same as STANDARD, unless it's a result of an operation
      *
      * @param value The value of the original amount.
      * @return A new <code>MathOperationModel</code> in the STANDARD mode.
      * @see MathOperationMode
      */
-    public static MathOperationModel createStandard(BigDecimal value) {
-        return new MathOperationModel(MathOperationMode.STANDARD, value);
+    public static MathOperationModel createStandard(BigDecimal value, MathOperationMode type) {
+        return new MathOperationModel(MathOperationMode.STANDARD, value, type);
     }
 
     /**
@@ -100,7 +117,7 @@ public class MathOperationModel implements Serializable {
      * @see MathOperationMode
      */
     public static  MathOperationModel createAdd(BigDecimal value) {
-        return new MathOperationModel(MathOperationMode.ADD, value);
+        return new MathOperationModel(MathOperationMode.ADD, value, MathOperationMode.ADD);
     }
 
     /**
@@ -112,7 +129,7 @@ public class MathOperationModel implements Serializable {
      * @see MathOperationMode
      */
     public static MathOperationModel createSubtract(BigDecimal value) {
-        return new MathOperationModel(MathOperationMode.SUBTRACT, value);
+        return new MathOperationModel(MathOperationMode.SUBTRACT, value, MathOperationMode.SUBTRACT);
     }
 
     /**
@@ -124,7 +141,7 @@ public class MathOperationModel implements Serializable {
      * @see MathOperationMode
      */
     public static MathOperationModel createMultiply(BigDecimal value) {
-        return new MathOperationModel(MathOperationMode.MULTIPLY, value);
+        return new MathOperationModel(MathOperationMode.MULTIPLY, value, MathOperationMode.MULTIPLY);
     }
 
     /**
@@ -150,6 +167,7 @@ public class MathOperationModel implements Serializable {
         ADD,
         SUBTRACT,
         MULTIPLY,
-        STANDARD
+        STANDARD,
+        RESULT
     }
 }

@@ -35,6 +35,7 @@ import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Currency;
+import java.util.LinkedHashMap;
 import java.util.Locale;
 
 import androidx.fragment.app.Fragment;
@@ -183,9 +184,17 @@ public class CashCalculatorFragment extends Fragment {
     private void initializeCountingView() {
 
         //loading previous values of operations
-        ArrayList<MathOperationModel> restored = deserialize();
+        LinkedHashMap<MathOperationModel, ArrayList<MathOperationModel>> restored = deserialize();
         if(restored.size() > 0){
             service.getAppState().setRetrievedOperations(restored);
+        }
+
+        for(MathOperationModel result : service.getAppState().getAllHistory().keySet()){
+            Log.d("RESULT ->>>>>",""+result.getValue());
+            for (MathOperationModel operation:
+                    service.getAppState().getAllHistory().get(result)) {
+                Log.d("OPERATION>","value: "+operation.getValue()+", mode: "+operation.getMode()+", type: "+operation.getType());
+            }
         }
 
         TextView sum = view.findViewById(R.id.sum_view);
@@ -268,8 +277,20 @@ public class CashCalculatorFragment extends Fragment {
                         break;
                 }
 
-                //saving the new state of operations list
-                serialize(service.getAppState().getOperations());
+                service.getAppState().addToOperationsHistory(
+                        service.getAppState().getOperations().get(service.getAppState().getOperations().size()-1),
+                        service.getAppState().getOperations()
+                );
+
+                for(MathOperationModel result : service.getAppState().getAllHistory().keySet()){
+                    Log.d("RESULT ->>>>>",""+result.getValue());
+                    for (MathOperationModel operation:
+                            service.getAppState().getAllHistory().get(result)) {
+                        Log.d("OPERATION>","value: "+operation.getValue()+", mode: "+operation.getMode()+", type: "+operation.getType());
+                    }
+                }
+
+                serialize(service.getAppState().getAllHistory());
 
                 updateAll();
             }
@@ -315,10 +336,14 @@ public class CashCalculatorFragment extends Fragment {
             @Override
             public void onMemorySwipe() {
                 Log.d("SWIPE","Restore Memory");
-//                if(null != service.getAppState().getRetrievedOperations() && service.getAppState().getRetrievedOperations().size() > 0) {
-//                    service.getAppState().setOperations(service.getAppState().getRetrievedOperations());
-//                    updateAll();
-//                }
+                //TODO if not in result swiping mode, put in it.
+                //TODO if already in result swiping mode, then go to the previous result, until finished
+
+                if(null != service.getAppState().getAllResults() && service.getAppState().getAllResults().size() > 0) {
+                    service.getAppState().setOperations(service.getAppState().getAllResults());
+                    updateAll();
+
+                }
             }
         });
     }
@@ -524,6 +549,7 @@ public class CashCalculatorFragment extends Fragment {
      * Called whenever a gesture is performed on the Cash Calculator and upon initialization.
      */
     private void updateAll() {
+        //TODO Create a new ResultSwipingMode where previous and next won't be visible
         updateCountingTable();
         updateAppMode();
     }
@@ -542,9 +568,9 @@ public class CashCalculatorFragment extends Fragment {
 
     /**
      * Saves the given ArrayList<> object onto disk
-     * @param history ArrayList of MathOperationModel representing the latest state of operations list
+     * @param history LinkedHashMap representing the latest state of results and their calculations
      */
-    private void serialize(ArrayList<MathOperationModel> history){
+    private void serialize(LinkedHashMap<MathOperationModel, ArrayList<MathOperationModel>> history){
         try{
             FileOutputStream fos = getContext().openFileOutput("history", Context.MODE_PRIVATE);
             ObjectOutputStream os = new ObjectOutputStream(fos);
@@ -562,12 +588,12 @@ public class CashCalculatorFragment extends Fragment {
      * Retrieves saved state of history
      * @return
      */
-    private ArrayList<MathOperationModel> deserialize(){
-        ArrayList<MathOperationModel> deserializedList = new ArrayList<MathOperationModel>();
+    private LinkedHashMap<MathOperationModel, ArrayList<MathOperationModel>> deserialize(){
+        LinkedHashMap<MathOperationModel, ArrayList<MathOperationModel>> deserializedList = new LinkedHashMap<MathOperationModel, ArrayList<MathOperationModel>>();
         try{
             FileInputStream fis = getContext().openFileInput("history");
             ObjectInputStream is = new ObjectInputStream(fis);
-            deserializedList = (ArrayList<MathOperationModel>) is.readObject();
+            deserializedList = (LinkedHashMap<MathOperationModel, ArrayList<MathOperationModel>>) is.readObject();
             is.close();
             fis.close();
         } catch (FileNotFoundException e) {
