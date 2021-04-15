@@ -341,10 +341,14 @@ public class CashCalculatorFragment extends Fragment {
 
             @Override
             public void onMemorySwipe() {
-                Log.d("SWIPE","Restore Memory");
+                Log.d("SWIPE","Restore Memory"
+                        +" | getResults null? - "+(null == service.getAppState().getAllResults() ? "true":"false")
+                        +", isInHistorySlideshow: "+service.getAppState().isInHistorySlideshow()
+                        +", getAllResults().size(): "+service.getAppState().getAllResults().size());
+
                 if(null != service.getAppState().getAllResults()
-//                        && !service.getAppState().isInHistorySlideshow()
-                        && service.getAppState().getAllResults().size() > 0) {
+                        && service.getAppState().getAllResults().size() > 0
+                        && service.getAppState().getCurrentResultIndex() < (service.getAppState().getAllResults().size() - 1)) {
 
                     ArrayList<MathOperationModel> results = new ArrayList<MathOperationModel>();
 
@@ -373,8 +377,6 @@ public class CashCalculatorFragment extends Fragment {
                 }else{
                     Log.d("4Share Log", "Not responding to two finger swipe");
                 }
-                //TODO if not in result swiping mode, put in it.
-                //TODO if already in result swiping mode, then go to the previous result, until finished
             }
         });
     }
