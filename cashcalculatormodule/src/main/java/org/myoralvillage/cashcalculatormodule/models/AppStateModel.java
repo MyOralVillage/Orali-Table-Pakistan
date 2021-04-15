@@ -205,8 +205,6 @@ public class AppStateModel implements Serializable {
         this.isInResultSwipingMode = isInResultSwipingMode;
     }
 
-    //TODO Create a new ResultSwipingMode where previous and next won't be visible
-
     /**
      * Returns the operation from the list, <code>operations</code>, based on the value of
      * the current Operation Index

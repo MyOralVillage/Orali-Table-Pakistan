@@ -341,10 +341,6 @@ public class CashCalculatorFragment extends Fragment {
 
             @Override
             public void onMemorySwipe() {
-                Log.d("SWIPE","Restore Memory"
-                        +" | getResults null? - "+(null == service.getAppState().getAllResults() ? "true":"false")
-                        +", isInHistorySlideshow: "+service.getAppState().isInHistorySlideshow()
-                        +", getAllResults().size(): "+service.getAppState().getAllResults().size());
 
                 if(null != service.getAppState().getAllResults()
                         && service.getAppState().getAllResults().size() > 0
@@ -582,7 +578,6 @@ public class CashCalculatorFragment extends Fragment {
      * Called whenever a gesture is performed on the Cash Calculator and upon initialization.
      */
     private void updateAll() {
-        //TODO Create a new ResultSwipingMode where previous and next won't be visible
         updateCountingTable();
         updateAppMode();
     }

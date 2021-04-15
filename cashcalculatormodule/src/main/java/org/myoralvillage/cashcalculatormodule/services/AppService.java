@@ -134,7 +134,6 @@ public class AppService {
         appState.setCurrentOperationIndex(0);
     }
 
-    //TODO Create a new ResultSwipingMode where previous and next won't be visible
     public void enterResultSwipingMode(){
         appState.setInResultSwipingMode(true);
     }
