@@ -15,6 +15,7 @@ import org.myoralvillage.cashcalculatormodule.models.AppStateModel;
 import org.myoralvillage.cashcalculatormodule.models.CurrencyModel;
 import org.myoralvillage.cashcalculatormodule.models.DenominationModel;
 import org.myoralvillage.cashcalculatormodule.models.MathOperationModel;
+import org.myoralvillage.cashcalculatormodule.services.AnalyticsLogger;
 import org.myoralvillage.cashcalculatormodule.services.AppService;
 import org.myoralvillage.cashcalculatormodule.views.CountingTableView;
 import org.myoralvillage.cashcalculatormodule.views.CurrencyScrollbarView;
@@ -55,6 +56,7 @@ import androidx.fragment.app.Fragment;
  * @author Aman Alam
 */
 public class CashCalculatorFragment extends Fragment {
+
     /**
      * A constant variable to store and lookup the state of the app when a new activity is started.
      * It stores the app state in the Activity's bundle so that it can be accessed by the next
@@ -135,6 +137,8 @@ public class CashCalculatorFragment extends Fragment {
         numberInputView = view.findViewById(R.id.number_input_view);
         numberInputView.setVisibility(View.INVISIBLE);
 
+        AnalyticsLogger.logEvent(getContext(), AnalyticsLogger.EVENT_CASH_SCROLLBAR_VISIBLE);
+
         return view;
     }
 
@@ -203,6 +207,7 @@ public class CashCalculatorFragment extends Fragment {
         if (service.getAppState().getAppMode() == AppStateModel.AppMode.NUMERIC) {
             sum.setVisibility(View.INVISIBLE);
             numberInputView.setVisibility(View.VISIBLE);
+            AnalyticsLogger.logEvent(getContext(), AnalyticsLogger.EVENT_NUMPAD_VISIBLE);
             numberInputView.setText(formatCurrency(service.getValue()));
         }
         countingTableView.setListener(new CountingTableListener() {
@@ -425,10 +430,12 @@ public class CashCalculatorFragment extends Fragment {
             case IMAGE:
                 sum.setVisibility(View.VISIBLE);
                 numberInputView.setVisibility(View.INVISIBLE);
+                AnalyticsLogger.logEvent(getContext(), AnalyticsLogger.EVENT_CASH_SCROLLBAR_VISIBLE);
                 break;
             case NUMERIC:
                 sum.setVisibility(View.INVISIBLE);
                 numberInputView.setVisibility(View.VISIBLE);
+                AnalyticsLogger.logEvent(getContext(), AnalyticsLogger.EVENT_NUMPAD_VISIBLE);
                 currencyOnCountingTable= formatCurrency(service.getValue());
                 numberInputView.setText(currencyOnCountingTable);
                 service.setValue(BigDecimal.ZERO);
@@ -444,6 +451,7 @@ public class CashCalculatorFragment extends Fragment {
             TextView sum = getView().findViewById(R.id.sum_view);
             sum.setVisibility(View.INVISIBLE);
             numberInputView.setVisibility(View.VISIBLE);
+            AnalyticsLogger.logEvent(getContext(), AnalyticsLogger.EVENT_NUMPAD_VISIBLE);
             numberInputView.setText(formatCurrency(service.getValue()));
             service.setValue(BigDecimal.ZERO);
         }
