@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 
 import org.myoralvillage.cashcalculatormodule.R;
 import org.myoralvillage.cashcalculatormodule.fragments.CashCalculatorFragment;
+import org.myoralvillage.cashcalculatormodule.services.AnalyticsLogger;
 import org.myoralvillage.cashcalculatormodule.views.listeners.NumberPadListener;
 
 import java.math.BigDecimal;
@@ -176,8 +177,10 @@ public class NumberPadView extends LinearLayout implements View.OnTouchListener 
      * @param value the value of this view.
      */
     private void number(BigDecimal value) {
-        if (listener != null)
+        if (listener != null) {
             listener.onTapNumber(value);
+            AnalyticsLogger.logEvent(getContext(), AnalyticsLogger.EVENT_NUMPAD_KEY_PRESSED);
+        }
     }
 
     /**

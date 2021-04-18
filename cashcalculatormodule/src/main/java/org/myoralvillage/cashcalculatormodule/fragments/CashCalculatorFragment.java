@@ -2,6 +2,7 @@ package org.myoralvillage.cashcalculatormodule.fragments;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -39,6 +40,8 @@ import java.util.Currency;
 import java.util.LinkedHashMap;
 import java.util.Locale;
 
+import androidx.annotation.RequiresApi;
+import androidx.core.util.Pair;
 import androidx.fragment.app.Fragment;
 
 /**
@@ -193,13 +196,13 @@ public class CashCalculatorFragment extends Fragment {
             service.getAppState().setRetrievedOperations(restored);
         }
 
-        for(MathOperationModel result : service.getAppState().getAllHistory().keySet()){
+        /*for(MathOperationModel result : service.getAppState().getAllHistory().keySet()){
             Log.d("RESULT ->>>>>",""+result.getValue());
             for (MathOperationModel operation:
                     service.getAppState().getAllHistory().get(result)) {
                 Log.d("OPERATION>","value: "+operation.getValue()+", mode: "+operation.getMode()+", type: "+operation.getType());
             }
-        }
+        }*/
 
         TextView sum = view.findViewById(R.id.sum_view);
         countingTableView = view.findViewById(R.id.counting_table);
@@ -213,6 +216,9 @@ public class CashCalculatorFragment extends Fragment {
         countingTableView.setListener(new CountingTableListener() {
             @Override
             public void onSwipeAddition() {
+                AnalyticsLogger.logEventwithParams(getContext(),
+                        AnalyticsLogger.EVENT_CALCULATION_PERFORMED, new Pair<String, String>(AnalyticsLogger.PARAM_CALCULATION_NAME,
+                                AnalyticsLogger.VAL_CALCULATION_ADDITION));
                 if (!service.isInHistorySlideshow()) {
                     service.add();
                     switchState();
@@ -225,6 +231,9 @@ public class CashCalculatorFragment extends Fragment {
 
             @Override
             public void onSwipeSubtraction() {
+                AnalyticsLogger.logEventwithParams(getContext(),
+                        AnalyticsLogger.EVENT_CALCULATION_PERFORMED, new Pair<String, String>(AnalyticsLogger.PARAM_CALCULATION_NAME,
+                                AnalyticsLogger.VAL_CALCULATION_SUBTRACTION));
                 if (!service.isInHistorySlideshow()) {
                     service.subtract();
                     switchState();
@@ -238,6 +247,9 @@ public class CashCalculatorFragment extends Fragment {
 
             @Override
             public void onSwipeMultiplication() {
+                AnalyticsLogger.logEventwithParams(getContext(),
+                        AnalyticsLogger.EVENT_CALCULATION_PERFORMED, new Pair<String, String>(AnalyticsLogger.PARAM_CALCULATION_NAME,
+                                AnalyticsLogger.VAL_CALCULATION_MULTIPLY));
                 // Dragging towards the top
                 if (!service.isInHistorySlideshow()) {
                     service.multiply();
@@ -355,18 +367,24 @@ public class CashCalculatorFragment extends Fragment {
 
                     if(service.getAppState().isInResultSwipingMode()
                             && service.getAppState().getCurrentResultIndex() < service.getAppState().getAllResults().size() - 1){
+                        //Subsequent swipes after first one
+
+                        AnalyticsLogger.logEvent(getContext(), AnalyticsLogger.EVENT_SUBSEQUENT_TWO_SWIPE);
 
                         service.getAppState().setCurrentResultIndex(service.getAppState().getCurrentResultIndex() + 1);
                         for (int i = service.getAppState().getCurrentResultIndex(); i< service.getAppState().getAllResults().size(); i++){
                             results.add(service.getAppState().getAllResults().get(i));
                         }
                     }else{
+                        //First Swipe
                         /**
                          * initialize the result swiping mode only if current result index is 0, which
                          * means that the user hasn't gone through the list completely yet. Otherwise
                          * when the if condition fails, this re-initializes the array and the swiping
                          * loops. We don't want that.
                          */
+
+                        AnalyticsLogger.logEvent(getContext(), AnalyticsLogger.EVENT_FIRST_TWO_SWIPE);
 
                         if(service.getAppState().getCurrentResultIndex() == 0) {
                             service.getAppState().setInResultSwipingMode(true);
@@ -396,14 +414,25 @@ public class CashCalculatorFragment extends Fragment {
      *
      * @see CurrencyScrollbarView
      */
+
     private void initializeCurrencyScrollbar(String currencyCode){
         currencyScrollbarView = view.findViewById(R.id.currency_scrollbar);
         currencyScrollbarView.setCurrency(currencyCode);
         this.currCurrency = currencyScrollbarView.getCurrency();
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            currencyScrollbarView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+                @Override
+                public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                    AnalyticsLogger.logEvent(getContext(), AnalyticsLogger.EVENT_CASH_SCROLLBAR_SWIPED);
+                }
+            });
+        }
+
         currencyScrollbarView.setCurrencyScrollbarListener(new CurrencyScrollbarListener() {
             @Override
             public void onTapDenomination(DenominationModel denomination) {
+                AnalyticsLogger.logEvent(getContext(), AnalyticsLogger.EVENT_NOTE_ADDED);
                 service.setValue(service.getValue().add(denomination.getValue()));
                 updateAll();
             }

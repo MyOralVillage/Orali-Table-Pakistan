@@ -12,6 +12,7 @@ import android.view.View;
 
 import org.myoralvillage.cashcalculatormodule.models.AreaModel;
 import org.myoralvillage.cashcalculatormodule.models.DenominationModel;
+import org.myoralvillage.cashcalculatormodule.services.AnalyticsLogger;
 import org.myoralvillage.cashcalculatormodule.services.BitmapService;
 import org.myoralvillage.cashcalculatormodule.views.listeners.CountingTableSurfaceListener;
 
@@ -355,6 +356,7 @@ public class CountingTableSurfaceView extends View {
                         getPixel(Math.round(x - box.getX()), Math.round(y - box.getY()));
                 if (color != Color.TRANSPARENT) {
                     removeDenomination(entry.getKey());
+                    AnalyticsLogger.logEvent(getContext(), AnalyticsLogger.EVENT_NOTE_REMOVED);
                     entry.getValue().removeLastBox();
                 }
                 break;
