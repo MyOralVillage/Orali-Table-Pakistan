@@ -196,13 +196,13 @@ public class CashCalculatorFragment extends Fragment {
             service.getAppState().setRetrievedOperations(restored);
         }
 
-        /*for(MathOperationModel result : service.getAppState().getAllHistory().keySet()){
+        for(MathOperationModel result : service.getAppState().getAllHistory().keySet()){
             Log.d("RESULT ->>>>>",""+result.getValue());
             for (MathOperationModel operation:
                     service.getAppState().getAllHistory().get(result)) {
                 Log.d("OPERATION>","value: "+operation.getValue()+", mode: "+operation.getMode()+", type: "+operation.getType());
             }
-        }*/
+        }
 
         TextView sum = view.findViewById(R.id.sum_view);
         countingTableView = view.findViewById(R.id.counting_table);
@@ -361,7 +361,7 @@ public class CashCalculatorFragment extends Fragment {
 
                 if(null != service.getAppState().getAllResults()
                         && service.getAppState().getAllResults().size() > 0
-                        && service.getAppState().getCurrentResultIndex() < (service.getAppState().getAllResults().size() - 1)) {
+                        && service.getAppState().getCurrentResultIndex() <= (service.getAppState().getAllResults().size() - 1)) {
 
                     ArrayList<MathOperationModel> results = new ArrayList<MathOperationModel>();
 

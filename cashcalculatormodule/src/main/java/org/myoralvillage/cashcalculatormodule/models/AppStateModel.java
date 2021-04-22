@@ -146,6 +146,11 @@ public class AppStateModel implements Serializable {
         for (int i = previousResultIndex; i<resultOperations.size(); i++) {
             operationsForThisResult.add(resultOperations.get(i));
         }
+
+        // TODO Make sure only 50 operations go in
+        if(this.operationsHistory.keySet().size() > 2){
+            this.operationsHistory.remove((MathOperationModel) this.operationsHistory.keySet().toArray()[0]);
+        }
         this.operationsHistory.put(result, operationsForThisResult);
     }
 
