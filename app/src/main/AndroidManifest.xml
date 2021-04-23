@@ -41,20 +41,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".IntroVideoActivity"
-            android:screenOrientation="landscape"
-            android:configChanges="keyboardHidden|orientation|screenSize">
-        </activity>
-
-        <activity android:name=".AdvancedVideoActivity"
-            android:screenOrientation="landscape"
-            android:configChanges="keyboardHidden|orientation|screenSize">
-        </activity>
-
-        <activity android:name=".NumericVideoActivity"
-            android:screenOrientation="landscape"
-            android:configChanges="keyboardHidden|orientation|screenSize">
-        </activity>
 
     </application>
 

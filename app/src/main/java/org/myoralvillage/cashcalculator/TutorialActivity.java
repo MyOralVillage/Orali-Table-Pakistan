@@ -6,6 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import org.myoralvillage.cashcalculator.tutorials.IntroVideoActivity;
+import org.myoralvillage.cashcalculator.tutorials.AdvancedVideoActivity;
+import org.myoralvillage.cashcalculator.tutorials.NumericVideoActivity;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 
