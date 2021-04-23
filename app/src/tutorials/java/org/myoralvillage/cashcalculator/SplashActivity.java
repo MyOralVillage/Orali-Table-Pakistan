@@ -5,16 +5,19 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import org.myoralvillage.cashcalculator.MainActivity;
+import org.myoralvillage.cashcalculator.R;
 import org.myoralvillage.cashcalculatormodule.services.CurrencyService;
 import org.myoralvillage.cashcalculatormodule.services.SettingService;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -31,8 +34,15 @@ public class SplashActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash);
 
-        settingService = new SettingService(getApplicationContext(), getResources());
-        buildLayout();
+//        if(BuildConfig.FLAVOR.equals("mainapp")){
+//            settingService = new SettingService(getApplicationContext(), getResources());
+//            buildLayout();
+//        }else{
+//            Log.d("TUTORIALS","^^^^^^^^^^^^^^^^^^^^^^^^TUTORIALS");
+            ImageView setting = findViewById(R.id.switchToTutorial);
+            setting.setOnClickListener(e -> switchToTutorial());
+//        }
+
 
 //        flagSelectListener();
 //        mainActivityButtonListener();
@@ -40,7 +50,7 @@ public class SplashActivity extends AppCompatActivity {
         //modeSwitchButtonListener();
     }
 
-    public static SettingService getSettingService() {
+    /*public static SettingService getSettingService() {
         return settingService;
     }
 
@@ -91,12 +101,7 @@ public class SplashActivity extends AppCompatActivity {
         intent.putExtra("numericMode", getIntent().getBooleanExtra("numericMode", false));
         startActivity(intent);
         finish();
-    }
-
-/*    private void mainActivityButtonListener() {
-        ImageView setting = findViewById(R.id.main);
-        setting.setOnClickListener(e -> switchToTutorial());
-    }
+    }*/
 
     private void switchToTutorial() {
         Intent intent = new Intent(this, TutorialActivity.class);
@@ -106,6 +111,7 @@ public class SplashActivity extends AppCompatActivity {
         finish();
     }
 
+/*
 
     private void setDefaultImage(Button setting) {
         SettingService settingService = new SettingService(getApplicationContext(), getResources());

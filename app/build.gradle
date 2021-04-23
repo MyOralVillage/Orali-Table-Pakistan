@@ -19,6 +19,17 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    flavorDimensions "version"
+    productFlavors {
+        mainapp {
+            dimension "version"
+            manifestPlaceholders = [ appLabel: "CashCalculator" ]
+        }
+        tutorials {
+            dimension "version"
+            manifestPlaceholders = [ appLabel: "4Share Tutorials" ]
+        }
+    }
     compileOptions {
         sourceCompatibility = 1.8
         targetCompatibility = 1.8

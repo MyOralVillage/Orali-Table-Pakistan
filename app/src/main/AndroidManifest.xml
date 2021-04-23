@@ -10,17 +10,28 @@
         android:normalScreens="true"
         />
 
-
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:roundIcon="@drawable/ic_launcher_round"
-        android:label="@string/app_name"
+        android:label="${appLabel}"
         android:hardwareAccelerated="false"
         android:largeHeap="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".TutorialActivity"
+            android:screenOrientation="landscape"
+            android:configChanges="keyboardHidden|orientation|screenSize">
+        </activity>
+        <activity android:name=".tutorials.IntroVideoActivity"
+            android:screenOrientation="landscape"
+            android:configChanges="keyboardHidden|orientation|screenSize">
+        </activity>
+        <activity android:name=".tutorials.AdvancedVideoActivity"
+            android:screenOrientation="landscape"
+            android:configChanges="keyboardHidden|orientation|screenSize">
+        </activity>
+        <activity android:name=".tutorials.NumericVideoActivity"
             android:screenOrientation="landscape"
             android:configChanges="keyboardHidden|orientation|screenSize">
         </activity>
