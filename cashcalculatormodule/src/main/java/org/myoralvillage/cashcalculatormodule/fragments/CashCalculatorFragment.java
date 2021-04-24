@@ -439,7 +439,9 @@ public class CashCalculatorFragment extends Fragment {
 
             @Override
             public void onVerticalSwipe() {
-                switchAppMode();
+                if(service.getValue().floatValue() == 0f) {
+                    switchAppMode();
+                }
             }
 
 
@@ -533,7 +535,9 @@ public class CashCalculatorFragment extends Fragment {
 
             @Override
             public void onVerticalSwipe() {
-                switchAppMode();
+                if(service.getValue().floatValue() == 0f) {
+                    switchAppMode();
+                }
             }
         });
     }
