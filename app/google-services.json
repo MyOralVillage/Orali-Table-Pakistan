@@ -33,6 +33,35 @@
           ]
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:106985444701:android:d78ee93ba618932aa404b4",
+        "android_client_info": {
+          "package_name": "org.myoralvillage.cashcalculator.tutorials"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "106985444701-7rf70nmnt6i4ql6p8hkcs4u0uln11s91.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCdAsyhD7Eq1cYtj-iQw6_i4xoayUuOUu0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "106985444701-7rf70nmnt6i4ql6p8hkcs4u0uln11s91.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
     }
   ],
   "configuration_version": "1"
