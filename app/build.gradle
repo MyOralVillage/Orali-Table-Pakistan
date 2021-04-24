@@ -11,8 +11,6 @@ android {
         applicationId "org.myoralvillage.cashcalculator"
         minSdkVersion 19
         targetSdkVersion 29
-        versionCode 13
-        versionName "0.13"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -26,11 +24,15 @@ android {
         mainapp {
             dimension "version"
             manifestPlaceholders = [ appLabel: "CashCalculator" ]
+            versionCode 14
+            versionName "0.14"
         }
         tutorials {
             dimension "version"
             manifestPlaceholders = [ appLabel: "4Share Tutorials" ]
             applicationIdSuffix = ".tutorials"
+            versionCode = 1
+            versionName = "0.1"
         }
     }
     compileOptions {
