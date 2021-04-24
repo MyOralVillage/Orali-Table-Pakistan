@@ -11,26 +11,39 @@ import java.util.LinkedHashMap;
 
 import androidx.core.util.Pair;
 
+/**
+ * @author Aman Alam
+ */
 public class AnalyticsLogger {
 
     private static FirebaseAnalytics mFirebaseAnalytics ;
 
-    public static void logEvent(Context ctx, String eventName){
+    // Don't record events when the app is in tutorials mode since the users are not really interacting with the app at that time
+    private static boolean isInTutorialsMode = false;
 
-        mFirebaseAnalytics = FirebaseAnalytics.getInstance(ctx);
-        Bundle params = new Bundle();
-        mFirebaseAnalytics.logEvent(eventName, params);
+    public static void setTutorialModeToTrue(){
+        isInTutorialsMode = true;
+    }
+
+    public static void logEvent(Context ctx, String eventName){
+        if(!isInTutorialsMode) {
+            mFirebaseAnalytics = FirebaseAnalytics.getInstance(ctx);
+            Bundle params = new Bundle();
+            mFirebaseAnalytics.logEvent(eventName, params);
+        }
     }
 
     public static void logEventwithParams(Context ctx, String eventName, Pair<String, String>... keyValPairs){
-        mFirebaseAnalytics = FirebaseAnalytics.getInstance(ctx);
-        Bundle params = new Bundle();
-        for (Pair param :
-                keyValPairs) {
-            params.putString(param.first.toString(), param.second.toString());
-            Log.d("ANALYTICS","Loggin keys: "+param.first.toString()+", "+param.second.toString());
+        if(!isInTutorialsMode) {
+            mFirebaseAnalytics = FirebaseAnalytics.getInstance(ctx);
+            Bundle params = new Bundle();
+            for (Pair param :
+                    keyValPairs) {
+                params.putString(param.first.toString(), param.second.toString());
+                Log.d("ANALYTICS", "Loggin keys: " + param.first.toString() + ", " + param.second.toString());
+            }
+            mFirebaseAnalytics.logEvent(eventName, params);
         }
-        mFirebaseAnalytics.logEvent(eventName, params);
     }
 
     public static String EVENT_CASH_SCROLLBAR_VISIBLE = "cash_scrollbar_visible",

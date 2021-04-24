@@ -110,6 +110,7 @@ public class NumericVideoActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         enterTime = System.currentTimeMillis();
+        AnalyticsLogger.setTutorialModeToTrue();
     }
 
     @Override
