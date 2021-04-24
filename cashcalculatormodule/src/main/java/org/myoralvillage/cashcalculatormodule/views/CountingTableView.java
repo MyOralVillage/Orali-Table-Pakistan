@@ -14,6 +14,7 @@ import org.myoralvillage.cashcalculatormodule.R;
 import org.myoralvillage.cashcalculatormodule.models.AppStateModel;
 import org.myoralvillage.cashcalculatormodule.models.CurrencyModel;
 import org.myoralvillage.cashcalculatormodule.models.MathOperationModel;
+import org.myoralvillage.cashcalculatormodule.services.AnalyticsLogger;
 import org.myoralvillage.cashcalculatormodule.services.CountingService;
 import org.myoralvillage.cashcalculatormodule.views.listeners.CountingTableListener;
 import org.myoralvillage.cashcalculatormodule.views.listeners.SwipeListener;
@@ -276,8 +277,10 @@ public class CountingTableView extends RelativeLayout {
     private void initializeClearButton(){
         clearButton = findViewById(R.id.clear_button);
         clearButton.setOnClickListener((e) -> {
-            if (listener != null)
+            if (listener != null) {
+                AnalyticsLogger.logEvent(getContext(), AnalyticsLogger.EVENT_CLEAR_BUTTON_PRESSED);
                 listener.onTapClearButton();
+            }
         });
     }
 
@@ -302,18 +305,24 @@ public class CountingTableView extends RelativeLayout {
         leftHistoryButton = findViewById(R.id.left_history_button);
 
         enterHistoryButton.setOnClickListener((e) -> {
-            if (listener != null)
+            if (listener != null) {
+                AnalyticsLogger.logEvent(getContext(), AnalyticsLogger.EVENT_HISTORY_ENTERED);
                 listener.onTapEnterHistory();
+            }
         });
 
         rightHistoryButton.setOnClickListener((e) -> {
-            if (listener != null)
+            if (listener != null) {
+                AnalyticsLogger.logEvent(getContext(), AnalyticsLogger.EVENT_RIGHT_HISTORY_PRESSED);
                 listener.onTapNextHistory();
+            }
         });
 
         leftHistoryButton.setOnClickListener((e) -> {
-            if (listener != null)
+            if (listener != null) {
+                AnalyticsLogger.logEvent(getContext(), AnalyticsLogger.EVENT_LEFT_HISTORY_PRESSED);
                 listener.onTapPreviousHistory();
+            }
         });
     }
 

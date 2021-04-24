@@ -28,6 +28,7 @@ public class AnalyticsLogger {
         for (Pair param :
                 keyValPairs) {
             params.putString(param.first.toString(), param.second.toString());
+            Log.d("ANALYTICS","Loggin keys: "+param.first.toString()+", "+param.second.toString());
         }
         mFirebaseAnalytics.logEvent(eventName, params);
     }
@@ -49,5 +50,19 @@ public class AnalyticsLogger {
     public static String EVENT_FIRST_TWO_SWIPE = "first_two_swipe",
             EVENT_SUBSEQUENT_TWO_SWIPE = "subsequent_two_swipe";
 
+    public static String EVENT_CLEAR_BUTTON_PRESSED = "clear_button_pressed";
+
+    public static String EVENT_HISTORY_ENTERED = "history_entered";
+
+    public static String EVENT_LEFT_HISTORY_PRESSED = "first_two_swipe",
+            EVENT_RIGHT_HISTORY_PRESSED = "subsequent_two_swipe";
+
+    public static String EVENT_VIDEO_VIEWED = "video_viewed";
+    public static String PARAM_VIDEO_NAME = "video_name";
+    public static String VAL_VIDEO_INTRO = "intro";
+    public static String VAL_VIDEO_NUMERIC = "numeric";
+    public static String VAL_VIDEO_ADVANCED = "advanced";
+
+    public static String PARAM_VIDEO_DURATION_SECONDS  = "video_session_duration_seconds";
 
 }

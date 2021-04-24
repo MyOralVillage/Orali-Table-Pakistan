@@ -1,6 +1,7 @@
 package org.myoralvillage.cashcalculator.tutorials;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.util.Pair;
 
 import android.animation.Animator;
 import android.animation.AnimatorSet;
@@ -23,6 +24,7 @@ import org.myoralvillage.cashcalculator.config.CashCalculatorConstants;
 import org.myoralvillage.cashcalculatormodule.fragments.CashCalculatorFragment;
 import org.myoralvillage.cashcalculatormodule.models.CurrencyModel;
 import org.myoralvillage.cashcalculatormodule.models.DenominationModel;
+import org.myoralvillage.cashcalculatormodule.services.AnalyticsLogger;
 import org.myoralvillage.cashcalculatormodule.views.CountingTableView;
 import org.myoralvillage.cashcalculatormodule.views.CurrencyScrollbarView;
 import org.myoralvillage.cashcalculatormodule.views.NumberPadView;
@@ -97,6 +99,26 @@ public class IntroVideoActivity extends AppCompatActivity {
                 currencyScrollbar.getViewTreeObserver().removeGlobalOnLayoutListener(this);
             }
         });
+    }
+
+    long enterTime = 0, exitTime = 0;
+    @Override
+    protected void onStart() {
+        super.onStart();
+        enterTime = System.currentTimeMillis();
+    }
+
+    @Override
+    protected void onStop() {
+        exitTime = System.currentTimeMillis();
+        long durationSeconds = (exitTime-enterTime)/1000;
+        AnalyticsLogger.logEventwithParams(this,
+                AnalyticsLogger.EVENT_VIDEO_VIEWED,
+                new Pair<String, String>(AnalyticsLogger.PARAM_VIDEO_NAME,
+                        AnalyticsLogger.VAL_VIDEO_INTRO),
+                new Pair<String, String>(AnalyticsLogger.PARAM_VIDEO_DURATION_SECONDS,
+                        ""+durationSeconds));
+        super.onStop();
     }
 
     private void animate() {

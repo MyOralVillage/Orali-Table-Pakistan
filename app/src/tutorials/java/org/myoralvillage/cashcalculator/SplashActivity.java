@@ -111,17 +111,19 @@ public class SplashActivity extends AppCompatActivity {
         finish();
     }
 
-/*
-
     private void setDefaultImage(Button setting) {
         SettingService settingService = new SettingService(getApplicationContext(), getResources());
         new CurrencyService(getApplicationContext(), settingService.getDefaultOrder()).call(
                 currencies -> {
-            int id = CurrencyService.getCurrencyResource(currencies[0]);
-            currencyName = currencies[0];
-            runOnUiThread(() -> setting.setBackgroundResource(id));
-        });
+                    int id = CurrencyService.getCurrencyResource(currencies[0]);
+                    currencyName = currencies[0];
+                    runOnUiThread(() -> setting.setBackgroundResource(id));
+                });
     }
+
+/*
+
+
 
     private void flagSelectListener() {
         Button btnSelectCountry = findViewById(R.id.btn_select_country);
