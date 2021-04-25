@@ -5,6 +5,20 @@ apply plugin: 'com.google.firebase.firebase-perf'
 
 
 android {
+    signingConfigs {
+        main_app_release {
+            storeFile file('keys/InternalTest')
+            storePassword 'amanalam'
+            keyAlias 'key1'
+            keyPassword 'amanalam'
+        }
+        tutorial_app_release {
+            storeFile file('keys/4Share_Production')
+            storePassword 'gelid_musk_pun_malinger'
+            keyAlias 'fourshare_all'
+            keyPassword 'mogul_banana_vodka_contuse'
+        }
+    }
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
     defaultConfig {
@@ -15,7 +29,7 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -24,8 +38,9 @@ android {
         mainapp {
             dimension "version"
             manifestPlaceholders = [ appLabel: "CashCalculator" ]
-            versionCode 14
-            versionName "0.14"
+            versionCode 16
+            versionName "0.16"
+            signingConfig signingConfigs.main_app_release
         }
         tutorials {
             dimension "version"
@@ -33,6 +48,7 @@ android {
             applicationIdSuffix = ".tutorials"
             versionCode = 1
             versionName = "0.1"
+            signingConfig signingConfigs.tutorial_app_release
         }
     }
     compileOptions {
