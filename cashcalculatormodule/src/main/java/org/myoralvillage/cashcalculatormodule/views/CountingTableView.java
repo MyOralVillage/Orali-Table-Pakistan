@@ -3,8 +3,6 @@ package org.myoralvillage.cashcalculatormodule.views;
 import android.content.Context;
 import android.graphics.Color;
 import android.util.AttributeSet;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -16,6 +14,7 @@ import org.myoralvillage.cashcalculatormodule.models.CurrencyModel;
 import org.myoralvillage.cashcalculatormodule.models.MathOperationModel;
 import org.myoralvillage.cashcalculatormodule.services.AnalyticsLogger;
 import org.myoralvillage.cashcalculatormodule.services.CountingService;
+import org.myoralvillage.cashcalculatormodule.utils.UtilityMethods;
 import org.myoralvillage.cashcalculatormodule.views.listeners.CountingTableListener;
 import org.myoralvillage.cashcalculatormodule.views.listeners.SwipeListener;
 
@@ -154,38 +153,11 @@ public class CountingTableView extends RelativeLayout {
     }
 
     private void updateSumView() {
+        UtilityMethods utilityMethods = new UtilityMethods();
         sumView.setText(String.format(locale,"%s",
-                getAdaptedNumberFormat()
+                utilityMethods.getAdaptedNumberFormat(locale)
                         .format(appState.getCurrentOperation().getValue())
         ));
-    }
-
-    private NumberFormat getAdaptedNumberFormat() {
-        DecimalFormat df = (DecimalFormat) NumberFormat.getCurrencyInstance(locale);
-        DecimalFormat dfUS = (DecimalFormat) NumberFormat.getCurrencyInstance(new Locale("ENGLISH", "US"));
-        DecimalFormatSymbols dfs = df.getDecimalFormatSymbols();
-        DecimalFormatSymbols dfsUS = dfUS.getDecimalFormatSymbols();
-        dfsUS.setInternationalCurrencySymbol(dfs.getInternationalCurrencySymbol());
-        dfsUS.setCurrency(dfs.getCurrency());
-        dfsUS.setCurrencySymbol(dfs.getCurrencySymbol());
-        df.setDecimalFormatSymbols(dfsUS);
-        switch(df.getPositivePrefix()) {
-            case "Rs":
-                df.setPositivePrefix("Rs. ");
-        }
-        switch(df.getNegativePrefix()) {
-            case "-Rs":
-                df.setNegativePrefix("Rs. -");
-        }
-        switch(df.getPositiveSuffix()) {
-            case "৳":
-                df.setPositiveSuffix(" ৳");
-        }
-        switch(df.getNegativeSuffix()) {
-            case "৳":
-                df.setNegativeSuffix(" ৳");
-        }
-        return df;
     }
 
     private void initializeSurface() {
@@ -213,14 +185,14 @@ public class CountingTableView extends RelativeLayout {
             public void swipeRightToLeftWithTwoFingers() {
                 // Two finger swipe
                 if (listener != null)
-                    listener.onMemorySwipe();
+                    listener.onMemorySwipe(false);
             }
 
             @Override
             public void swipeLeftToRightWithTwoFingers() {
                 // Two finger swipe
                 if (listener != null)
-                    listener.onMemorySwipe();
+                    listener.onMemorySwipe(true);
             }
 
             @Override
@@ -261,15 +233,19 @@ public class CountingTableView extends RelativeLayout {
         switch (appState.getCurrentOperation().getMode()) {
             case STANDARD:
                 calculateButton.setVisibility(View.INVISIBLE);
+                appState.setInCalculationMode(false);
                 break;
             case ADD:
                 calculateButton.setImageResource(R.drawable.operator_plus);
+                appState.setInCalculationMode(true);
                 break;
             case SUBTRACT:
                 calculateButton.setImageResource(R.drawable.operator_minus);
+                appState.setInCalculationMode(true);
                 break;
             case MULTIPLY:
                 calculateButton.setImageResource(R.drawable.operator_times);
+                appState.setInCalculationMode(true);
                 break;
         }
     }
@@ -286,17 +262,27 @@ public class CountingTableView extends RelativeLayout {
 
     private void updateClearButton() {
         if ((appState.getCurrentOperation().getMode() == MathOperationModel.MathOperationMode.STANDARD
-                && appState.getCurrentOperation().getValue().equals(BigDecimal.ZERO)) ||
+                && appState.getCurrentOperation().getValue().equals(BigDecimal.ZERO)
+                && appState.getCurrentOperation().getType() != MathOperationModel.MathOperationMode.RESULT) ||
                 appState.isInHistorySlideshow())
             clearButton.setVisibility(View.INVISIBLE);
         else
             clearButton.setVisibility(View.VISIBLE);
+
+        //Specifically making the clear button visible if the user is browsing operations of a result, and has reached the end of operations
+        if(appState.isInOperationsBrowsingMode()){
+            if(appState.getCurrentOperationIndex() == (appState.getOperations().size()-1)) {
+                clearButton.setVisibility(View.VISIBLE);
+            }
+        }
     }
 
     private void updateCountingSurface() {
-        countingTableSurfaceView.setDenominations(currencyModel.getDenominations().iterator(),
-                countingService.allocate(appState.getCurrentOperation().getValue(), currencyModel),
-                appState.getCurrentOperation().getValue());
+        if(appState.getAppMode().equals(AppStateModel.AppMode.IMAGE)){
+            countingTableSurfaceView.setDenominations(currencyModel.getDenominations().iterator(),
+                    countingService.allocate(appState.getCurrentOperation().getValue(), currencyModel),
+                    appState.getCurrentOperation().getValue());
+        }
     }
 
     private void initializeHistoryButtons(){
@@ -337,9 +323,11 @@ public class CountingTableView extends RelativeLayout {
             leftHistoryButton.setVisibility(View.INVISIBLE);
             rightHistoryButton.setVisibility(View.INVISIBLE);
         }else {
-            if (appState.getOperations().size() == 1)
+            if (appState.getOperations().size() == 1) {
                 enterHistoryButton.setVisibility(View.INVISIBLE);
-            else enterHistoryButton.setVisibility(View.VISIBLE);
+            }else {
+                enterHistoryButton.setVisibility(View.VISIBLE);
+            }
 
             rightHistoryButton.setVisibility(View.INVISIBLE);
             leftHistoryButton.setVisibility(View.INVISIBLE);

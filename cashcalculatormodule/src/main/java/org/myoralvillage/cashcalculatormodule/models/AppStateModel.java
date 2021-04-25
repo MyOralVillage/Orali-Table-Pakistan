@@ -6,9 +6,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.List;
 
 /**
  *  A model class used to represent the modes that the Cash Calculator can be displayed as well as
@@ -25,6 +23,11 @@ public class AppStateModel implements Serializable {
      * @see AppMode
      */
     private AppMode appMode;
+
+    /**
+     * true, if cash images were made visible in numeric mode
+     */
+    private boolean isCashVisibleInNumericMode = false;
 
     /**
      * A List of operations performed by the Cash Calculator leading to the <code>appMode</code>. Each element in
@@ -46,7 +49,7 @@ public class AppStateModel implements Serializable {
      * operations) can be used.
      */
     private LinkedHashMap<MathOperationModel, ArrayList<MathOperationModel>> operationsHistory = new LinkedHashMap<MathOperationModel, ArrayList<MathOperationModel>>();
-    private boolean isInResultSwipingMode = false;
+
     /**
      * An integer used to record the index of the current operation after a list of operations are
      * performed. This integer is useful in traversing the history of the Cash Calculator module.
@@ -54,6 +57,16 @@ public class AppStateModel implements Serializable {
     private int currentOperationIndex;
 
     private int currentResultIndex = 0;
+
+    private boolean shouldSaveResults = false;
+
+    private boolean isInCalculationMode = false;
+
+    private boolean isInOperationsBrowsingMode = false;
+
+    private boolean isInResultSwipingMode = false;
+
+    private String currencyCode = "";
 
     /**
      * Constructs a new <code>AppStateModel</code> in the specified Cash Calculator mode and the list
@@ -95,7 +108,7 @@ public class AppStateModel implements Serializable {
     }
 
     public ArrayList<MathOperationModel> getRetrievedOperations() {
-        return retrievedOperations;
+        return this.retrievedOperations;
     }
 
     public void setRetrievedOperations(LinkedHashMap<MathOperationModel, ArrayList<MathOperationModel>> retrievedOperations) {
@@ -109,11 +122,11 @@ public class AppStateModel implements Serializable {
     }
 
     public ArrayList<MathOperationModel> getAllOperationsOfResult(MathOperationModel hashKey) {
-        return operationsHistory.get(hashKey);
+        return this.operationsHistory.get(hashKey);
     }
 
     public LinkedHashMap<MathOperationModel, ArrayList<MathOperationModel>> getAllHistory() {
-        return operationsHistory;
+        return this.operationsHistory;
     }
 
     public void putAllHistory(LinkedHashMap<MathOperationModel, ArrayList<MathOperationModel>> operationsHistory) {
@@ -125,33 +138,43 @@ public class AppStateModel implements Serializable {
      * @param operations
      * @return
      */
-    private static int findSecondLastResult(ArrayList<MathOperationModel> operations) {
+    private static int findIndexOfLastResult(ArrayList<MathOperationModel> operations) {
         boolean isLastOperationResult = false;
         if (operations.get(operations.size() - 1).getType() == MathOperationModel.MathOperationMode.RESULT){
-            isLastOperationResult = true;
+            return (operations.size() - 1);
+        }else{
+            int index = 0;
+            for (int i = 0; i < operations.size(); i++)
+                if (operations.get(i).getType() == MathOperationModel.MathOperationMode.RESULT)
+                    index = i;
+
+            return index;
         }
-
-        int index = 0;
-        int limit = (isLastOperationResult?operations.size()-1:operations.size());
-        for (int i = 0; i < limit; i++)
-            if (operations.get(i).getType() == MathOperationModel.MathOperationMode.RESULT)
-                index = i;
-
-        return index;
     }
 
-    public void addToOperationsHistory(MathOperationModel result, ArrayList<MathOperationModel> resultOperations) {
-        ArrayList<MathOperationModel> operationsForThisResult = new ArrayList<MathOperationModel>();
-        int previousResultIndex = findSecondLastResult(resultOperations);
-        for (int i = previousResultIndex; i<resultOperations.size(); i++) {
-            operationsForThisResult.add(resultOperations.get(i));
+    /**
+     * Finding the last result, and saving up all the things until then, into the operations array.
+     * This avoids the following condition:
+     * because the user can press clear right after swiping to go into calculation mode, without making any calculation.
+     * at that point, we'll try to save all the operations until the last results, abandoning this current operation which the user swiped but didn't use
+     * @param operations
+     */
+    public void addToOperationsHistory(ArrayList<MathOperationModel> operations) {
+        ArrayList<MathOperationModel> valueOperationsForThisResult = new ArrayList<MathOperationModel>();
+        int lastResultIndex = findIndexOfLastResult(operations);
+        if (lastResultIndex <= 0){
+            return;
+        }
+        MathOperationModel keyResult = operations.get(lastResultIndex);
+
+        for (int i = 0; i<=lastResultIndex; i++) {
+            valueOperationsForThisResult.add(operations.get(i));
         }
 
-        // TODO Make sure only 50 operations go in
-        if(this.operationsHistory.keySet().size() > 2){
+        if(this.operationsHistory.keySet().size() > 49){
             this.operationsHistory.remove((MathOperationModel) this.operationsHistory.keySet().toArray()[0]);
         }
-        this.operationsHistory.put(result, operationsForThisResult);
+        this.operationsHistory.put(keyResult, valueOperationsForThisResult);
     }
 
     /**
@@ -162,6 +185,14 @@ public class AppStateModel implements Serializable {
      */
     public void setAppMode(AppMode appMode) {
         this.appMode = appMode;
+    }
+
+    public boolean isCashVisibleInNumericMode() {
+        return isCashVisibleInNumericMode;
+    }
+
+    public void setCashVisibleInNumericMode(boolean cashVisibleInNumericMode) {
+        isCashVisibleInNumericMode = cashVisibleInNumericMode;
     }
 
     /**
@@ -194,6 +225,30 @@ public class AppStateModel implements Serializable {
         this.currentResultIndex = currentResultIndex;
     }
 
+    public boolean shouldSaveResults() {
+        return shouldSaveResults;
+    }
+
+    public void setShouldSaveResults(boolean shouldSaveResults) {
+        this.shouldSaveResults = shouldSaveResults;
+    }
+
+    public boolean isInCalculationMode() {
+        return isInCalculationMode;
+    }
+
+    public void setInCalculationMode(boolean inCalculationMode) {
+        isInCalculationMode = inCalculationMode;
+    }
+
+    public String getCurrencyCode() {
+        return currencyCode;
+    }
+
+    public void setCurrencyCode(String currencyCode) {
+        this.currencyCode = currencyCode;
+    }
+
     /**
      * Is the application currently in the history slideshow mode?
      * @return True if it is in the memory mode, return False otherwise.
@@ -208,6 +263,14 @@ public class AppStateModel implements Serializable {
 
     public void setInResultSwipingMode(boolean isInResultSwipingMode){
         this.isInResultSwipingMode = isInResultSwipingMode;
+    }
+
+    public boolean isInOperationsBrowsingMode() {
+        return isInOperationsBrowsingMode;
+    }
+
+    public void setInOperationsBrowsingMode(boolean inOperationsBrowsingMode) {
+        isInOperationsBrowsingMode = inOperationsBrowsingMode;
     }
 
     /**

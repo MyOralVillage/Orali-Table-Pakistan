@@ -179,7 +179,6 @@ public class NumberPadView extends LinearLayout implements View.OnTouchListener 
     private void number(BigDecimal value) {
         if (listener != null) {
             listener.onTapNumber(value);
-            AnalyticsLogger.logEvent(getContext(), AnalyticsLogger.EVENT_NUMPAD_KEY_PRESSED);
         }
     }
 

@@ -81,6 +81,7 @@ public class AppService {
         appState.setAppMode(mode);
         appState.putAllHistory(operationsHistory);
         resetCurrentOperation();
+        setValue(BigDecimal.ZERO);
     }
 
     /**
@@ -132,10 +133,6 @@ public class AppService {
      */
     public void enterHistorySlideshow() {
         appState.setCurrentOperationIndex(0);
-    }
-
-    public void enterResultSwipingMode(){
-        appState.setInResultSwipingMode(true);
     }
 
     /**

@@ -5,6 +5,7 @@ apply plugin: 'com.google.firebase.firebase-perf'
 
 
 android {
+
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
     defaultConfig {
@@ -15,7 +16,7 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -24,8 +25,8 @@ android {
         mainapp {
             dimension "version"
             manifestPlaceholders = [ appLabel: "CashCalculator" ]
-            versionCode 14
-            versionName "0.14"
+            versionCode 27
+            versionName "pkr-0.1"
         }
         tutorials {
             dimension "version"

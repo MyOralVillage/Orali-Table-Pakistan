@@ -38,7 +38,7 @@
         android:layout_marginTop="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/orallogo" />
+        app:srcCompat="@drawable/move_logo" />
 
     <ImageView
         android:id="@+id/logo4Share"
@@ -48,7 +48,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/fourshare" />
+        app:srcCompat="@drawable/logo_fourshare" />
 
     <ImageView
         android:id="@+id/logo_orali"
@@ -57,7 +57,7 @@
         android:layout_marginTop="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/oralmobile" />
+        app:srcCompat="@drawable/oralimobile_logo" />
 
     <!--<HorizontalScrollView
         android:layout_width="wrap_content"
