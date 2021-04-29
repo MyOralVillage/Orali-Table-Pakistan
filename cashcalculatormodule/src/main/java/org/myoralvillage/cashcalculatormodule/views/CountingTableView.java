@@ -158,6 +158,9 @@ public class CountingTableView extends RelativeLayout {
                 getAdaptedNumberFormat()
                         .format(appState.getCurrentOperation().getValue())
         ));
+
+        Log.d("Currency", ""+getAdaptedNumberFormat()
+                .format(appState.getCurrentOperation().getValue()));
     }
 
     private NumberFormat getAdaptedNumberFormat() {
@@ -184,6 +187,13 @@ public class CountingTableView extends RelativeLayout {
         switch(df.getNegativeSuffix()) {
             case "৳":
                 df.setNegativeSuffix(" ৳");
+        }
+
+        //Change as per JIRA: SHAR-46
+        //Everything except USD, should be displayed in whole numbers (KES/KSH, ETB)
+        if(df.getDecimalFormatSymbols().getCurrency().getCurrencyCode().equals("KES")
+                || df.getDecimalFormatSymbols().getCurrency().getCurrencyCode().equals("ETB")) {
+            df.setMaximumFractionDigits(0);
         }
         return df;
     }
