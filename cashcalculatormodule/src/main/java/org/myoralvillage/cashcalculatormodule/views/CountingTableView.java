@@ -158,9 +158,6 @@ public class CountingTableView extends RelativeLayout {
                 getAdaptedNumberFormat()
                         .format(appState.getCurrentOperation().getValue())
         ));
-
-        Log.d("Currency", ""+getAdaptedNumberFormat()
-                .format(appState.getCurrentOperation().getValue()));
     }
 
     private NumberFormat getAdaptedNumberFormat() {
