@@ -287,6 +287,8 @@ public class CountingTableView extends RelativeLayout {
             if (listener != null) {
                 AnalyticsLogger.logEvent(getContext(), AnalyticsLogger.EVENT_CLEAR_BUTTON_PRESSED);
                 listener.onTapClearButton();
+
+                //TODO: add the whole operation array in history at this point
             }
         });
     }

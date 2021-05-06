@@ -128,7 +128,7 @@ public class CountingTableSurfaceView extends View {
             Bitmap bmp = bitmaps.get(entry.getKey());
             int denominationCount = entry.getValue();
             float horizontalPaddingInInches = STACKED_DENOMINATION_OFFSET_IN_INCHES * (denominationCount <= THRESHOLD_NUM ? (denominationCount - 1) : 1);
-            int horizontalPixelPadding = (int) (horizontalPaddingInInches * getResources().getDisplayMetrics().xdpi);
+            int horizontalPixelPadding = (int) (horizontalPaddingInInches * getResources().getDisplayMetrics().xdpi) + 20 ;
             if (isNegative) bmp = invertBitmap(bmp);
 
             AreaModel areaModel = areas.get(entry.getKey());
