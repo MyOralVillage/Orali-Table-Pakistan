@@ -6,9 +6,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.List;
 
 /**
  *  A model class used to represent the modes that the Cash Calculator can be displayed as well as
@@ -54,6 +52,10 @@ public class AppStateModel implements Serializable {
     private int currentOperationIndex;
 
     private int currentResultIndex = 0;
+
+    private boolean shouldSaveResults = false;
+
+    private boolean isInCalculationMode = false;
 
     /**
      * Constructs a new <code>AppStateModel</code> in the specified Cash Calculator mode and the list
@@ -192,6 +194,22 @@ public class AppStateModel implements Serializable {
 
     public void setCurrentResultIndex(int currentResultIndex) {
         this.currentResultIndex = currentResultIndex;
+    }
+
+    public boolean shouldSaveResults() {
+        return shouldSaveResults;
+    }
+
+    public void setShouldSaveResults(boolean shouldSaveResults) {
+        this.shouldSaveResults = shouldSaveResults;
+    }
+
+    public boolean isInCalculationMode() {
+        return isInCalculationMode;
+    }
+
+    public void setInCalculationMode(boolean inCalculationMode) {
+        isInCalculationMode = inCalculationMode;
     }
 
     /**

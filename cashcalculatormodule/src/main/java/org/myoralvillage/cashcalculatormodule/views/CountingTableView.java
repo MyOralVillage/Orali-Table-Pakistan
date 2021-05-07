@@ -3,8 +3,6 @@ package org.myoralvillage.cashcalculatormodule.views;
 import android.content.Context;
 import android.graphics.Color;
 import android.util.AttributeSet;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -268,15 +266,19 @@ public class CountingTableView extends RelativeLayout {
         switch (appState.getCurrentOperation().getMode()) {
             case STANDARD:
                 calculateButton.setVisibility(View.INVISIBLE);
+                appState.setInCalculationMode(false);
                 break;
             case ADD:
                 calculateButton.setImageResource(R.drawable.operator_plus);
+                appState.setInCalculationMode(true);
                 break;
             case SUBTRACT:
                 calculateButton.setImageResource(R.drawable.operator_minus);
+                appState.setInCalculationMode(true);
                 break;
             case MULTIPLY:
                 calculateButton.setImageResource(R.drawable.operator_times);
+                appState.setInCalculationMode(true);
                 break;
         }
     }
@@ -287,8 +289,6 @@ public class CountingTableView extends RelativeLayout {
             if (listener != null) {
                 AnalyticsLogger.logEvent(getContext(), AnalyticsLogger.EVENT_CLEAR_BUTTON_PRESSED);
                 listener.onTapClearButton();
-
-                //TODO: add the whole operation array in history at this point
             }
         });
     }
@@ -346,9 +346,15 @@ public class CountingTableView extends RelativeLayout {
             leftHistoryButton.setVisibility(View.INVISIBLE);
             rightHistoryButton.setVisibility(View.INVISIBLE);
         }else {
-            if (appState.getOperations().size() == 1)
+            if (appState.getOperations().size() == 1) {
                 enterHistoryButton.setVisibility(View.INVISIBLE);
-            else enterHistoryButton.setVisibility(View.VISIBLE);
+                appState.setShouldSaveResults(false);
+            }else {
+                enterHistoryButton.setVisibility(View.VISIBLE);
+                if(!appState.isInResultSwipingMode() && !appState.isInHistorySlideshow() && !appState.isInCalculationMode()) {
+                    appState.setShouldSaveResults(true);
+                }
+            }
 
             rightHistoryButton.setVisibility(View.INVISIBLE);
             leftHistoryButton.setVisibility(View.INVISIBLE);

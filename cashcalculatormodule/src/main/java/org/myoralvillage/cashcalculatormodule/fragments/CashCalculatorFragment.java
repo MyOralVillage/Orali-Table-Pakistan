@@ -40,7 +40,6 @@ import java.util.Currency;
 import java.util.LinkedHashMap;
 import java.util.Locale;
 
-import androidx.annotation.RequiresApi;
 import androidx.core.util.Pair;
 import androidx.fragment.app.Fragment;
 
@@ -196,13 +195,13 @@ public class CashCalculatorFragment extends Fragment {
             service.getAppState().setRetrievedOperations(restored);
         }
 
-        for(MathOperationModel result : service.getAppState().getAllHistory().keySet()){
+        /*for(MathOperationModel result : service.getAppState().getAllHistory().keySet()){
             Log.d("RESULT ->>>>>",""+result.getValue());
             for (MathOperationModel operation:
                     service.getAppState().getAllHistory().get(result)) {
                 Log.d("OPERATION>","value: "+operation.getValue()+", mode: "+operation.getMode()+", type: "+operation.getType());
             }
-        }
+        }*/
 
         TextView sum = view.findViewById(R.id.sum_view);
         countingTableView = view.findViewById(R.id.counting_table);
@@ -294,7 +293,8 @@ public class CashCalculatorFragment extends Fragment {
                         break;
                 }
 
-                service.getAppState().addToOperationsHistory(
+                //Moved to onClearButton
+                /*service.getAppState().addToOperationsHistory(
                         service.getAppState().getOperations().get(service.getAppState().getOperations().size()-1),
                         service.getAppState().getOperations()
                 );
@@ -307,13 +307,30 @@ public class CashCalculatorFragment extends Fragment {
                     }
                 }
 
-//                serialize(service.getAppState().getAllHistory()); //moving to onTapClear()
+                serialize(service.getAppState().getAllHistory());*/
 
                 updateAll();
             }
 
             @Override
             public void onTapClearButton() {
+
+                if(service.getAppState().shouldSaveResults()){
+                    service.getAppState().addToOperationsHistory(
+                            service.getAppState().getOperations().get(service.getAppState().getOperations().size()-1),
+                            service.getAppState().getOperations()
+                    );
+
+                    /*for(MathOperationModel result : service.getAppState().getAllHistory().keySet()){
+                        Log.d("RESULT ->>>>>",""+result.getValue());
+                        for (MathOperationModel operation:
+                                service.getAppState().getAllHistory().get(result)) {
+                            Log.d("OPERATION>","value: "+operation.getValue()+", mode: "+operation.getMode()+", type: "+operation.getType());
+                        }
+                    }*/
+
+                    serialize(service.getAppState().getAllHistory());
+                }
                 switch (service.getAppState().getAppMode()) {
                     case NUMERIC:
                         sum.setVisibility(View.INVISIBLE);
@@ -364,6 +381,10 @@ public class CashCalculatorFragment extends Fragment {
             @Override
             public void onMemorySwipe(boolean shouldGoBack) {
 
+                if(service.getAppState().isInCalculationMode()){
+                    return;
+                }
+
                 if(null != service.getAppState().getAllResults()
                         && service.getAppState().getAllResults().size() > 0
                         && service.getAppState().getCurrentResultIndex() <= (service.getAppState().getAllResults().size() - 1)) {
@@ -375,11 +396,11 @@ public class CashCalculatorFragment extends Fragment {
                         //Subsequent swipes after first one
 
                         AnalyticsLogger.logEvent(getContext(), AnalyticsLogger.EVENT_SUBSEQUENT_TWO_SWIPE);
-                        if(shouldGoBack) {
+//                        if(shouldGoBack) {
                             service.getAppState().setCurrentResultIndex(service.getAppState().getCurrentResultIndex() + 1);
-                        }else{
-                            service.getAppState().setCurrentResultIndex(service.getAppState().getCurrentResultIndex() - 1);
-                        }
+//                        }else{
+//                            service.getAppState().setCurrentResultIndex(service.getAppState().getCurrentResultIndex() - 1);
+//                        }
                         for (int i = service.getAppState().getCurrentResultIndex(); i< service.getAppState().getAllResults().size(); i++){
                             results.add(service.getAppState().getAllResults().get(i));
                         }
@@ -397,6 +418,9 @@ public class CashCalculatorFragment extends Fragment {
                         if(service.getAppState().getCurrentResultIndex() == 0) {
                             service.getAppState().setInResultSwipingMode(true);
                             results = service.getAppState().getAllResults();
+                        }else{
+                            //browsing more than last result
+                            return;
                         }
                     }
                     service.getAppState().setOperations(results);
@@ -649,7 +673,9 @@ public class CashCalculatorFragment extends Fragment {
      */
     private void serialize(LinkedHashMap<MathOperationModel, ArrayList<MathOperationModel>> history){
         try{
-            FileOutputStream fos = getContext().openFileOutput("history_"+getActivity().getIntent().getStringExtra("currencyCode"),
+//            FileOutputStream fos = getContext().openFileOutput("history_"+getActivity().getIntent().getStringExtra("currencyCode"),
+//                    Context.MODE_PRIVATE);
+            FileOutputStream fos = getContext().openFileOutput("history",
                     Context.MODE_PRIVATE);
             ObjectOutputStream os = new ObjectOutputStream(fos);
             os.writeObject(history);
@@ -669,7 +695,8 @@ public class CashCalculatorFragment extends Fragment {
     private LinkedHashMap<MathOperationModel, ArrayList<MathOperationModel>> deserialize(){
         LinkedHashMap<MathOperationModel, ArrayList<MathOperationModel>> deserializedList = new LinkedHashMap<MathOperationModel, ArrayList<MathOperationModel>>();
         try{
-            FileInputStream fis = getContext().openFileInput("history_"+getActivity().getIntent().getStringExtra("currencyCode"));
+//            FileInputStream fis = getContext().openFileInput("history_"+getActivity().getIntent().getStringExtra("currencyCode"));
+            FileInputStream fis = getContext().openFileInput("history");
             ObjectInputStream is = new ObjectInputStream(fis);
             deserializedList = (LinkedHashMap<MathOperationModel, ArrayList<MathOperationModel>>) is.readObject();
             is.close();
