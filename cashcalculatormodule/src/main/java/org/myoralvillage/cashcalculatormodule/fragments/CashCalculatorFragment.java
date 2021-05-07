@@ -191,18 +191,18 @@ public class CashCalculatorFragment extends Fragment {
     private void initializeCountingView() {
 
         //loading previous values of operations
-//        LinkedHashMap<MathOperationModel, ArrayList<MathOperationModel>> restored = deserialize();
-//        if(restored.size() > 0){
-//            service.getAppState().setRetrievedOperations(restored);
-//        }
+        LinkedHashMap<MathOperationModel, ArrayList<MathOperationModel>> restored = deserialize();
+        if(restored.size() > 0){
+            service.getAppState().setRetrievedOperations(restored);
+        }
 
-//        for(MathOperationModel result : service.getAppState().getAllHistory().keySet()){
-//            Log.d("RESULT ->>>>>",""+result.getValue());
-//            for (MathOperationModel operation:
-//                    service.getAppState().getAllHistory().get(result)) {
-//                Log.d("OPERATION>","value: "+operation.getValue()+", mode: "+operation.getMode()+", type: "+operation.getType());
-//            }
-//        }
+        for(MathOperationModel result : service.getAppState().getAllHistory().keySet()){
+            Log.d("RESULT ->>>>>",""+result.getValue());
+            for (MathOperationModel operation:
+                    service.getAppState().getAllHistory().get(result)) {
+                Log.d("OPERATION>","value: "+operation.getValue()+", mode: "+operation.getMode()+", type: "+operation.getType());
+            }
+        }
 
         TextView sum = view.findViewById(R.id.sum_view);
         countingTableView = view.findViewById(R.id.counting_table);
@@ -307,7 +307,7 @@ public class CashCalculatorFragment extends Fragment {
                     }
                 }
 
-//                serialize(service.getAppState().getAllHistory());
+                serialize(service.getAppState().getAllHistory());
 
                 updateAll();
             }
@@ -356,46 +356,54 @@ public class CashCalculatorFragment extends Fragment {
                 sum.setVisibility(View.VISIBLE);
             }
 
+            /**
+             *
+             * @param shouldGoBack true if the swipe is left > right, so that we go "bacK" in history
+             *                     otherwise, false, so that we go forward in history
+             */
             @Override
-            public void onMemorySwipe() {
+            public void onMemorySwipe(boolean shouldGoBack) {
 
-//                if(null != service.getAppState().getAllResults()
-//                        && service.getAppState().getAllResults().size() > 0
-//                        && service.getAppState().getCurrentResultIndex() <= (service.getAppState().getAllResults().size() - 1)) {
-//
-//                    ArrayList<MathOperationModel> results = new ArrayList<MathOperationModel>();
-//
-//                    if(service.getAppState().isInResultSwipingMode()
-//                            && service.getAppState().getCurrentResultIndex() < service.getAppState().getAllResults().size() - 1){
-//                        //Subsequent swipes after first one
-//
-//                        AnalyticsLogger.logEvent(getContext(), AnalyticsLogger.EVENT_SUBSEQUENT_TWO_SWIPE);
-//
-//                        service.getAppState().setCurrentResultIndex(service.getAppState().getCurrentResultIndex() + 1);
-//                        for (int i = service.getAppState().getCurrentResultIndex(); i< service.getAppState().getAllResults().size(); i++){
-//                            results.add(service.getAppState().getAllResults().get(i));
-//                        }
-//                    }else{
-//                        //First Swipe
-//                        /**
-//                         * initialize the result swiping mode only if current result index is 0, which
-//                         * means that the user hasn't gone through the list completely yet. Otherwise
-//                         * when the if condition fails, this re-initializes the array and the swiping
-//                         * loops. We don't want that.
-//                         */
-//
-//                        AnalyticsLogger.logEvent(getContext(), AnalyticsLogger.EVENT_FIRST_TWO_SWIPE);
-//
-//                        if(service.getAppState().getCurrentResultIndex() == 0) {
-//                            service.getAppState().setInResultSwipingMode(true);
-//                            results = service.getAppState().getAllResults();
-//                        }
-//                    }
-//                    service.getAppState().setOperations(results);
-//                    updateAll();
-//                }else{
-//                    Log.d("4Share Log", "Not responding to two finger swipe");
-//                }
+                if(null != service.getAppState().getAllResults()
+                        && service.getAppState().getAllResults().size() > 0
+                        && service.getAppState().getCurrentResultIndex() <= (service.getAppState().getAllResults().size() - 1)) {
+
+                    ArrayList<MathOperationModel> results = new ArrayList<MathOperationModel>();
+
+                    if(service.getAppState().isInResultSwipingMode()
+                            && service.getAppState().getCurrentResultIndex() < service.getAppState().getAllResults().size() - 1){
+                        //Subsequent swipes after first one
+
+                        AnalyticsLogger.logEvent(getContext(), AnalyticsLogger.EVENT_SUBSEQUENT_TWO_SWIPE);
+                        if(shouldGoBack) {
+                            service.getAppState().setCurrentResultIndex(service.getAppState().getCurrentResultIndex() + 1);
+                        }else{
+                            service.getAppState().setCurrentResultIndex(service.getAppState().getCurrentResultIndex() - 1);
+                        }
+                        for (int i = service.getAppState().getCurrentResultIndex(); i< service.getAppState().getAllResults().size(); i++){
+                            results.add(service.getAppState().getAllResults().get(i));
+                        }
+                    }else{
+                        //First Swipe
+                        /**
+                         * initialize the result swiping mode only if current result index is 0, which
+                         * means that the user hasn't gone through the list completely yet. Otherwise
+                         * when the if condition fails, this re-initializes the array and the swiping
+                         * loops. We don't want that.
+                         */
+
+                        AnalyticsLogger.logEvent(getContext(), AnalyticsLogger.EVENT_FIRST_TWO_SWIPE);
+
+                        if(service.getAppState().getCurrentResultIndex() == 0) {
+                            service.getAppState().setInResultSwipingMode(true);
+                            results = service.getAppState().getAllResults();
+                        }
+                    }
+                    service.getAppState().setOperations(results);
+                    updateAll();
+                }else{
+                    Log.d("4Share Log", "Not responding to two finger swipe");
+                }
             }
         });
     }
@@ -639,39 +647,39 @@ public class CashCalculatorFragment extends Fragment {
      * Saves the given ArrayList<> object onto disk
      * @param history LinkedHashMap representing the latest state of results and their calculations
      */
-//    private void serialize(LinkedHashMap<MathOperationModel, ArrayList<MathOperationModel>> history){
-//        try{
-//            FileOutputStream fos = getContext().openFileOutput("history", Context.MODE_PRIVATE);
-//            ObjectOutputStream os = new ObjectOutputStream(fos);
-//            os.writeObject(history);
-//            os.close();
-//            fos.close();
-//        }catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
+    private void serialize(LinkedHashMap<MathOperationModel, ArrayList<MathOperationModel>> history){
+        try{
+            FileOutputStream fos = getContext().openFileOutput("history", Context.MODE_PRIVATE);
+            ObjectOutputStream os = new ObjectOutputStream(fos);
+            os.writeObject(history);
+            os.close();
+            fos.close();
+        }catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * Retrieves saved state of history
      * @return
      */
-//    private LinkedHashMap<MathOperationModel, ArrayList<MathOperationModel>> deserialize(){
-//        LinkedHashMap<MathOperationModel, ArrayList<MathOperationModel>> deserializedList = new LinkedHashMap<MathOperationModel, ArrayList<MathOperationModel>>();
-//        try{
-//            FileInputStream fis = getContext().openFileInput("history");
-//            ObjectInputStream is = new ObjectInputStream(fis);
-//            deserializedList = (LinkedHashMap<MathOperationModel, ArrayList<MathOperationModel>>) is.readObject();
-//            is.close();
-//            fis.close();
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        } catch (ClassNotFoundException e) {
-//            e.printStackTrace();
-//        }
-//        return deserializedList;
-//    }
+    private LinkedHashMap<MathOperationModel, ArrayList<MathOperationModel>> deserialize(){
+        LinkedHashMap<MathOperationModel, ArrayList<MathOperationModel>> deserializedList = new LinkedHashMap<MathOperationModel, ArrayList<MathOperationModel>>();
+        try{
+            FileInputStream fis = getContext().openFileInput("history");
+            ObjectInputStream is = new ObjectInputStream(fis);
+            deserializedList = (LinkedHashMap<MathOperationModel, ArrayList<MathOperationModel>>) is.readObject();
+            is.close();
+            fis.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return deserializedList;
+    }
 }

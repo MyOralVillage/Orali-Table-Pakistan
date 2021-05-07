@@ -220,14 +220,14 @@ public class CountingTableView extends RelativeLayout {
             public void swipeRightToLeftWithTwoFingers() {
                 // Two finger swipe
                 if (listener != null)
-                    listener.onMemorySwipe();
+                    listener.onMemorySwipe(false);
             }
 
             @Override
             public void swipeLeftToRightWithTwoFingers() {
                 // Two finger swipe
                 if (listener != null)
-                    listener.onMemorySwipe();
+                    listener.onMemorySwipe(true);
             }
 
             @Override
