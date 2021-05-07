@@ -307,7 +307,7 @@ public class CashCalculatorFragment extends Fragment {
                     }
                 }
 
-                serialize(service.getAppState().getAllHistory());
+//                serialize(service.getAppState().getAllHistory()); //moving to onTapClear()
 
                 updateAll();
             }
@@ -649,7 +649,8 @@ public class CashCalculatorFragment extends Fragment {
      */
     private void serialize(LinkedHashMap<MathOperationModel, ArrayList<MathOperationModel>> history){
         try{
-            FileOutputStream fos = getContext().openFileOutput("history", Context.MODE_PRIVATE);
+            FileOutputStream fos = getContext().openFileOutput("history_"+getActivity().getIntent().getStringExtra("currencyCode"),
+                    Context.MODE_PRIVATE);
             ObjectOutputStream os = new ObjectOutputStream(fos);
             os.writeObject(history);
             os.close();
@@ -668,7 +669,7 @@ public class CashCalculatorFragment extends Fragment {
     private LinkedHashMap<MathOperationModel, ArrayList<MathOperationModel>> deserialize(){
         LinkedHashMap<MathOperationModel, ArrayList<MathOperationModel>> deserializedList = new LinkedHashMap<MathOperationModel, ArrayList<MathOperationModel>>();
         try{
-            FileInputStream fis = getContext().openFileInput("history");
+            FileInputStream fis = getContext().openFileInput("history_"+getActivity().getIntent().getStringExtra("currencyCode"));
             ObjectInputStream is = new ObjectInputStream(fis);
             deserializedList = (LinkedHashMap<MathOperationModel, ArrayList<MathOperationModel>>) is.readObject();
             is.close();
