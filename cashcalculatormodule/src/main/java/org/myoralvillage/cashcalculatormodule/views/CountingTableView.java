@@ -266,19 +266,19 @@ public class CountingTableView extends RelativeLayout {
         switch (appState.getCurrentOperation().getMode()) {
             case STANDARD:
                 calculateButton.setVisibility(View.INVISIBLE);
-                appState.setInCalculationMode(false);
+//                appState.setInCalculationMode(false);
                 break;
             case ADD:
                 calculateButton.setImageResource(R.drawable.operator_plus);
-                appState.setInCalculationMode(true);
+//                appState.setInCalculationMode(true);
                 break;
             case SUBTRACT:
                 calculateButton.setImageResource(R.drawable.operator_minus);
-                appState.setInCalculationMode(true);
+//                appState.setInCalculationMode(true);
                 break;
             case MULTIPLY:
                 calculateButton.setImageResource(R.drawable.operator_times);
-                appState.setInCalculationMode(true);
+//                appState.setInCalculationMode(true);
                 break;
         }
     }
@@ -348,12 +348,12 @@ public class CountingTableView extends RelativeLayout {
         }else {
             if (appState.getOperations().size() == 1) {
                 enterHistoryButton.setVisibility(View.INVISIBLE);
-                appState.setShouldSaveResults(false);
+//                appState.setShouldSaveResults(false);
             }else {
                 enterHistoryButton.setVisibility(View.VISIBLE);
-                if(!appState.isInResultSwipingMode() && !appState.isInHistorySlideshow() && !appState.isInCalculationMode()) {
-                    appState.setShouldSaveResults(true);
-                }
+//                if(!appState.isInResultSwipingMode() && !appState.isInHistorySlideshow() && !appState.isInCalculationMode()) {
+//                    appState.setShouldSaveResults(true);
+//                }
             }
 
             rightHistoryButton.setVisibility(View.INVISIBLE);

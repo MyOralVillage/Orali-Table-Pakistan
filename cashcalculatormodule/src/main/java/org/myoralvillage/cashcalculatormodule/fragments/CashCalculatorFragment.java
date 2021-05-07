@@ -190,10 +190,10 @@ public class CashCalculatorFragment extends Fragment {
     private void initializeCountingView() {
 
         //loading previous values of operations
-        LinkedHashMap<MathOperationModel, ArrayList<MathOperationModel>> restored = deserialize();
+        /*LinkedHashMap<MathOperationModel, ArrayList<MathOperationModel>> restored = deserialize();
         if(restored.size() > 0){
             service.getAppState().setRetrievedOperations(restored);
-        }
+        }*/
 
         /*for(MathOperationModel result : service.getAppState().getAllHistory().keySet()){
             Log.d("RESULT ->>>>>",""+result.getValue());
@@ -293,44 +293,28 @@ public class CashCalculatorFragment extends Fragment {
                         break;
                 }
 
-                //Moved to onClearButton
-                /*service.getAppState().addToOperationsHistory(
-                        service.getAppState().getOperations().get(service.getAppState().getOperations().size()-1),
-                        service.getAppState().getOperations()
-                );
-
-                for(MathOperationModel result : service.getAppState().getAllHistory().keySet()){
-                    Log.d("RESULT ->>>>>",""+result.getValue());
-                    for (MathOperationModel operation:
-                            service.getAppState().getAllHistory().get(result)) {
-                        Log.d("OPERATION>","value: "+operation.getValue()+", mode: "+operation.getMode()+", type: "+operation.getType());
-                    }
-                }
-
-                serialize(service.getAppState().getAllHistory());*/
-
                 updateAll();
             }
 
             @Override
             public void onTapClearButton() {
 
-                if(service.getAppState().shouldSaveResults()){
+                /*if(service.getAppState().shouldSaveResults()){
                     service.getAppState().addToOperationsHistory(
                             service.getAppState().getOperations().get(service.getAppState().getOperations().size()-1),
                             service.getAppState().getOperations()
                     );
 
-                    /*for(MathOperationModel result : service.getAppState().getAllHistory().keySet()){
+                    *//*for(MathOperationModel result : service.getAppState().getAllHistory().keySet()){
                         Log.d("RESULT ->>>>>",""+result.getValue());
                         for (MathOperationModel operation:
                                 service.getAppState().getAllHistory().get(result)) {
                             Log.d("OPERATION>","value: "+operation.getValue()+", mode: "+operation.getMode()+", type: "+operation.getType());
                         }
-                    }*/
+                    }*//*
 
                     serialize(service.getAppState().getAllHistory());
-                }
+                }*/
                 switch (service.getAppState().getAppMode()) {
                     case NUMERIC:
                         sum.setVisibility(View.INVISIBLE);
@@ -381,7 +365,7 @@ public class CashCalculatorFragment extends Fragment {
             @Override
             public void onMemorySwipe(boolean shouldGoBack) {
 
-                if(service.getAppState().isInCalculationMode()){
+                /*if(service.getAppState().isInCalculationMode()){
                     return;
                 }
 
@@ -406,12 +390,12 @@ public class CashCalculatorFragment extends Fragment {
                         }
                     }else{
                         //First Swipe
-                        /**
+                        *//**
                          * initialize the result swiping mode only if current result index is 0, which
                          * means that the user hasn't gone through the list completely yet. Otherwise
                          * when the if condition fails, this re-initializes the array and the swiping
                          * loops. We don't want that.
-                         */
+                         *//*
 
                         AnalyticsLogger.logEvent(getContext(), AnalyticsLogger.EVENT_FIRST_TWO_SWIPE);
 
@@ -427,7 +411,7 @@ public class CashCalculatorFragment extends Fragment {
                     updateAll();
                 }else{
                     Log.d("4Share Log", "Not responding to two finger swipe");
-                }
+                }*/
             }
         });
     }
@@ -671,7 +655,7 @@ public class CashCalculatorFragment extends Fragment {
      * Saves the given ArrayList<> object onto disk
      * @param history LinkedHashMap representing the latest state of results and their calculations
      */
-    private void serialize(LinkedHashMap<MathOperationModel, ArrayList<MathOperationModel>> history){
+    /*private void serialize(LinkedHashMap<MathOperationModel, ArrayList<MathOperationModel>> history){
         try{
 //            FileOutputStream fos = getContext().openFileOutput("history_"+getActivity().getIntent().getStringExtra("currencyCode"),
 //                    Context.MODE_PRIVATE);
@@ -688,10 +672,10 @@ public class CashCalculatorFragment extends Fragment {
         }
     }
 
-    /**
+    *//**
      * Retrieves saved state of history
      * @return
-     */
+     *//*
     private LinkedHashMap<MathOperationModel, ArrayList<MathOperationModel>> deserialize(){
         LinkedHashMap<MathOperationModel, ArrayList<MathOperationModel>> deserializedList = new LinkedHashMap<MathOperationModel, ArrayList<MathOperationModel>>();
         try{
@@ -709,5 +693,5 @@ public class CashCalculatorFragment extends Fragment {
             e.printStackTrace();
         }
         return deserializedList;
-    }
+    }*/
 }
