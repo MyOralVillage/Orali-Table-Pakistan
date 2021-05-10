@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 
 import org.myoralvillage.cashcalculator.MainActivity;
 import org.myoralvillage.cashcalculator.R;
+import org.myoralvillage.cashcalculatormodule.config.SavedPreferences;
 import org.myoralvillage.cashcalculatormodule.services.CurrencyService;
 import org.myoralvillage.cashcalculatormodule.services.SettingService;
 
@@ -85,6 +86,7 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void switchToMainActivity(String currencyCode) {
+        SavedPreferences.setSelectedCurrencyCode(this,currencyCode);
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("currencyCode", currencyCode);
         intent.putExtra("numericMode", getIntent().getBooleanExtra("numericMode", false));

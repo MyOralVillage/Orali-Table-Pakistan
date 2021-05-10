@@ -53,9 +53,13 @@ public class AppStateModel implements Serializable {
 
     private int currentResultIndex = 0;
 
-//    private boolean shouldSaveResults = false;
+    private boolean shouldSaveResults = false;
 
-//    private boolean isInCalculationMode = false;
+    private boolean isInCalculationMode = false;
+
+    private boolean isInOperationsBrowsingMode = false;
+
+    private String currencyCode = "";
 
     /**
      * Constructs a new <code>AppStateModel</code> in the specified Cash Calculator mode and the list
@@ -196,7 +200,7 @@ public class AppStateModel implements Serializable {
         this.currentResultIndex = currentResultIndex;
     }
 
-    /*public boolean shouldSaveResults() {
+    public boolean shouldSaveResults() {
         return shouldSaveResults;
     }
 
@@ -210,7 +214,15 @@ public class AppStateModel implements Serializable {
 
     public void setInCalculationMode(boolean inCalculationMode) {
         isInCalculationMode = inCalculationMode;
-    }*/
+    }
+
+    public String getCurrencyCode() {
+        return currencyCode;
+    }
+
+    public void setCurrencyCode(String currencyCode) {
+        this.currencyCode = currencyCode;
+    }
 
     /**
      * Is the application currently in the history slideshow mode?
@@ -226,6 +238,14 @@ public class AppStateModel implements Serializable {
 
     public void setInResultSwipingMode(boolean isInResultSwipingMode){
         this.isInResultSwipingMode = isInResultSwipingMode;
+    }
+
+    public boolean isInOperationsBrowsingMode() {
+        return isInOperationsBrowsingMode;
+    }
+
+    public void setInOperationsBrowsingMode(boolean inOperationsBrowsingMode) {
+        isInOperationsBrowsingMode = inOperationsBrowsingMode;
     }
 
     /**

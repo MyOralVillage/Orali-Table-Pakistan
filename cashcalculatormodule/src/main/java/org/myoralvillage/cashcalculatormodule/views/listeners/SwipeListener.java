@@ -56,7 +56,7 @@ public abstract class SwipeListener implements View.OnTouchListener {
     float p1Diff, p2Diff;
 
     public boolean onTouch(final View view, final MotionEvent event) {
-        /*if(event.getPointerCount() == 2){
+        if(event.getPointerCount() == 2){
 
 
             switch (event.getAction() & MotionEvent.ACTION_MASK)
@@ -104,7 +104,7 @@ public abstract class SwipeListener implements View.OnTouchListener {
                     break;
             }
             return true;
-        }*/
+        }
 
         return gestureDetector.onTouchEvent(event);
     }

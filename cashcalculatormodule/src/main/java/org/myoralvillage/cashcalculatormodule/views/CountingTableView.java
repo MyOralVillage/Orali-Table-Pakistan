@@ -348,12 +348,12 @@ public class CountingTableView extends RelativeLayout {
         }else {
             if (appState.getOperations().size() == 1) {
                 enterHistoryButton.setVisibility(View.INVISIBLE);
-//                appState.setShouldSaveResults(false);
+                appState.setShouldSaveResults(false);
             }else {
                 enterHistoryButton.setVisibility(View.VISIBLE);
-//                if(!appState.isInResultSwipingMode() && !appState.isInHistorySlideshow() && !appState.isInCalculationMode()) {
-//                    appState.setShouldSaveResults(true);
-//                }
+                if(!appState.isInResultSwipingMode() && !appState.isInHistorySlideshow() && !appState.isInCalculationMode()) {
+                    appState.setShouldSaveResults(true);
+                }
             }
 
             rightHistoryButton.setVisibility(View.INVISIBLE);

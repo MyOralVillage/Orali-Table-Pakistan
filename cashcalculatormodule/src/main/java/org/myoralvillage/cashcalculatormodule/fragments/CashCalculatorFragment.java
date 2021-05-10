@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 
 import org.myoralvillage.cashcalculatormodule.R;
+import org.myoralvillage.cashcalculatormodule.config.SavedPreferences;
 import org.myoralvillage.cashcalculatormodule.models.AppStateModel;
 import org.myoralvillage.cashcalculatormodule.models.CurrencyModel;
 import org.myoralvillage.cashcalculatormodule.models.DenominationModel;
@@ -141,6 +142,8 @@ public class CashCalculatorFragment extends Fragment {
 
         AnalyticsLogger.logEvent(getContext(), AnalyticsLogger.EVENT_CASH_SCROLLBAR_VISIBLE);
 
+        Log.d("CURRENCY CODE", ">> "+getActivity().getIntent().getStringExtra("currencyCode")+" >> "+ SavedPreferences.getSelectedCurrencyCode(getActivity()));
+
         return view;
     }
 
@@ -190,10 +193,10 @@ public class CashCalculatorFragment extends Fragment {
     private void initializeCountingView() {
 
         //loading previous values of operations
-        /*LinkedHashMap<MathOperationModel, ArrayList<MathOperationModel>> restored = deserialize();
+        LinkedHashMap<MathOperationModel, ArrayList<MathOperationModel>> restored = deserialize();
         if(restored.size() > 0){
             service.getAppState().setRetrievedOperations(restored);
-        }*/
+        }
 
         /*for(MathOperationModel result : service.getAppState().getAllHistory().keySet()){
             Log.d("RESULT ->>>>>",""+result.getValue());
@@ -299,22 +302,26 @@ public class CashCalculatorFragment extends Fragment {
             @Override
             public void onTapClearButton() {
 
-                /*if(service.getAppState().shouldSaveResults()){
+                if(service.getAppState().shouldSaveResults()){
                     service.getAppState().addToOperationsHistory(
                             service.getAppState().getOperations().get(service.getAppState().getOperations().size()-1),
                             service.getAppState().getOperations()
                     );
 
-                    *//*for(MathOperationModel result : service.getAppState().getAllHistory().keySet()){
+                    /*for(MathOperationModel result : service.getAppState().getAllHistory().keySet()){
                         Log.d("RESULT ->>>>>",""+result.getValue());
                         for (MathOperationModel operation:
                                 service.getAppState().getAllHistory().get(result)) {
                             Log.d("OPERATION>","value: "+operation.getValue()+", mode: "+operation.getMode()+", type: "+operation.getType());
                         }
-                    }*//*
+                    }*/
 
-                    serialize(service.getAppState().getAllHistory());
-                }*/
+                    if(service.getAppState().isInOperationsBrowsingMode()){
+                        service.getAppState().setInOperationsBrowsingMode(false);
+                    }else{
+                        serialize(service.getAppState().getAllHistory());
+                    }
+                }
                 switch (service.getAppState().getAppMode()) {
                     case NUMERIC:
                         sum.setVisibility(View.INVISIBLE);
@@ -337,6 +344,7 @@ public class CashCalculatorFragment extends Fragment {
                 }
                 numberInputView.setVisibility(View.INVISIBLE);
                 service.enterHistorySlideshow();
+                service.getAppState().setInOperationsBrowsingMode(true);
                 updateAll();
                 sum.setVisibility(View.VISIBLE);
             }
@@ -365,7 +373,7 @@ public class CashCalculatorFragment extends Fragment {
             @Override
             public void onMemorySwipe(boolean shouldGoBack) {
 
-                /*if(service.getAppState().isInCalculationMode()){
+                if(service.getAppState().isInCalculationMode()){
                     return;
                 }
 
@@ -390,12 +398,12 @@ public class CashCalculatorFragment extends Fragment {
                         }
                     }else{
                         //First Swipe
-                        *//**
+                        /**
                          * initialize the result swiping mode only if current result index is 0, which
                          * means that the user hasn't gone through the list completely yet. Otherwise
-                         * when the if condition fails, this re-initializes the array and the swiping
-                         * loops. We don't want that.
-                         *//*
+                         * when the 'if' condition fails, this re-initializes the array and the swiping
+                         * loops. We don't want that.*/
+
 
                         AnalyticsLogger.logEvent(getContext(), AnalyticsLogger.EVENT_FIRST_TWO_SWIPE);
 
@@ -411,7 +419,7 @@ public class CashCalculatorFragment extends Fragment {
                     updateAll();
                 }else{
                     Log.d("4Share Log", "Not responding to two finger swipe");
-                }*/
+                }
             }
         });
     }
@@ -655,43 +663,49 @@ public class CashCalculatorFragment extends Fragment {
      * Saves the given ArrayList<> object onto disk
      * @param history LinkedHashMap representing the latest state of results and their calculations
      */
-    /*private void serialize(LinkedHashMap<MathOperationModel, ArrayList<MathOperationModel>> history){
+    private void serialize(LinkedHashMap<MathOperationModel, ArrayList<MathOperationModel>> history){
         try{
-//            FileOutputStream fos = getContext().openFileOutput("history_"+getActivity().getIntent().getStringExtra("currencyCode"),
-//                    Context.MODE_PRIVATE);
-            FileOutputStream fos = getContext().openFileOutput("history",
+            String filename = "history_"+SavedPreferences.getSelectedCurrencyCode(getActivity());
+            FileOutputStream fos = getContext().openFileOutput(filename,
                     Context.MODE_PRIVATE);
             ObjectOutputStream os = new ObjectOutputStream(fos);
             os.writeObject(history);
             os.close();
             fos.close();
+            Log.d("4Share","Serialized in file: "+filename);
         }catch (FileNotFoundException e) {
+            Log.e("4Share",e.toString());
             e.printStackTrace();
         } catch (IOException e) {
+            Log.e("4Share",e.toString());
             e.printStackTrace();
         }
     }
 
-    *//**
+    /**
      * Retrieves saved state of history
      * @return
-     *//*
+     */
     private LinkedHashMap<MathOperationModel, ArrayList<MathOperationModel>> deserialize(){
         LinkedHashMap<MathOperationModel, ArrayList<MathOperationModel>> deserializedList = new LinkedHashMap<MathOperationModel, ArrayList<MathOperationModel>>();
         try{
-//            FileInputStream fis = getContext().openFileInput("history_"+getActivity().getIntent().getStringExtra("currencyCode"));
-            FileInputStream fis = getContext().openFileInput("history");
+            String filename = "history_"+SavedPreferences.getSelectedCurrencyCode(getActivity());
+            FileInputStream fis = getContext().openFileInput(filename);
             ObjectInputStream is = new ObjectInputStream(fis);
             deserializedList = (LinkedHashMap<MathOperationModel, ArrayList<MathOperationModel>>) is.readObject();
             is.close();
             fis.close();
+            Log.d("4Share","Deserialized from file: "+filename);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+            Log.e("4Share",e.toString());
         } catch (IOException e) {
             e.printStackTrace();
+            Log.e("4Share",e.toString());
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
+            Log.e("4Share",e.toString());
         }
         return deserializedList;
-    }*/
+    }
 }
