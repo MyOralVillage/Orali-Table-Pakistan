@@ -295,11 +295,19 @@ public class CountingTableView extends RelativeLayout {
 
     private void updateClearButton() {
         if ((appState.getCurrentOperation().getMode() == MathOperationModel.MathOperationMode.STANDARD
-                && appState.getCurrentOperation().getValue().equals(BigDecimal.ZERO)) ||
+                && appState.getCurrentOperation().getValue().equals(BigDecimal.ZERO)
+                && appState.getCurrentOperation().getType() != MathOperationModel.MathOperationMode.RESULT) ||
                 appState.isInHistorySlideshow())
             clearButton.setVisibility(View.INVISIBLE);
         else
             clearButton.setVisibility(View.VISIBLE);
+
+        //Specifically making the clear button visible if the user is browsing operations of a result, and has reached the end of operations
+        if(appState.isInOperationsBrowsingMode()){
+            if(appState.getCurrentOperationIndex() == (appState.getOperations().size()-1)) {
+                clearButton.setVisibility(View.VISIBLE);
+            }
+        }
     }
 
     private void updateCountingSurface() {
