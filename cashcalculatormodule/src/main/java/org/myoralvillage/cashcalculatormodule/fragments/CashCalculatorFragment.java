@@ -302,26 +302,31 @@ public class CashCalculatorFragment extends Fragment {
             @Override
             public void onTapClearButton() {
 
-                if(service.getAppState().shouldSaveResults()){
-                    service.getAppState().addToOperationsHistory(
-                            service.getAppState().getOperations().get(service.getAppState().getOperations().size()-1),
-                            service.getAppState().getOperations()
-                    );
+                //ADDING TO HISTORY AND SERIALIZING
+                if(!service.getAppState().isInCalculationMode()
+                    && !service.getAppState().isInResultSwipingMode()
+                    && !service.getAppState().isInOperationsBrowsingMode()){
 
-                    /*for(MathOperationModel result : service.getAppState().getAllHistory().keySet()){
-                        Log.d("RESULT ->>>>>",""+result.getValue());
-                        for (MathOperationModel operation:
-                                service.getAppState().getAllHistory().get(result)) {
-                            Log.d("OPERATION>","value: "+operation.getValue()+", mode: "+operation.getMode()+", type: "+operation.getType());
-                        }
-                    }*/
+                    Log.d("4Share", "Will save everything until the last result value");
 
-                    if(service.getAppState().isInOperationsBrowsingMode()){
-                        service.getAppState().setInOperationsBrowsingMode(false);
-                    }else{
+                    if(service.getAppState().getOperations().size()>0){
+
+                        Log.d("4Share", "Preparing data to save");
+
+                        service.getAppState().addToOperationsHistory(service.getAppState().getOperations());
+                        Log.d("4Share", "Saved in the array");
+
                         serialize(service.getAppState().getAllHistory());
+                        Log.d("4Share", "Saved on disk");
                     }
+                }else{
+                    Log.d("4Share", "Not going to save");
                 }
+
+                if(service.getAppState().isInOperationsBrowsingMode()) {
+                    service.getAppState().setInOperationsBrowsingMode(false);
+                }
+
                 switch (service.getAppState().getAppMode()) {
                     case NUMERIC:
                         sum.setVisibility(View.INVISIBLE);

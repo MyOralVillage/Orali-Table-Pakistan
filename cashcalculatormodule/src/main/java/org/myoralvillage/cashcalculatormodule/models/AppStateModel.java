@@ -44,7 +44,7 @@ public class AppStateModel implements Serializable {
      * operations) can be used.
      */
     private LinkedHashMap<MathOperationModel, ArrayList<MathOperationModel>> operationsHistory = new LinkedHashMap<MathOperationModel, ArrayList<MathOperationModel>>();
-    private boolean isInResultSwipingMode = false;
+
     /**
      * An integer used to record the index of the current operation after a list of operations are
      * performed. This integer is useful in traversing the history of the Cash Calculator module.
@@ -58,6 +58,8 @@ public class AppStateModel implements Serializable {
     private boolean isInCalculationMode = false;
 
     private boolean isInOperationsBrowsingMode = false;
+
+    private boolean isInResultSwipingMode = false;
 
     private String currencyCode = "";
 
@@ -131,33 +133,43 @@ public class AppStateModel implements Serializable {
      * @param operations
      * @return
      */
-    private static int findSecondLastResult(ArrayList<MathOperationModel> operations) {
+    private static int findIndexOfLastResult(ArrayList<MathOperationModel> operations) {
         boolean isLastOperationResult = false;
         if (operations.get(operations.size() - 1).getType() == MathOperationModel.MathOperationMode.RESULT){
-            isLastOperationResult = true;
+            return (operations.size() - 1);
+        }else{
+            int index = 0;
+            for (int i = 0; i < operations.size(); i++)
+                if (operations.get(i).getType() == MathOperationModel.MathOperationMode.RESULT)
+                    index = i;
+
+            return index;
         }
-
-        int index = 0;
-        int limit = (isLastOperationResult?operations.size()-1:operations.size());
-        for (int i = 0; i < limit; i++)
-            if (operations.get(i).getType() == MathOperationModel.MathOperationMode.RESULT)
-                index = i;
-
-        return index;
     }
 
-    public void addToOperationsHistory(MathOperationModel result, ArrayList<MathOperationModel> resultOperations) {
-        ArrayList<MathOperationModel> operationsForThisResult = new ArrayList<MathOperationModel>();
-        int previousResultIndex = findSecondLastResult(resultOperations);
-        for (int i = previousResultIndex; i<resultOperations.size(); i++) {
-            operationsForThisResult.add(resultOperations.get(i));
+    /**
+     * Finding the last result, and saving up all the things until then, into the operations array.
+     * This avoids the following condition:
+     * because the user can press clear right after swiping to go into calculation mode, without making any calculation.
+     * at that point, we'll try to save all the operations until the last results, abandoning this current operation which the user swiped but didn't use
+     * @param operations
+     */
+    public void addToOperationsHistory(ArrayList<MathOperationModel> operations) {
+        ArrayList<MathOperationModel> valueOperationsForThisResult = new ArrayList<MathOperationModel>();
+        int lastResultIndex = findIndexOfLastResult(operations);
+        if (lastResultIndex <= 0){
+            return;
+        }
+        MathOperationModel keyResult = operations.get(lastResultIndex);
+
+        for (int i = 0; i<=lastResultIndex; i++) {
+            valueOperationsForThisResult.add(operations.get(i));
         }
 
-        // TODO Make sure only 50 operations go in
-        if(this.operationsHistory.keySet().size() > 2){
+        if(this.operationsHistory.keySet().size() > 49){
             this.operationsHistory.remove((MathOperationModel) this.operationsHistory.keySet().toArray()[0]);
         }
-        this.operationsHistory.put(result, operationsForThisResult);
+        this.operationsHistory.put(keyResult, valueOperationsForThisResult);
     }
 
     /**

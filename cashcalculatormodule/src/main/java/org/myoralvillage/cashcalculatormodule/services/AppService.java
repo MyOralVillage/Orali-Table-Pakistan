@@ -134,10 +134,6 @@ public class AppService {
         appState.setCurrentOperationIndex(0);
     }
 
-    public void enterResultSwipingMode(){
-        appState.setInResultSwipingMode(true);
-    }
-
     /**
      * Show the next operation performed on the <code>CashCalculator</code>. If this current history
      * slide was the last element in the history slides, return to the standard mode, removing the
