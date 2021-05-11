@@ -3,18 +3,13 @@ package org.myoralvillage.cashcalculator;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.TypedValue;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import org.myoralvillage.cashcalculator.MainActivity;
-import org.myoralvillage.cashcalculator.R;
-import org.myoralvillage.cashcalculatormodule.config.SavedPreferences;
+import org.myoralvillage.cashcalculatormodule.utils.SavedPreferences;
 import org.myoralvillage.cashcalculatormodule.services.CurrencyService;
 import org.myoralvillage.cashcalculatormodule.services.SettingService;
 

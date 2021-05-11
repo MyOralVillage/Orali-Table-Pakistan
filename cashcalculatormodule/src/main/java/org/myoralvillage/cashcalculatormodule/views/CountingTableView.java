@@ -14,6 +14,7 @@ import org.myoralvillage.cashcalculatormodule.models.CurrencyModel;
 import org.myoralvillage.cashcalculatormodule.models.MathOperationModel;
 import org.myoralvillage.cashcalculatormodule.services.AnalyticsLogger;
 import org.myoralvillage.cashcalculatormodule.services.CountingService;
+import org.myoralvillage.cashcalculatormodule.utils.UtilityMethods;
 import org.myoralvillage.cashcalculatormodule.views.listeners.CountingTableListener;
 import org.myoralvillage.cashcalculatormodule.views.listeners.SwipeListener;
 
@@ -152,45 +153,11 @@ public class CountingTableView extends RelativeLayout {
     }
 
     private void updateSumView() {
+        UtilityMethods utilityMethods = new UtilityMethods();
         sumView.setText(String.format(locale,"%s",
-                getAdaptedNumberFormat()
+                utilityMethods.getAdaptedNumberFormat(locale)
                         .format(appState.getCurrentOperation().getValue())
         ));
-    }
-
-    private NumberFormat getAdaptedNumberFormat() {
-        DecimalFormat df = (DecimalFormat) NumberFormat.getCurrencyInstance(locale);
-        DecimalFormat dfUS = (DecimalFormat) NumberFormat.getCurrencyInstance(new Locale("ENGLISH", "US"));
-        DecimalFormatSymbols dfs = df.getDecimalFormatSymbols();
-        DecimalFormatSymbols dfsUS = dfUS.getDecimalFormatSymbols();
-        dfsUS.setInternationalCurrencySymbol(dfs.getInternationalCurrencySymbol());
-        dfsUS.setCurrency(dfs.getCurrency());
-        dfsUS.setCurrencySymbol(dfs.getCurrencySymbol());
-        df.setDecimalFormatSymbols(dfsUS);
-        switch(df.getPositivePrefix()) {
-            case "Rs":
-                df.setPositivePrefix("Rs. ");
-        }
-        switch(df.getNegativePrefix()) {
-            case "-Rs":
-                df.setNegativePrefix("Rs. -");
-        }
-        switch(df.getPositiveSuffix()) {
-            case "৳":
-                df.setPositiveSuffix(" ৳");
-        }
-        switch(df.getNegativeSuffix()) {
-            case "৳":
-                df.setNegativeSuffix(" ৳");
-        }
-
-        //Change as per JIRA: SHAR-46
-        //Everything except USD, should be displayed in whole numbers (KES/KSH, ETB)
-        if(df.getDecimalFormatSymbols().getCurrency().getCurrencyCode().equals("KES")
-                || df.getDecimalFormatSymbols().getCurrency().getCurrencyCode().equals("ETB")) {
-            df.setMaximumFractionDigits(0);
-        }
-        return df;
     }
 
     private void initializeSurface() {

@@ -1,4 +1,4 @@
-package org.myoralvillage.cashcalculatormodule.config;
+package org.myoralvillage.cashcalculatormodule.utils;
 
 import android.content.Context;
 

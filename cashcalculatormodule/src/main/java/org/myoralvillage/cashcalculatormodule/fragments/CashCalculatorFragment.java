@@ -12,13 +12,14 @@ import android.widget.TextView;
 
 
 import org.myoralvillage.cashcalculatormodule.R;
-import org.myoralvillage.cashcalculatormodule.config.SavedPreferences;
+import org.myoralvillage.cashcalculatormodule.utils.SavedPreferences;
 import org.myoralvillage.cashcalculatormodule.models.AppStateModel;
 import org.myoralvillage.cashcalculatormodule.models.CurrencyModel;
 import org.myoralvillage.cashcalculatormodule.models.DenominationModel;
 import org.myoralvillage.cashcalculatormodule.models.MathOperationModel;
 import org.myoralvillage.cashcalculatormodule.services.AnalyticsLogger;
 import org.myoralvillage.cashcalculatormodule.services.AppService;
+import org.myoralvillage.cashcalculatormodule.utils.UtilityMethods;
 import org.myoralvillage.cashcalculatormodule.views.CountingTableView;
 import org.myoralvillage.cashcalculatormodule.views.CurrencyScrollbarView;
 import org.myoralvillage.cashcalculatormodule.views.NumberPadView;
@@ -141,8 +142,6 @@ public class CashCalculatorFragment extends Fragment {
         numberInputView.setVisibility(View.INVISIBLE);
 
         AnalyticsLogger.logEvent(getContext(), AnalyticsLogger.EVENT_CASH_SCROLLBAR_VISIBLE);
-
-        Log.d("CURRENCY CODE", ">> "+getActivity().getIntent().getStringExtra("currencyCode")+" >> "+ SavedPreferences.getSelectedCurrencyCode(getActivity()));
 
         return view;
     }
@@ -572,41 +571,12 @@ public class CashCalculatorFragment extends Fragment {
     }
 
     private String formatCurrency(BigDecimal value) {
+        UtilityMethods utilityMethods = new UtilityMethods();
         return String.format(locale,"%s",
-                getAdaptedNumberFormat()
+                utilityMethods.getAdaptedNumberFormat(locale)
                         .format(value)
         );
     }
-
-    private NumberFormat getAdaptedNumberFormat() {
-        DecimalFormat df = (DecimalFormat) NumberFormat.getCurrencyInstance(locale);
-        DecimalFormat dfUS = (DecimalFormat) NumberFormat.getCurrencyInstance(new Locale("ENGLISH", "US"));
-        DecimalFormatSymbols dfs = df.getDecimalFormatSymbols();
-        DecimalFormatSymbols dfsUS = dfUS.getDecimalFormatSymbols();
-        dfsUS.setInternationalCurrencySymbol(dfs.getInternationalCurrencySymbol());
-        dfsUS.setCurrency(dfs.getCurrency());
-        dfsUS.setCurrencySymbol(dfs.getCurrencySymbol());
-        df.setDecimalFormatSymbols(dfsUS);
-        switch(df.getPositivePrefix()) {
-            case "Rs":
-                df.setPositivePrefix("Rs. ");
-        }
-        switch(df.getNegativePrefix()) {
-            case "-Rs":
-                df.setNegativePrefix("Rs. -");
-        }
-        switch(df.getPositiveSuffix()) {
-            case "৳":
-                df.setPositiveSuffix(" ৳");
-        }
-        switch(df.getNegativeSuffix()) {
-            case "৳":
-                df.setNegativeSuffix(" ৳");
-        }
-        return df;
-    }
-
-
 
     /**
      * Called when the application is updated.
