@@ -42,67 +42,54 @@ public abstract class SwipeListener implements View.OnTouchListener {
      * @param event The MotionEvent object containing full information about the event.
      * @return true if the listener has consumed the event; false otherwise.
      *
-     * REF : https://stackoverflow.com/a/62678103/243709
+     * REF : https://stackoverflow.com/a/26216528/243709
      */
 
     final int NONE = 0;
     final int SWIPE = 1;
-    float p1StartX = 0, p1StopX = 0;
-    float p2StartX = 0, p2StopX = 0;
     int mode = NONE;
     float startX, stopX;
-    // We will only detect a swipe if the difference is at least 100 pixels
+    // We will only detect a swipe if the difference is at least 50 pixels
     final int DOUBLE_SWIPE_THRESHOLD = 50;
-    float p1Diff, p2Diff;
 
     public boolean onTouch(final View view, final MotionEvent event) {
-        if(event.getPointerCount() == 2){
 
+        if(event.getPointerCount() == 2){
 
             switch (event.getAction() & MotionEvent.ACTION_MASK)
             {
                 case MotionEvent.ACTION_POINTER_DOWN:
                     // This happens when you touch the screen with two fingers
                     mode = SWIPE;
-                    // event.getY(1) is for the second finger
-                    p1StartX = event.getX(0);
-                    p2StartX = event.getX(1);
+                    // You can also use event.getY(1) or the average of the two
+                    startX = event.getX(0);
                     break;
 
                 case MotionEvent.ACTION_POINTER_UP:
                     // This happens when you release the second finger
                     mode = NONE;
-                    p1Diff = p1StartX - p1StopX;
-                    p2Diff = p2StartX - p2StopX;
-
-                    // this is to make sure that fingers go in same direction and
-                    // swipe have certain length to consider it a swipe
-                    if(Math.abs(p1Diff) > DOUBLE_SWIPE_THRESHOLD
-                            && Math.abs(p2Diff) >DOUBLE_SWIPE_THRESHOLD &&
-                            ( (p1Diff>0 && p2Diff>0) || (p1Diff < 0 && p2Diff<0) ))
+                    if(Math.abs(startX - stopX) > DOUBLE_SWIPE_THRESHOLD)
                     {
-                        if(p1StartX > p1StopX)
+                        if(startX > stopX)
                         {
-                            // Swipe right to left
                             swipeRightToLeftWithTwoFingers();
                         }
                         else
                         {
-                            //Swipe left to right
                             swipeLeftToRightWithTwoFingers();
                         }
                     }
-                    mode = NONE;
+                    this.mode = NONE;
                     break;
 
                 case MotionEvent.ACTION_MOVE:
                     if(mode == SWIPE)
                     {
-                        p1StopX = event.getY(0);
-                        p2StopX = event.getY(1);
+                        stopX = event.getX(0);
                     }
                     break;
             }
+
             return true;
         }
 

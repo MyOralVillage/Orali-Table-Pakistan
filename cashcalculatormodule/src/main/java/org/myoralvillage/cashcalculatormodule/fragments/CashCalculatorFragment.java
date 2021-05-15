@@ -381,6 +381,14 @@ public class CashCalculatorFragment extends Fragment {
                     return;
                 }
 
+                /*if(shouldGoBack) {
+                    Log.d("4Share","Go BACK in history");
+                    return;
+                }else{
+                    Log.d("4Share","Go FORWARD in history");
+                    return;
+                }*/
+
                 if(null != service.getAppState().getAllResults()
                         && service.getAppState().getAllResults().size() > 0
                         && service.getAppState().getCurrentResultIndex() <= (service.getAppState().getAllResults().size() - 1)) {
@@ -392,11 +400,11 @@ public class CashCalculatorFragment extends Fragment {
                         //Subsequent swipes after first one
 
                         AnalyticsLogger.logEvent(getContext(), AnalyticsLogger.EVENT_SUBSEQUENT_TWO_SWIPE);
-//                        if(shouldGoBack) {
+                        if(shouldGoBack) {
                             service.getAppState().setCurrentResultIndex(service.getAppState().getCurrentResultIndex() + 1);
-//                        }else{
-//                            service.getAppState().setCurrentResultIndex(service.getAppState().getCurrentResultIndex() - 1);
-//                        }
+                        }else{
+                            service.getAppState().setCurrentResultIndex(service.getAppState().getCurrentResultIndex() - 1);
+                        }
                         for (int i = service.getAppState().getCurrentResultIndex(); i< service.getAppState().getAllResults().size(); i++){
                             results.add(service.getAppState().getAllResults().get(i));
                         }
@@ -406,10 +414,15 @@ public class CashCalculatorFragment extends Fragment {
                          * initialize the result swiping mode only if current result index is 0, which
                          * means that the user hasn't gone through the list completely yet. Otherwise
                          * when the 'if' condition fails, this re-initializes the array and the swiping
-                         * loops. We don't want that.*/
+                         * loops. We don't want that.
+                         **/
 
 
                         AnalyticsLogger.logEvent(getContext(), AnalyticsLogger.EVENT_FIRST_TWO_SWIPE);
+
+                        if(shouldGoBack) {
+                            return;
+                        }
 
                         if(service.getAppState().getCurrentResultIndex() == 0) {
                             service.getAppState().setInResultSwipingMode(true);
