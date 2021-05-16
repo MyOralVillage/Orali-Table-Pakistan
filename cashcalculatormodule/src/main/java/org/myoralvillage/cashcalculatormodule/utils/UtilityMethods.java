@@ -1,5 +1,10 @@
 package org.myoralvillage.cashcalculatormodule.utils;
 
+import android.content.Context;
+import android.os.Build;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
+
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
@@ -40,5 +45,23 @@ public class UtilityMethods {
             df.setMaximumFractionDigits(0);
         }
         return df;
+    }
+
+    public void vibrateDevice(Context context){
+        Vibrator v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+
+        long[] vibrationPattern = {0,50, 100, 50};
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
+            VibrationEffect vibrationEffect = VibrationEffect.createPredefined(VibrationEffect.EFFECT_DOUBLE_CLICK);
+            v.cancel();
+            v.vibrate(vibrationEffect);
+        }else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            long[] vibrationPattern2 = {100, 100, 100, 100};
+            int[] amplitudes = {255, 0,255, 0};
+            v.vibrate(VibrationEffect.createWaveform(vibrationPattern2, amplitudes, -1));
+        } else {
+            //deprecated in API 26
+            v.vibrate(vibrationPattern,-1);
+        }
     }
 }

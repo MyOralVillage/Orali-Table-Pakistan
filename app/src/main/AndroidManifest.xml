@@ -4,9 +4,9 @@
     >
 
     <supports-screens
-        android:largeScreens="true"
+        android:largeScreens="false"
         android:smallScreens="true"
-        android:xlargeScreens="true"
+        android:xlargeScreens="false"
         android:normalScreens="true"
         />
 

@@ -38,8 +38,8 @@ android {
         mainapp {
             dimension "version"
             manifestPlaceholders = [ appLabel: "CashCalculator" ]
-            versionCode 19
-            versionName "0.17.1-BOMA"
+            versionCode 20
+            versionName "0.20-internal"
             signingConfig signingConfigs.main_app_release
         }
         tutorials {

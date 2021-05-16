@@ -378,6 +378,8 @@ public class CashCalculatorFragment extends Fragment {
             public void onMemorySwipe(boolean shouldGoBack) {
 
                 if(service.getAppState().isInCalculationMode()){
+                    new UtilityMethods().vibrateDevice(getContext());
+                    Log.d("4Share Log", "Not responding to two finger swipe : In Calculation Mode");
                     return;
                 }
 
@@ -390,21 +392,37 @@ public class CashCalculatorFragment extends Fragment {
                 }*/
 
                 if(null != service.getAppState().getAllResults()
-                        && service.getAppState().getAllResults().size() > 0
-                        && service.getAppState().getCurrentResultIndex() <= (service.getAppState().getAllResults().size() - 1)) {
+                        && service.getAppState().getAllResults().size() > 0) {
+//                    && service.getAppState().getCurrentResultIndex() <= (service.getAppState().getAllResults().size() - 1)
 
                     ArrayList<MathOperationModel> results = new ArrayList<MathOperationModel>();
 
-                    if(service.getAppState().isInResultSwipingMode()
-                            && service.getAppState().getCurrentResultIndex() < service.getAppState().getAllResults().size() - 1){
+                    if(service.getAppState().isInResultSwipingMode()){
+//                        && service.getAppState().getCurrentResultIndex() < service.getAppState().getAllResults().size() - 1
                         //Subsequent swipes after first one
 
                         AnalyticsLogger.logEvent(getContext(), AnalyticsLogger.EVENT_SUBSEQUENT_TWO_SWIPE);
                         if(shouldGoBack) {
-                            service.getAppState().setCurrentResultIndex(service.getAppState().getCurrentResultIndex() + 1);
+                            if(service.getAppState().getCurrentResultIndex() < service.getAppState().getAllResults().size() - 1) {
+                                service.getAppState().setCurrentResultIndex(service.getAppState().getCurrentResultIndex() + 1);
+                            }else{
+                                new UtilityMethods().vibrateDevice(getContext());
+                                Log.d("4Share Log", "Not responding to two finger swipe : Not going back, no more history available");
+                            }
                         }else{
-                            service.getAppState().setCurrentResultIndex(service.getAppState().getCurrentResultIndex() - 1);
+                            //go forward in recent history
+                            if(service.getAppState().getCurrentResultIndex() > 0) {
+                                //Still in history mode, move one step forward in history
+                                service.getAppState().setCurrentResultIndex(service.getAppState().getCurrentResultIndex() - 1);
+                            }else{
+                                //at the forward most point, get out of history
+                                service.reset();
+                                service.getAppState().setInResultSwipingMode(false);
+                                updateAll();
+                                return;
+                            }
                         }
+
                         for (int i = service.getAppState().getCurrentResultIndex(); i< service.getAppState().getAllResults().size(); i++){
                             results.add(service.getAppState().getAllResults().get(i));
                         }
@@ -420,7 +438,7 @@ public class CashCalculatorFragment extends Fragment {
 
                         AnalyticsLogger.logEvent(getContext(), AnalyticsLogger.EVENT_FIRST_TWO_SWIPE);
 
-                        if(shouldGoBack) {
+                        if(!shouldGoBack) {
                             return;
                         }
 
@@ -435,7 +453,8 @@ public class CashCalculatorFragment extends Fragment {
                     service.getAppState().setOperations(results);
                     updateAll();
                 }else{
-                    Log.d("4Share Log", "Not responding to two finger swipe");
+                    new UtilityMethods().vibrateDevice(getContext());
+                    Log.d("4Share Log", "Not responding to two finger swipe : No history available");
                 }
             }
         });
