@@ -346,27 +346,51 @@ public class CashCalculatorFragment extends Fragment {
                                     service.getAppState().getOperations().get(0)));
                     service.getAppState().setInResultSwipingMode(false);
                 }
-                numberInputView.setVisibility(View.INVISIBLE);
+
+//                Log.d("4Share", "AppState: "+service.getAppState().getAppMode().name());
+                if(service.getAppState().getAppMode() == AppStateModel.AppMode.IMAGE){
+                    //if app mode is cash, make sum visible, numberinputview invisible
+                    sum.setVisibility(View.VISIBLE);
+                    numberInputView.setVisibility(View.INVISIBLE);
+                }else{
+                    //if app mode is number, make sum invisible, numberinputview visible
+                    sum.setVisibility(View.INVISIBLE);
+                    numberInputView.setVisibility(View.VISIBLE);
+                }
+
                 service.enterHistorySlideshow();
                 service.getAppState().setInOperationsBrowsingMode(true);
                 updateAll();
-                sum.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onTapNextHistory() {
-                numberInputView.setVisibility(View.INVISIBLE);
+                if(service.getAppState().getAppMode() == AppStateModel.AppMode.IMAGE){
+                    //if app mode is cash, make sum visible, numberinputview invisible
+                    sum.setVisibility(View.VISIBLE);
+                    numberInputView.setVisibility(View.INVISIBLE);
+                }else{
+                    //if app mode is number, make sum invisible, numberinputview visible
+                    sum.setVisibility(View.INVISIBLE);
+                    numberInputView.setVisibility(View.VISIBLE);
+                }
                 service.gotoNextHistorySlide();
                 updateAll();
-                sum.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onTapPreviousHistory() {
-                numberInputView.setVisibility(View.INVISIBLE);
+                if(service.getAppState().getAppMode() == AppStateModel.AppMode.IMAGE){
+                    //if app mode is cash, make sum visible, numberinputview invisible
+                    sum.setVisibility(View.VISIBLE);
+                    numberInputView.setVisibility(View.INVISIBLE);
+                }else{
+                    //if app mode is number, make sum invisible, numberinputview visible
+                    sum.setVisibility(View.INVISIBLE);
+                    numberInputView.setVisibility(View.VISIBLE);
+                }
                 service.gotoPreviousHistorySlide();
                 updateAll();
-                sum.setVisibility(View.VISIBLE);
             }
 
             /**
@@ -464,6 +488,9 @@ public class CashCalculatorFragment extends Fragment {
      * Called when the value displayed is changed.
      */
     private void updateCountingTable() {
+        if(service.getAppState().getAppMode() == AppStateModel.AppMode.NUMERIC){
+            numberInputView.setText(formatCurrency(service.getValue()));
+        }
         countingTableView.setAppState(service.getAppState());
     }
 
