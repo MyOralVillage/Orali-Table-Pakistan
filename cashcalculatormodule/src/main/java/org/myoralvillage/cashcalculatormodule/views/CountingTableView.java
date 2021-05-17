@@ -278,9 +278,11 @@ public class CountingTableView extends RelativeLayout {
     }
 
     private void updateCountingSurface() {
-        countingTableSurfaceView.setDenominations(currencyModel.getDenominations().iterator(),
-                countingService.allocate(appState.getCurrentOperation().getValue(), currencyModel),
-                appState.getCurrentOperation().getValue());
+        if(appState.getAppMode().equals(AppStateModel.AppMode.IMAGE)){
+            countingTableSurfaceView.setDenominations(currencyModel.getDenominations().iterator(),
+                    countingService.allocate(appState.getCurrentOperation().getValue(), currencyModel),
+                    appState.getCurrentOperation().getValue());
+        }
     }
 
     private void initializeHistoryButtons(){
