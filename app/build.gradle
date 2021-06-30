@@ -38,8 +38,8 @@ android {
         mainapp {
             dimension "version"
             manifestPlaceholders = [ appLabel: "CashCalculator" ]
-            versionCode 22
-            versionName "0.21"
+            versionCode 23
+            versionName "0.21.01"
             signingConfig signingConfigs.main_app_release
         }
         tutorials {
