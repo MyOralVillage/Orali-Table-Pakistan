@@ -603,6 +603,10 @@ public class CashCalculatorFragment extends Fragment {
 
             @Override
             public void onBack(BigDecimal value) {
+                String currencyCode = ((DecimalFormat) NumberFormat.getCurrencyInstance(locale)).getDecimalFormatSymbols().getCurrency().getCurrencyCode();
+                if(currencyCode.equals("USD")){
+                    value = new BigDecimal(value.intValue()*0.01);
+                }
                 numberInputView.setText(formatCurrency(value));
                 service.setValue(value);
             }
@@ -613,6 +617,10 @@ public class CashCalculatorFragment extends Fragment {
                     service.setValue(BigDecimal.ZERO);
                     countingTableView.initialize(currCurrency, service.getAppState(), locale);
                     updateAll();
+                }
+                String currencyCode = ((DecimalFormat) NumberFormat.getCurrencyInstance(locale)).getDecimalFormatSymbols().getCurrency().getCurrencyCode();
+                if(currencyCode.equals("USD")){
+                    value = new BigDecimal(value.intValue()*0.01);
                 }
                 service.setValue(value);
                 sum.setVisibility(View.INVISIBLE);
