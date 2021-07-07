@@ -407,22 +407,12 @@ public class CashCalculatorFragment extends Fragment {
                     return;
                 }
 
-                /*if(shouldGoBack) {
-                    Log.d("4Share","Go BACK in history");
-                    return;
-                }else{
-                    Log.d("4Share","Go FORWARD in history");
-                    return;
-                }*/
-
                 if(null != service.getAppState().getAllResults()
                         && service.getAppState().getAllResults().size() > 0) {
-//                    && service.getAppState().getCurrentResultIndex() <= (service.getAppState().getAllResults().size() - 1)
 
                     ArrayList<MathOperationModel> results = new ArrayList<MathOperationModel>();
 
                     if(service.getAppState().isInResultSwipingMode()){
-//                        && service.getAppState().getCurrentResultIndex() < service.getAppState().getAllResults().size() - 1
                         //Subsequent swipes after first one
 
                         AnalyticsLogger.logEvent(getContext(), AnalyticsLogger.EVENT_SUBSEQUENT_TWO_SWIPE);
@@ -430,8 +420,10 @@ public class CashCalculatorFragment extends Fragment {
                             if(service.getAppState().getCurrentResultIndex() < service.getAppState().getAllResults().size() - 1) {
                                 service.getAppState().setCurrentResultIndex(service.getAppState().getCurrentResultIndex() + 1);
                             }else{
-                                new UtilityMethods().vibrateDevice(getContext());
-                                Log.d("4Share Log", "Not responding to two finger swipe : Not going back, no more history available");
+                                service.getAppState().setCurrentResultIndex(0);
+                                // Disabled the following, since we're now rolling back to beginning of history, when the user reaches the end of list, as per SHARE-68
+//                                new UtilityMethods().vibrateDevice(getContext());
+//                                Log.d("4Share Log", "Not responding to two finger swipe : Not going back, no more history available");
                             }
                         }else{
                             //go forward in recent history
