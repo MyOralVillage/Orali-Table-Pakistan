@@ -50,7 +50,7 @@ public abstract class SwipeListener implements View.OnTouchListener {
     int mode = NONE;
     float startX, stopX;
     // We will only detect a swipe if the difference is at least 50 pixels
-    final int DOUBLE_SWIPE_THRESHOLD = 50;
+    final int DOUBLE_SWIPE_THRESHOLD = 30;
 
     public boolean onTouch(final View view, final MotionEvent event) {
 
