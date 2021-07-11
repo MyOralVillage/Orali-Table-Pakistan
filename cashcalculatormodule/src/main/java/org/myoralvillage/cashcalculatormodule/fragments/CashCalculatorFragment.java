@@ -454,17 +454,32 @@ public class CashCalculatorFragment extends Fragment {
 
                         AnalyticsLogger.logEvent(getContext(), AnalyticsLogger.EVENT_FIRST_TWO_SWIPE);
 
-                        if(!shouldGoBack) {
-                            return;
-                        }
-
                         if(service.getAppState().getCurrentResultIndex() == 0) {
+                            if(!shouldGoBack) {
+//                            return;
+                                service.getAppState().setCurrentResultIndex(service.getAppState().getAllResults().size() - 1);
+                                for (int i = service.getAppState().getCurrentResultIndex(); i< service.getAppState().getAllResults().size(); i++){
+                                    results.add(service.getAppState().getAllResults().get(i));
+                                }
+//                                results = service.getAppState().getAllResults().get(service.getAppState().getCurrentResultIndex());
+                            }else{
+                                results = service.getAppState().getAllResults();
+                            }
+
                             service.getAppState().setInResultSwipingMode(true);
-                            results = service.getAppState().getAllResults();
                         }else{
                             //browsing more than last result
                             return;
                         }
+
+//                        if(!shouldGoBack) {
+////                            return;
+//                            service.getAppState().setCurrentResultIndex(results.size()-1);
+//                        }
+
+//                        for (int i = service.getAppState().getCurrentResultIndex(); i< service.getAppState().getAllResults().size(); i++){
+//                            results.add(service.getAppState().getAllResults().get(i));
+//                        }
                     }
                     service.getAppState().setOperations(results);
                     updateAll();
