@@ -420,10 +420,10 @@ public class CashCalculatorFragment extends Fragment {
                             if(service.getAppState().getCurrentResultIndex() < service.getAppState().getAllResults().size() - 1) {
                                 service.getAppState().setCurrentResultIndex(service.getAppState().getCurrentResultIndex() + 1);
                             }else{
-                                service.getAppState().setCurrentResultIndex(0);
-                                // Disabled the following, since we're now rolling back to beginning of history, when the user reaches the end of list, as per SHARE-68
-//                                new UtilityMethods().vibrateDevice(getContext());
-//                                Log.d("4Share Log", "Not responding to two finger swipe : Not going back, no more history available");
+                                service.reset();
+                                service.getAppState().setInResultSwipingMode(false);
+                                updateAll();
+                                return;
                             }
                         }else{
                             //go forward in recent history
@@ -461,7 +461,6 @@ public class CashCalculatorFragment extends Fragment {
                                 for (int i = service.getAppState().getCurrentResultIndex(); i< service.getAppState().getAllResults().size(); i++){
                                     results.add(service.getAppState().getAllResults().get(i));
                                 }
-//                                results = service.getAppState().getAllResults().get(service.getAppState().getCurrentResultIndex());
                             }else{
                                 results = service.getAppState().getAllResults();
                             }
@@ -472,14 +471,6 @@ public class CashCalculatorFragment extends Fragment {
                             return;
                         }
 
-//                        if(!shouldGoBack) {
-////                            return;
-//                            service.getAppState().setCurrentResultIndex(results.size()-1);
-//                        }
-
-//                        for (int i = service.getAppState().getCurrentResultIndex(); i< service.getAppState().getAllResults().size(); i++){
-//                            results.add(service.getAppState().getAllResults().get(i));
-//                        }
                     }
                     service.getAppState().setOperations(results);
                     updateAll();
@@ -603,6 +594,7 @@ public class CashCalculatorFragment extends Fragment {
                     numberInputView.setVisibility(View.INVISIBLE);
                     service.getAppState().setAppMode(AppStateModel.AppMode.IMAGE);
                     countingTableView.initialize(currCurrency, service.getAppState(), locale);
+                    updateAll();
                     service.getAppState().setAppMode(AppStateModel.AppMode.NUMERIC);
                     updateAll();
                 }
@@ -616,6 +608,10 @@ public class CashCalculatorFragment extends Fragment {
                 }
                 numberInputView.setText(formatCurrency(value));
                 service.setValue(value);
+                countingTableView.initialize(currCurrency, service.getAppState(), locale);
+                updateAll();
+                service.getAppState().setAppMode(AppStateModel.AppMode.NUMERIC);
+                updateAll();
             }
 
             @Override
