@@ -332,6 +332,15 @@ public class CashCalculatorFragment extends Fragment {
                         numberInputView.setVisibility(View.VISIBLE);
                         numberInputView.setText(formatCurrency(BigDecimal.ZERO));
                         numberPadView.setValue(BigDecimal.ZERO);
+
+                        sum.setVisibility(View.INVISIBLE);
+                        service.setValue(BigDecimal.ZERO);
+                        service.getAppState().setAppMode(AppStateModel.AppMode.IMAGE);
+                        countingTableView.initialize(currCurrency, service.getAppState(), locale);
+                        updateAll();
+                        service.getAppState().setAppMode(AppStateModel.AppMode.NUMERIC);
+                        updateAll();
+
                         break;
                 }
                 service.reset();
@@ -456,7 +465,6 @@ public class CashCalculatorFragment extends Fragment {
 
                         if(service.getAppState().getCurrentResultIndex() == 0) {
                             if(!shouldGoBack) {
-//                            return;
                                 service.getAppState().setCurrentResultIndex(service.getAppState().getAllResults().size() - 1);
                                 for (int i = service.getAppState().getCurrentResultIndex(); i< service.getAppState().getAllResults().size(); i++){
                                     results.add(service.getAppState().getAllResults().get(i));
@@ -589,14 +597,16 @@ public class CashCalculatorFragment extends Fragment {
                     //do nothing
                 }
                 else {
-                    sum.setVisibility(View.VISIBLE);
-                    service.setValue(value);
-                    numberInputView.setVisibility(View.INVISIBLE);
-                    service.getAppState().setAppMode(AppStateModel.AppMode.IMAGE);
-                    countingTableView.initialize(currCurrency, service.getAppState(), locale);
-                    updateAll();
-                    service.getAppState().setAppMode(AppStateModel.AppMode.NUMERIC);
-                    updateAll();
+                    if(value.compareTo(BigDecimal.ZERO) != 0){
+                        sum.setVisibility(View.VISIBLE);
+                        service.setValue(value);
+                        numberInputView.setVisibility(View.INVISIBLE);
+                        service.getAppState().setAppMode(AppStateModel.AppMode.IMAGE);
+                        countingTableView.initialize(currCurrency, service.getAppState(), locale);
+                        updateAll();
+                        service.getAppState().setAppMode(AppStateModel.AppMode.NUMERIC);
+                        updateAll();
+                    }
                 }
             }
 
@@ -607,11 +617,6 @@ public class CashCalculatorFragment extends Fragment {
                     value = new BigDecimal(value.intValue()*0.01);
                 }
                 numberInputView.setText(formatCurrency(value));
-                service.setValue(value);
-                countingTableView.initialize(currCurrency, service.getAppState(), locale);
-                updateAll();
-                service.getAppState().setAppMode(AppStateModel.AppMode.NUMERIC);
-                updateAll();
             }
 
             @Override
