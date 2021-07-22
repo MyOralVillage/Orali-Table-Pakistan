@@ -103,7 +103,7 @@ public class AppStateModel implements Serializable {
     }
 
     public ArrayList<MathOperationModel> getRetrievedOperations() {
-        return retrievedOperations;
+        return this.retrievedOperations;
     }
 
     public void setRetrievedOperations(LinkedHashMap<MathOperationModel, ArrayList<MathOperationModel>> retrievedOperations) {
@@ -117,11 +117,11 @@ public class AppStateModel implements Serializable {
     }
 
     public ArrayList<MathOperationModel> getAllOperationsOfResult(MathOperationModel hashKey) {
-        return operationsHistory.get(hashKey);
+        return this.operationsHistory.get(hashKey);
     }
 
     public LinkedHashMap<MathOperationModel, ArrayList<MathOperationModel>> getAllHistory() {
-        return operationsHistory;
+        return this.operationsHistory;
     }
 
     public void putAllHistory(LinkedHashMap<MathOperationModel, ArrayList<MathOperationModel>> operationsHistory) {

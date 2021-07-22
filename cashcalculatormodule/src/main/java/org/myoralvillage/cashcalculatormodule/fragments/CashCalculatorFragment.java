@@ -326,6 +326,8 @@ public class CashCalculatorFragment extends Fragment {
                     service.getAppState().setInOperationsBrowsingMode(false);
                 }
 
+                service.reset();
+
                 switch (service.getAppState().getAppMode()) {
                     case NUMERIC:
                         sum.setVisibility(View.INVISIBLE);
@@ -344,7 +346,7 @@ public class CashCalculatorFragment extends Fragment {
                     default:
                         numberPadView.setValue(BigDecimal.ZERO);
                 }
-                service.reset();
+
                 updateAll();
             }
 
