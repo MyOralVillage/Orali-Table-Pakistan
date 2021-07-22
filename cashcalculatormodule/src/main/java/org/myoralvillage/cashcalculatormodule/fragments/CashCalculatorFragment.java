@@ -340,8 +340,9 @@ public class CashCalculatorFragment extends Fragment {
                         updateAll();
                         service.getAppState().setAppMode(AppStateModel.AppMode.NUMERIC);
                         updateAll();
-
                         break;
+                    default:
+                        numberPadView.setValue(BigDecimal.ZERO);
                 }
                 service.reset();
                 updateAll();
@@ -430,6 +431,7 @@ public class CashCalculatorFragment extends Fragment {
                                 service.getAppState().setCurrentResultIndex(service.getAppState().getCurrentResultIndex() + 1);
                             }else{
                                 service.reset();
+                                numberPadView.setValue(BigDecimal.ZERO);
                                 service.getAppState().setInResultSwipingMode(false);
                                 updateAll();
                                 return;
@@ -442,6 +444,7 @@ public class CashCalculatorFragment extends Fragment {
                             }else{
                                 //at the forward most point, get out of history
                                 service.reset();
+                                numberPadView.setValue(BigDecimal.ZERO);
                                 service.getAppState().setInResultSwipingMode(false);
                                 updateAll();
                                 return;
@@ -481,6 +484,8 @@ public class CashCalculatorFragment extends Fragment {
 
                     }
                     service.getAppState().setOperations(results);
+                    service.setValue(results.get(0).getValue());
+                    numberPadView.setValue(results.get(0).getValue());
                     updateAll();
                 }else{
                     new UtilityMethods().vibrateDevice(getContext());
@@ -617,6 +622,8 @@ public class CashCalculatorFragment extends Fragment {
                     value = new BigDecimal(value.intValue()*0.01);
                 }
                 numberInputView.setText(formatCurrency(value));
+                numberPadView.setValue(value);
+                service.setValue(value);
             }
 
             @Override

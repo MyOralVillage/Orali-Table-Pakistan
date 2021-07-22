@@ -81,6 +81,7 @@ public class AppService {
         appState.setAppMode(mode);
         appState.putAllHistory(operationsHistory);
         resetCurrentOperation();
+        setValue(BigDecimal.ZERO);
     }
 
     /**
