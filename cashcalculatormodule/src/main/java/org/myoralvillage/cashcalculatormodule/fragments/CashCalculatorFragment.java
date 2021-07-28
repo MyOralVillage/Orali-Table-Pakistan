@@ -117,6 +117,7 @@ public class CashCalculatorFragment extends Fragment {
      *
      */
     private TextView numberInputView;
+    private TextView sum;
     private Locale locale;
 
     /**
@@ -205,7 +206,7 @@ public class CashCalculatorFragment extends Fragment {
             }
         }*/
 
-        TextView sum = view.findViewById(R.id.sum_view);
+        sum = view.findViewById(R.id.sum_view);
         countingTableView = view.findViewById(R.id.counting_table);
         countingTableView.initialize(currCurrency, service.getAppState(), locale);
         if (service.getAppState().getAppMode() == AppStateModel.AppMode.NUMERIC) {
@@ -330,18 +331,10 @@ public class CashCalculatorFragment extends Fragment {
 
                 switch (service.getAppState().getAppMode()) {
                     case NUMERIC:
-                        sum.setVisibility(View.INVISIBLE);
-                        numberInputView.setVisibility(View.VISIBLE);
-                        numberInputView.setText(formatCurrency(BigDecimal.ZERO));
-                        numberPadView.setValue(BigDecimal.ZERO);
+                        unShowCashImagesInNumericMode();
 
-                        sum.setVisibility(View.INVISIBLE);
-                        service.setValue(BigDecimal.ZERO);
-                        service.getAppState().setAppMode(AppStateModel.AppMode.IMAGE);
-                        countingTableView.initialize(currCurrency, service.getAppState(), locale);
-                        updateAll();
-                        service.getAppState().setAppMode(AppStateModel.AppMode.NUMERIC);
-                        updateAll();
+                        service.getAppState().setCashVisible(false);
+
                         break;
                     default:
                         numberPadView.setValue(BigDecimal.ZERO);
@@ -359,15 +352,18 @@ public class CashCalculatorFragment extends Fragment {
                     service.getAppState().setInResultSwipingMode(false);
                 }
 
-//                Log.d("4Share", "AppState: "+service.getAppState().getAppMode().name());
                 if(service.getAppState().getAppMode() == AppStateModel.AppMode.IMAGE){
                     //if app mode is cash, make sum visible, numberinputview invisible
                     sum.setVisibility(View.VISIBLE);
                     numberInputView.setVisibility(View.INVISIBLE);
                 }else{
                     //if app mode is number, make sum invisible, numberinputview visible
-                    sum.setVisibility(View.INVISIBLE);
-                    numberInputView.setVisibility(View.VISIBLE);
+                    if(service.getAppState().isCashVisible()){
+                        showCashImagesInNumericMode();
+                    }else {
+                        sum.setVisibility(View.INVISIBLE);
+                        numberInputView.setVisibility(View.VISIBLE);
+                    }
                 }
 
                 service.enterHistorySlideshow();
@@ -383,8 +379,12 @@ public class CashCalculatorFragment extends Fragment {
                     numberInputView.setVisibility(View.INVISIBLE);
                 }else{
                     //if app mode is number, make sum invisible, numberinputview visible
-                    sum.setVisibility(View.INVISIBLE);
-                    numberInputView.setVisibility(View.VISIBLE);
+                    if(service.getAppState().isCashVisible()){
+                        showCashImagesInNumericMode();
+                    }else {
+                        sum.setVisibility(View.INVISIBLE);
+                        numberInputView.setVisibility(View.VISIBLE);
+                    }
                 }
                 service.gotoNextHistorySlide();
                 updateAll();
@@ -398,8 +398,12 @@ public class CashCalculatorFragment extends Fragment {
                     numberInputView.setVisibility(View.INVISIBLE);
                 }else{
                     //if app mode is number, make sum invisible, numberinputview visible
-                    sum.setVisibility(View.INVISIBLE);
-                    numberInputView.setVisibility(View.VISIBLE);
+                    if(service.getAppState().isCashVisible()){
+                        showCashImagesInNumericMode();
+                    }else {
+                        sum.setVisibility(View.INVISIBLE);
+                        numberInputView.setVisibility(View.VISIBLE);
+                    }
                 }
                 service.gotoPreviousHistorySlide();
                 updateAll();
@@ -605,14 +609,9 @@ public class CashCalculatorFragment extends Fragment {
                 }
                 else {
                     if(value.compareTo(BigDecimal.ZERO) != 0){
-                        sum.setVisibility(View.VISIBLE);
                         service.setValue(value);
-                        numberInputView.setVisibility(View.INVISIBLE);
-                        service.getAppState().setAppMode(AppStateModel.AppMode.IMAGE);
-                        countingTableView.initialize(currCurrency, service.getAppState(), locale);
-                        updateAll();
-                        service.getAppState().setAppMode(AppStateModel.AppMode.NUMERIC);
-                        updateAll();
+                        showCashImagesInNumericMode();
+                        service.getAppState().setCashVisible(true);
                     }
                 }
             }
@@ -652,6 +651,31 @@ public class CashCalculatorFragment extends Fragment {
                 }
             }
         });
+    }
+
+    private void showCashImagesInNumericMode() {
+        sum.setVisibility(View.VISIBLE);
+        numberInputView.setVisibility(View.INVISIBLE);
+        service.getAppState().setAppMode(AppStateModel.AppMode.IMAGE);
+        countingTableView.initialize(currCurrency, service.getAppState(), locale);
+        updateAll();
+        service.getAppState().setAppMode(AppStateModel.AppMode.NUMERIC);
+        updateAll();
+    }
+
+    private void unShowCashImagesInNumericMode() {
+        sum.setVisibility(View.INVISIBLE);
+        numberInputView.setVisibility(View.VISIBLE);
+        numberInputView.setText(formatCurrency(BigDecimal.ZERO));
+        numberPadView.setValue(BigDecimal.ZERO);
+
+        sum.setVisibility(View.INVISIBLE);
+        service.setValue(BigDecimal.ZERO);
+        service.getAppState().setAppMode(AppStateModel.AppMode.IMAGE);
+        countingTableView.initialize(currCurrency, service.getAppState(), locale);
+        updateAll();
+        service.getAppState().setAppMode(AppStateModel.AppMode.NUMERIC);
+        updateAll();
     }
 
     private String formatCurrency(BigDecimal value) {
