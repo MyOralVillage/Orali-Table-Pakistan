@@ -39,9 +39,8 @@ public class UtilityMethods {
         }
 
         //Change as per JIRA: SHAR-46
-        //Everything except USD, should be displayed in whole numbers (KES/KSH, ETB)
-        if(df.getDecimalFormatSymbols().getCurrency().getCurrencyCode().equals("KES")
-                || df.getDecimalFormatSymbols().getCurrency().getCurrencyCode().equals("ETB")) {
+        //Everything except USD, should be displayed in whole numbers (PKR for Pakistan build)
+        if(df.getDecimalFormatSymbols().getCurrency().getCurrencyCode().equals("PKR")) {
             df.setMaximumFractionDigits(0);
         }
         return df;
