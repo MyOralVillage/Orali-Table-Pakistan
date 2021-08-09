@@ -105,7 +105,7 @@
                 android:contentDescription="@string/toglecash"
                 android:scaleType="centerCrop"
                 android:onClick="toggleCash"
-                android:src="@drawable/cash_num_toggle_kes" />
+                android:src="@drawable/cash_num_toggle" />
 
         </TableRow>
 

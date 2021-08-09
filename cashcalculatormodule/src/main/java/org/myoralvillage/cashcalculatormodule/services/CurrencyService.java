@@ -97,37 +97,10 @@ public class CurrencyService {
         File file = new File(context.getFilesDir(), FILE_NAME);
 
         try {
-            /*String json = "{\"currencies\":[\"KES\",\"ETB\",\"USD\"]}";
-            boolean write = true;
-
-            if (isOnline()) {
-                URL url = new URL(BASE_URL + country);
-                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-
-//                json = readStream(in);
-
-
-
-                urlConnection.disconnect();
-            } else {
-                if (file.exists()) {
-                    json = readStream(new FileInputStream(file));
-                    write = false;
-                }
-            }*/
-            String json = "{\"currencies\":[\"KES\",\"ETB\",\"USD\"]}";
+            String json = "{\"currencies\":[\"PKR\",\"USD\"]}";
             if (json != null) {
                 strings = parseJson(json);
-                /*if (write) {
-                    file.createNewFile();
-                    try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file))) {
-                        bufferedWriter.write(json);
-                    }
-                }*/
             }
-//        } catch (IOException | JSONException ignored) {
-//        }
         } catch (JSONException ignored) {
 
         }

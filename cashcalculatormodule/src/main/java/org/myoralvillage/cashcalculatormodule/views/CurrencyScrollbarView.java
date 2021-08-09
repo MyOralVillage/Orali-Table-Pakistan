@@ -132,18 +132,13 @@ public class CurrencyScrollbarView extends HorizontalScrollView {
      */
     public boolean ifToggle(int index){
         switch(this.currencyCode){
-            case "ETB":
-                if(index == CashCalculatorModuleConstants.TOTAL_ETB_DENOMINATIONS){
+            case "PKR":
+                if(index == CashCalculatorModuleConstants.TOTAL_PKR_DENOMINATIONS){
                     return true;
                 }
                 break;
             case "USD":
                 if(index == CashCalculatorModuleConstants.TOTAL_USD_DENOMINATIONS){
-                    return true;
-                }
-                break;
-            case "KES":
-                if(index == CashCalculatorModuleConstants.TOTAL_KES_DENOMINATIONS){
                     return true;
                 }
                 break;
