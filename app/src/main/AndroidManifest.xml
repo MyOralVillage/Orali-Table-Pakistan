@@ -39,7 +39,7 @@
             android:screenOrientation="landscape"
             android:configChanges="keyboardHidden|orientation|screenSize">
         </activity>
-        <activity android:name=".SplashActivity"
+        <activity android:name=".pk.SplashActivity"
             android:screenOrientation="landscape"
             android:configChanges="keyboardHidden|orientation|screenSize">
             <intent-filter>

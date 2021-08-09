@@ -1,4 +1,4 @@
-package org.myoralvillage.cashcalculator;
+package org.myoralvillage.cashcalculator.pk;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -9,6 +9,8 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import org.myoralvillage.cashcalculator.MainActivity;
+import org.myoralvillage.cashcalculator.R;
 import org.myoralvillage.cashcalculatormodule.utils.SavedPreferences;
 import org.myoralvillage.cashcalculatormodule.services.CurrencyService;
 import org.myoralvillage.cashcalculatormodule.services.SettingService;
