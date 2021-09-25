@@ -117,6 +117,7 @@ public class CashCalculatorFragment extends Fragment {
      *
      */
     private TextView numberInputView;
+    private TextView sum;
     private Locale locale;
 
     /**
@@ -205,7 +206,7 @@ public class CashCalculatorFragment extends Fragment {
             }
         }*/
 
-        TextView sum = view.findViewById(R.id.sum_view);
+        sum = view.findViewById(R.id.sum_view);
         countingTableView = view.findViewById(R.id.counting_table);
         countingTableView.initialize(currCurrency, service.getAppState(), locale);
         if (service.getAppState().getAppMode() == AppStateModel.AppMode.NUMERIC) {
@@ -326,15 +327,19 @@ public class CashCalculatorFragment extends Fragment {
                     service.getAppState().setInOperationsBrowsingMode(false);
                 }
 
+                service.reset();
+
                 switch (service.getAppState().getAppMode()) {
                     case NUMERIC:
-                        sum.setVisibility(View.INVISIBLE);
-                        numberInputView.setVisibility(View.VISIBLE);
-                        numberInputView.setText(formatCurrency(BigDecimal.ZERO));
-                        numberPadView.setValue(BigDecimal.ZERO);
+                        unShowCashImagesInNumericMode();
+
+                        service.getAppState().setCashVisible(false);
+
                         break;
+                    default:
+                        numberPadView.setValue(BigDecimal.ZERO);
                 }
-                service.reset();
+
                 updateAll();
             }
 
@@ -347,15 +352,18 @@ public class CashCalculatorFragment extends Fragment {
                     service.getAppState().setInResultSwipingMode(false);
                 }
 
-//                Log.d("4Share", "AppState: "+service.getAppState().getAppMode().name());
                 if(service.getAppState().getAppMode() == AppStateModel.AppMode.IMAGE){
                     //if app mode is cash, make sum visible, numberinputview invisible
                     sum.setVisibility(View.VISIBLE);
                     numberInputView.setVisibility(View.INVISIBLE);
                 }else{
                     //if app mode is number, make sum invisible, numberinputview visible
-                    sum.setVisibility(View.INVISIBLE);
-                    numberInputView.setVisibility(View.VISIBLE);
+                    if(service.getAppState().isCashVisible()){
+                        showCashImagesInNumericMode();
+                    }else {
+                        sum.setVisibility(View.INVISIBLE);
+                        numberInputView.setVisibility(View.VISIBLE);
+                    }
                 }
 
                 service.enterHistorySlideshow();
@@ -371,8 +379,12 @@ public class CashCalculatorFragment extends Fragment {
                     numberInputView.setVisibility(View.INVISIBLE);
                 }else{
                     //if app mode is number, make sum invisible, numberinputview visible
-                    sum.setVisibility(View.INVISIBLE);
-                    numberInputView.setVisibility(View.VISIBLE);
+                    if(service.getAppState().isCashVisible()){
+                        showCashImagesInNumericMode();
+                    }else {
+                        sum.setVisibility(View.INVISIBLE);
+                        numberInputView.setVisibility(View.VISIBLE);
+                    }
                 }
                 service.gotoNextHistorySlide();
                 updateAll();
@@ -386,8 +398,12 @@ public class CashCalculatorFragment extends Fragment {
                     numberInputView.setVisibility(View.INVISIBLE);
                 }else{
                     //if app mode is number, make sum invisible, numberinputview visible
-                    sum.setVisibility(View.INVISIBLE);
-                    numberInputView.setVisibility(View.VISIBLE);
+                    if(service.getAppState().isCashVisible()){
+                        showCashImagesInNumericMode();
+                    }else {
+                        sum.setVisibility(View.INVISIBLE);
+                        numberInputView.setVisibility(View.VISIBLE);
+                    }
                 }
                 service.gotoPreviousHistorySlide();
                 updateAll();
@@ -407,22 +423,12 @@ public class CashCalculatorFragment extends Fragment {
                     return;
                 }
 
-                /*if(shouldGoBack) {
-                    Log.d("4Share","Go BACK in history");
-                    return;
-                }else{
-                    Log.d("4Share","Go FORWARD in history");
-                    return;
-                }*/
-
                 if(null != service.getAppState().getAllResults()
                         && service.getAppState().getAllResults().size() > 0) {
-//                    && service.getAppState().getCurrentResultIndex() <= (service.getAppState().getAllResults().size() - 1)
 
                     ArrayList<MathOperationModel> results = new ArrayList<MathOperationModel>();
 
                     if(service.getAppState().isInResultSwipingMode()){
-//                        && service.getAppState().getCurrentResultIndex() < service.getAppState().getAllResults().size() - 1
                         //Subsequent swipes after first one
 
                         AnalyticsLogger.logEvent(getContext(), AnalyticsLogger.EVENT_SUBSEQUENT_TWO_SWIPE);
@@ -430,8 +436,11 @@ public class CashCalculatorFragment extends Fragment {
                             if(service.getAppState().getCurrentResultIndex() < service.getAppState().getAllResults().size() - 1) {
                                 service.getAppState().setCurrentResultIndex(service.getAppState().getCurrentResultIndex() + 1);
                             }else{
-                                new UtilityMethods().vibrateDevice(getContext());
-                                Log.d("4Share Log", "Not responding to two finger swipe : Not going back, no more history available");
+                                service.reset();
+                                numberPadView.setValue(BigDecimal.ZERO);
+                                service.getAppState().setInResultSwipingMode(false);
+                                updateAll();
+                                return;
                             }
                         }else{
                             //go forward in recent history
@@ -441,6 +450,7 @@ public class CashCalculatorFragment extends Fragment {
                             }else{
                                 //at the forward most point, get out of history
                                 service.reset();
+                                numberPadView.setValue(BigDecimal.ZERO);
                                 service.getAppState().setInResultSwipingMode(false);
                                 updateAll();
                                 return;
@@ -462,19 +472,26 @@ public class CashCalculatorFragment extends Fragment {
 
                         AnalyticsLogger.logEvent(getContext(), AnalyticsLogger.EVENT_FIRST_TWO_SWIPE);
 
-                        if(!shouldGoBack) {
-                            return;
-                        }
-
                         if(service.getAppState().getCurrentResultIndex() == 0) {
+                            if(!shouldGoBack) {
+                                service.getAppState().setCurrentResultIndex(service.getAppState().getAllResults().size() - 1);
+                                for (int i = service.getAppState().getCurrentResultIndex(); i< service.getAppState().getAllResults().size(); i++){
+                                    results.add(service.getAppState().getAllResults().get(i));
+                                }
+                            }else{
+                                results = service.getAppState().getAllResults();
+                            }
+
                             service.getAppState().setInResultSwipingMode(true);
-                            results = service.getAppState().getAllResults();
                         }else{
                             //browsing more than last result
                             return;
                         }
+
                     }
                     service.getAppState().setOperations(results);
+                    service.setValue(results.get(0).getValue());
+                    numberPadView.setValue(results.get(0).getValue());
                     updateAll();
                 }else{
                     new UtilityMethods().vibrateDevice(getContext());
@@ -591,19 +608,22 @@ public class CashCalculatorFragment extends Fragment {
                     //do nothing
                 }
                 else {
-                    sum.setVisibility(View.VISIBLE);
-                    service.setValue(value);
-                    numberInputView.setVisibility(View.INVISIBLE);
-                    service.getAppState().setAppMode(AppStateModel.AppMode.IMAGE);
-                    countingTableView.initialize(currCurrency, service.getAppState(), locale);
-                    service.getAppState().setAppMode(AppStateModel.AppMode.NUMERIC);
-                    updateAll();
+                    if(value.compareTo(BigDecimal.ZERO) != 0){
+                        service.setValue(value);
+                        showCashImagesInNumericMode();
+                        service.getAppState().setCashVisible(true);
+                    }
                 }
             }
 
             @Override
             public void onBack(BigDecimal value) {
+                String currencyCode = ((DecimalFormat) NumberFormat.getCurrencyInstance(locale)).getDecimalFormatSymbols().getCurrency().getCurrencyCode();
+                if(currencyCode.equals("USD")){
+                    value = new BigDecimal(value.intValue()*0.01);
+                }
                 numberInputView.setText(formatCurrency(value));
+                numberPadView.setValue(value);
                 service.setValue(value);
             }
 
@@ -613,6 +633,10 @@ public class CashCalculatorFragment extends Fragment {
                     service.setValue(BigDecimal.ZERO);
                     countingTableView.initialize(currCurrency, service.getAppState(), locale);
                     updateAll();
+                }
+                String currencyCode = ((DecimalFormat) NumberFormat.getCurrencyInstance(locale)).getDecimalFormatSymbols().getCurrency().getCurrencyCode();
+                if(currencyCode.equals("USD")){
+                    value = new BigDecimal(value.intValue()*0.01);
                 }
                 service.setValue(value);
                 sum.setVisibility(View.INVISIBLE);
@@ -627,6 +651,31 @@ public class CashCalculatorFragment extends Fragment {
                 }
             }
         });
+    }
+
+    private void showCashImagesInNumericMode() {
+        sum.setVisibility(View.VISIBLE);
+        numberInputView.setVisibility(View.INVISIBLE);
+        service.getAppState().setAppMode(AppStateModel.AppMode.IMAGE);
+        countingTableView.initialize(currCurrency, service.getAppState(), locale);
+        updateAll();
+        service.getAppState().setAppMode(AppStateModel.AppMode.NUMERIC);
+        updateAll();
+    }
+
+    private void unShowCashImagesInNumericMode() {
+        sum.setVisibility(View.INVISIBLE);
+        numberInputView.setVisibility(View.VISIBLE);
+        numberInputView.setText(formatCurrency(BigDecimal.ZERO));
+        numberPadView.setValue(BigDecimal.ZERO);
+
+        sum.setVisibility(View.INVISIBLE);
+        service.setValue(BigDecimal.ZERO);
+        service.getAppState().setAppMode(AppStateModel.AppMode.IMAGE);
+        countingTableView.initialize(currCurrency, service.getAppState(), locale);
+        updateAll();
+        service.getAppState().setAppMode(AppStateModel.AppMode.NUMERIC);
+        updateAll();
     }
 
     private String formatCurrency(BigDecimal value) {

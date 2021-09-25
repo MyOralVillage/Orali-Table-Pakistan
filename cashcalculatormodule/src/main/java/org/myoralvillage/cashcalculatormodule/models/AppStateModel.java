@@ -25,6 +25,11 @@ public class AppStateModel implements Serializable {
     private AppMode appMode;
 
     /**
+     * true, if cash images were made visible in numeric mode
+     */
+    private boolean isCashVisible = false;
+
+    /**
      * A List of operations performed by the Cash Calculator leading to the <code>appMode</code>. Each element in
      * the list contains a <code>MathOperationModel</code> class.
      *
@@ -180,6 +185,14 @@ public class AppStateModel implements Serializable {
      */
     public void setAppMode(AppMode appMode) {
         this.appMode = appMode;
+    }
+
+    public boolean isCashVisible() {
+        return isCashVisible;
+    }
+
+    public void setCashVisible(boolean cashVisible) {
+        isCashVisible = cashVisible;
     }
 
     /**
