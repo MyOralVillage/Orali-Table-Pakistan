@@ -46,7 +46,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/logo_fourshare" />
+        app:srcCompat="@drawable/logo_fourshare"
+        android:background="#000000"/>
 
     <ImageView
         android:id="@+id/logo_orali"

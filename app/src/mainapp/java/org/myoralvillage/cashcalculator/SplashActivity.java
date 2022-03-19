@@ -7,6 +7,7 @@ import android.util.TypedValue;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import org.myoralvillage.cashcalculatormodule.utils.SavedPreferences;
@@ -28,7 +29,7 @@ public class SplashActivity extends AppCompatActivity {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_splash);
+        setContentView(R.layout.activity_splash_v2);
 
         settingService = new SettingService(getApplicationContext(), getResources());
         buildLayout();
@@ -45,12 +46,12 @@ public class SplashActivity extends AppCompatActivity {
             LinearLayout view = findViewById(R.id.currencies);
             int width = (int) TypedValue.applyDimension(
                     TypedValue.COMPLEX_UNIT_DIP,
-                    230f,
+                    180f,
                     getResources().getDisplayMetrics()
             );
             int height = (int) TypedValue.applyDimension(
                     TypedValue.COMPLEX_UNIT_DIP,
-                    140f,
+                    110f,
                     getResources().getDisplayMetrics()
             );
             int margin = (int) TypedValue.applyDimension(
@@ -62,10 +63,11 @@ public class SplashActivity extends AppCompatActivity {
             for (int i = 0; i < currencies.length; i++) {
                 String currency = currencies[i];
                 Button button = new Button(this);
+//                ImageView button2 = ImageView.inflate(this, R.layout.view_country_flag, null);
                 LinearLayout.LayoutParams params =
                         new LinearLayout.LayoutParams(width, height);
                 if(i == 0){
-                    params.setMargins(margin*5, 0, 0, 0);
+                    params.setMargins(0, margin*5, 0, 0);
                 }else if (i + 1 == currencies.length) {
                     params.setMargins(margin, 0, margin, 0);
                 }else{
@@ -74,7 +76,10 @@ public class SplashActivity extends AppCompatActivity {
 
                 button.setLayoutParams(params);
                 button.setBackgroundResource(CurrencyService.getCurrencyResource(currency));
+//                button2.setImageResource(CurrencyService.getCurrencyResource(currency));
                 button.setOnClickListener(e -> switchToMainActivity(currency));
+//                button2.setOnClickListener(e -> switchToMainActivity(currency));
+//                view.addView(button2);
                 view.addView(button);
             }
         }));
