@@ -1,9 +1,13 @@
 package org.myoralvillage.cashcalculator;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.TypedValue;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -46,40 +50,48 @@ public class SplashActivity extends AppCompatActivity {
             LinearLayout view = findViewById(R.id.currencies);
             int width = (int) TypedValue.applyDimension(
                     TypedValue.COMPLEX_UNIT_DIP,
-                    180f,
+                    260f,
                     getResources().getDisplayMetrics()
             );
             int height = (int) TypedValue.applyDimension(
                     TypedValue.COMPLEX_UNIT_DIP,
-                    110f,
+                    130f,
                     getResources().getDisplayMetrics()
             );
-            int margin = (int) TypedValue.applyDimension(
+            int paddingSides = (int) TypedValue.applyDimension(
                     TypedValue.COMPLEX_UNIT_DIP,
-                    20f,
+                    25f,
+                    getResources().getDisplayMetrics()
+            );
+            int paddingTopBottom = (int) TypedValue.applyDimension(
+                    TypedValue.COMPLEX_UNIT_DIP,
+                    80f,
                     getResources().getDisplayMetrics()
             );
 
             for (int i = 0; i < currencies.length; i++) {
                 String currency = currencies[i];
-                Button button = new Button(this);
-//                ImageView button2 = ImageView.inflate(this, R.layout.view_country_flag, null);
+                ImageView button = new ImageView(this);
+                button.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
                 LinearLayout.LayoutParams params =
                         new LinearLayout.LayoutParams(width, height);
-                if(i == 0){
-                    params.setMargins(0, margin*5, 0, 0);
-                }else if (i + 1 == currencies.length) {
-                    params.setMargins(margin, 0, margin, 0);
-                }else{
-                    params.setMargins(margin, 0, 0, 0);
-                }
+
+                params.setMargins(0, 0, 0, (int) TypedValue.applyDimension(
+                        TypedValue.COMPLEX_UNIT_DIP,
+                        10f,
+                        getResources().getDisplayMetrics()));
+
+                Log.d("PADDING", "TOP>>>> "+paddingTopBottom+" SIDES>>>>> "+paddingSides);
 
                 button.setLayoutParams(params);
-                button.setBackgroundResource(CurrencyService.getCurrencyResource(currency));
-//                button2.setImageResource(CurrencyService.getCurrencyResource(currency));
+                button.setPadding(paddingSides,
+                        paddingTopBottom,
+                        paddingSides,
+                        paddingTopBottom);
+                button.setBackgroundResource(R.drawable.white_rectangle);
+                button.setImageResource(CurrencyService.getCurrencyResource(currency));
                 button.setOnClickListener(e -> switchToMainActivity(currency));
-//                button2.setOnClickListener(e -> switchToMainActivity(currency));
-//                view.addView(button2);
                 view.addView(button);
             }
         }));
