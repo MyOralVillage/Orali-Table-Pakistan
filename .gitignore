@@ -2,6 +2,11 @@
 *.bin
 *.properties
 *.lock
+.idea/
+.idea/*.*
+.gradle/
+.gradle/*.*
+*.iml
 .idea/compiler.xml
 .idea/gradle.xml
 .idea/libraries/Gradle__androidx_activity_activity_1_0_0_aar.xml
