@@ -134,7 +134,9 @@ public class CurrencyScrollbarView extends HorizontalScrollView {
         switch(this.currencyCode){
             case "PKR":
                 if(index == CashCalculatorModuleConstants.TOTAL_PKR_DENOMINATIONS){
-                    return true;
+                    // TODO Stopped switching to numeric mode
+//                    return true;
+                    return false;
                 }
                 break;
             case "USD":

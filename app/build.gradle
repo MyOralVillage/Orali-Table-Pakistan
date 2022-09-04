@@ -26,8 +26,8 @@ android {
         mainapp {
             dimension "version"
             manifestPlaceholders = [ appLabel: "CashCalculator" ]
-            versionCode 4
-            versionName "0.4-pkr"
+            versionCode 5
+            versionName "0.5-pkr"
         }
         tutorials {
             dimension "version"

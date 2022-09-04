@@ -96,8 +96,10 @@ public class CurrencyService {
         String country = Locale.getDefault().getCountry();
         File file = new File(context.getFilesDir(), FILE_NAME);
 
+        // TODO Adding/Removing USD
         try {
-            String json = "{\"currencies\":[\"PKR\",\"USD\"]}";
+//            String json = "{\"currencies\":[\"PKR\",\"USD\"]}";
+            String json = "{\"currencies\":[\"PKR\"]}";
             if (json != null) {
                 strings = parseJson(json);
             }
