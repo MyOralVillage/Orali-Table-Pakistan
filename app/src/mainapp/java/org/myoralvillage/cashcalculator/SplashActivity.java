@@ -3,6 +3,7 @@ package org.myoralvillage.cashcalculator;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
@@ -13,6 +14,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import org.myoralvillage.cashcalculatormodule.utils.SavedPreferences;
 import org.myoralvillage.cashcalculatormodule.services.CurrencyService;
@@ -95,6 +97,13 @@ public class SplashActivity extends AppCompatActivity {
                 view.addView(button);
             }
         }));
+        findViewById(R.id.btn_privacy_policy).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url_privacy_policy)));
+                startActivity(browserIntent);
+            }
+        });
     }
 
     private void switchToMainActivity(String currencyCode) {
