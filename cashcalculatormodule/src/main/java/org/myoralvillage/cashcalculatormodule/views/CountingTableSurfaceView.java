@@ -12,6 +12,7 @@ import android.view.View;
 
 import org.myoralvillage.cashcalculatormodule.models.AreaModel;
 import org.myoralvillage.cashcalculatormodule.models.DenominationModel;
+import org.myoralvillage.cashcalculatormodule.services.AnalyticsLogger;
 import org.myoralvillage.cashcalculatormodule.services.BitmapService;
 import org.myoralvillage.cashcalculatormodule.views.listeners.CountingTableSurfaceListener;
 
@@ -127,26 +128,39 @@ public class CountingTableSurfaceView extends View {
             Bitmap bmp = bitmaps.get(entry.getKey());
             int denominationCount = entry.getValue();
             float horizontalPaddingInInches = STACKED_DENOMINATION_OFFSET_IN_INCHES * (denominationCount <= THRESHOLD_NUM ? (denominationCount - 1) : 1);
-            int horizontalPixelPadding = (int) (horizontalPaddingInInches * getResources().getDisplayMetrics().xdpi);
+            int horizontalPixelPadding = (int) (horizontalPaddingInInches * getResources().getDisplayMetrics().xdpi) + 20 ;
             if (isNegative) bmp = invertBitmap(bmp);
 
             AreaModel areaModel = areas.get(entry.getKey());
             areaModel.clearArea();
 
             int positionX = currentPosition % getWidth();
+
+            //This checks if we have run out of horizontal space on first row, and resets the
+            // X-position to 0, so that when the row changes in the next statement, the drawing can
+            // continue to happen from x-position 0
+
             if ((positionX + bmp.getWidth() + horizontalPixelPadding) > getWidth()) {
                 currentPosition = getWidth();
-                positionX = currentPosition % getWidth();
+                positionX = (currentPosition % getWidth());
             }
 
             int currencyRow = currentPosition / getWidth();
 
+            //if we're drawing in the second row, move all the draws slightly from the left, as to
+            // not obstruct the view of history button
+            if(currencyRow > 0){
+                positionX+=((int)(0.5 * getResources().getDisplayMetrics().xdpi));
+            }
+
             if (denominationCount == 0) {
                 continue;
             } else if (denominationCount > THRESHOLD_NUM) {
-                drawDenoNum(canvas, denominationCount, bmp, positionX, currencyRow * rowHeight, areaModel, numSize);
+                //multiplying by 0.9 so that in second row drawing, the currency notes dont sink under cash scrollbar
+                drawDenoNum(canvas, denominationCount, bmp, positionX, (int)(currencyRow * rowHeight * 0.9), areaModel, numSize);
             } else {
-                drawDeno(canvas, denominationCount, bmp, positionX, currencyRow * rowHeight, areaModel);
+                //multiplying by 0.9 so that in second row drawing, the currency notes dont sink under cash scrollbar
+                drawDeno(canvas, denominationCount, bmp, positionX, (int)(currencyRow * rowHeight * 0.9) , areaModel);
             }
 
             currentPosition += bmp.getWidth() + horizontalPixelPadding;
@@ -355,6 +369,7 @@ public class CountingTableSurfaceView extends View {
                         getPixel(Math.round(x - box.getX()), Math.round(y - box.getY()));
                 if (color != Color.TRANSPARENT) {
                     removeDenomination(entry.getKey());
+                    AnalyticsLogger.logEvent(getContext(), AnalyticsLogger.EVENT_NOTE_REMOVED);
                     entry.getValue().removeLastBox();
                 }
                 break;

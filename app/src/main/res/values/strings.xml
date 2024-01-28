@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">CashCalculator</string>
+    <string name="app_name">Orali Table</string>
+    <string name="label_privacy_policy"><u>Privacy Policy</u></string>
+    <string name="url_privacy_policy">https://myoralvillage.org/privacy-policy/</string>
 </resources>

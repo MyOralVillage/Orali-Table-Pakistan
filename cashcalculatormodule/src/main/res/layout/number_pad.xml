@@ -1,27 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
+    android:orientation="horizontal"
     android:layout_height="match_parent">
 
     <TableLayout
         android:layout_width="match_parent"
         android:background="@drawable/scrollbar_background"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:shrinkColumns="*"
         android:stretchColumns="*">
 
         <TableRow
-            android:layout_width="0sp"
-            android:layout_height="match_parent">
+            android:layout_width="800dp"
+            android:layout_height="180dp">
 
             <ImageButton
                 android:id="@+id/check"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_column="0"
                 android:contentDescription="@string/check"
-                android:src="@drawable/toggle_cash" />
+                android:src="@drawable/toggle_cash"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
             <Button
                 android:id="@+id/zero"
@@ -30,7 +32,10 @@
                 android:text="@string/_0"
                 android:textColor="#ffffff"
                 android:textSize="42sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:background="#0d000000"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
             <Button
                 android:id="@+id/one"
@@ -39,16 +44,21 @@
                 android:text="@string/_1"
                 android:textColor="#ffffff"
                 android:textSize="42sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:background="#0d000000"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
             <ImageButton
                 android:id="@+id/back"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_height="42sp"
+                android:layout_width="wrap_content"
                 android:layout_column="6"
                 android:layout_marginTop="30dp"
                 android:contentDescription="@string/back"
-                android:src="@drawable/back" />
+                android:src="@drawable/back"
+                />
 
             <Button
                 android:text="@string/_2"
@@ -57,7 +67,10 @@
                 android:textSize="42sp"
                 android:textStyle="bold"
                 android:textColor="#ffffff"
-                style="?android:attr/borderlessButtonStyle" />
+                style="?android:attr/borderlessButtonStyle"
+                android:background="#0d000000"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
             <Button
                 android:text="@string/_3"
@@ -66,7 +79,10 @@
                 android:textSize="42sp"
                 android:textStyle="bold"
                 android:textColor="#ffffff"
-                style="?android:attr/borderlessButtonStyle" />
+                style="?android:attr/borderlessButtonStyle"
+                android:background="#0d000000"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
             <Button
                 android:text="@string/_4"
@@ -75,22 +91,28 @@
                 android:textSize="42sp"
                 android:textStyle="bold"
                 android:textColor="#ffffff"
-                style="?android:attr/borderlessButtonStyle" />
+                style="?android:attr/borderlessButtonStyle"
+                android:background="#0d000000"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
             <ImageButton
                 android:id="@+id/togglecash"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_column="12"
+                android:layout_width="170dp"
+                android:layout_height="180dp"
                 android:contentDescription="@string/toglecash"
+                android:scaleType="centerCrop"
                 android:onClick="toggleCash"
                 android:src="@drawable/cash_num_toggle" />
 
         </TableRow>
 
         <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="-70sp">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-60dp">
 
             <Button
                 android:id="@+id/five"
@@ -99,7 +121,11 @@
                 android:text="@string/_5"
                 android:textColor="#ffffff"
                 android:textSize="42sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:layout_marginLeft="20dp"
+                android:background="#0d000000"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
             <Button
                 android:id="@+id/six"
@@ -108,7 +134,10 @@
                 android:text="@string/_6"
                 android:textColor="#ffffff"
                 android:textSize="42sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:background="#0d000000"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
             <Button
                 android:id="@+id/seven"
@@ -117,7 +146,10 @@
                 android:text="@string/_7"
                 android:textColor="#ffffff"
                 android:textSize="42sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:background="#0d000000"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
             <Button
                 android:text="@string/_8"
@@ -126,7 +158,10 @@
                 android:textSize="42sp"
                 android:textStyle="bold"
                 android:textColor="#ffffff"
-                style="?android:attr/borderlessButtonStyle" />
+                style="?android:attr/borderlessButtonStyle"
+                android:background="#0d000000"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
             <Button
                 android:text="@string/_9"
@@ -135,9 +170,10 @@
                 android:textSize="42sp"
                 android:textStyle="bold"
                 android:textColor="#ffffff"
-                style="?android:attr/borderlessButtonStyle" />
-
-
+                style="?android:attr/borderlessButtonStyle"
+                android:background="#0d000000"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
         </TableRow>
     </TableLayout>

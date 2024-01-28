@@ -3,17 +3,9 @@
     <array name="default_country_order">
         <item> PKR </item>
         <item> PK</item>
-        
-        <item> KES </item>
-        <item> KE</item>
-
-        <item> BDT </item>
-        <item> BD </item>
 
         <item> USD </item>
         <item> US </item>
 
-        <item> INR </item>
-        <item> IN </item>
     </array>
 </resources>
