@@ -1,8 +1,5 @@
 package org.myoralvillage.cashcalculator.tutorials;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.util.Pair;
-
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
@@ -17,11 +14,12 @@ import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.util.Pair;
 
 import org.myoralvillage.cashcalculator.MainActivity;
 import org.myoralvillage.cashcalculator.R;
-import org.myoralvillage.cashcalculator.TutorialActivity;
 import org.myoralvillage.cashcalculator.config.CashCalculatorConstants;
 import org.myoralvillage.cashcalculatormodule.fragments.CashCalculatorFragment;
 import org.myoralvillage.cashcalculatormodule.models.CurrencyModel;
@@ -35,7 +33,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class IntroVideoActivity extends AppCompatActivity implements View.OnClickListener  {
+public class ZeroVideoActivity_3 extends AppCompatActivity implements View.OnClickListener  {
     private CashCalculatorFragment fragment;
     private CountingTableView countingTable;
     private CurrencyScrollbarView currencyScrollbar;
@@ -202,61 +200,6 @@ public class IntroVideoActivity extends AppCompatActivity implements View.OnClic
                     runCalculate();
                     wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
                     runClear();
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runFadeOutAndIn();
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runAddDenomination(1);
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runSwitchToMultiplication();
-                    break;
-                case 3:
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runAddDenomination(-6);
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runCalculate();
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runClear();
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runFadeOutAndIn();
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runAddDenomination(-7);
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runSwitchToMultiplication();
-                    break;
-                case 4:
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runAddDenomination(-6);
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runCalculate();
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runSwitchToAddition();
-                    break;
-                case 5:
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runAddDenomination(-5);
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runCalculate();
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runClear();
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runFadeOutAndIn();
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runAddDenomination(-8);
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runSwitchToMultiplication();
-                    break;
-                case 6:
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runAddDenomination(-6);
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runSwitchToAddition();
-                    break;
-                case 7:
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runAddDenomination(-6);
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runCalculate();
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
                     runExit();
             }
         }
@@ -272,13 +215,7 @@ public class IntroVideoActivity extends AppCompatActivity implements View.OnClic
                     wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
                     runRemoveDenomination(); // removes denomination only if there is only one type
                     wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runAddDenomination(-5);
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runRemoveDenomination(); // removes denomination only if there is only one type
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
                     runAddDenomination(-6);
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runAddDenomination(-4);
                     wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
                     runSwitchToAddition(); // every time we switch to a new operation, we must end the switch case with a break and start a new one
                     break;
@@ -286,15 +223,11 @@ public class IntroVideoActivity extends AppCompatActivity implements View.OnClic
                     wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
                     runAddDenomination(-4);
                     wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runAddDenomination(-3);
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
                     runCalculate();
                     wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
                     runClear();
                     wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
                     runAddDenomination(-7);
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runAddDenomination(-5);
                     wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
                     runSwitchToSubtraction();
                     break;
@@ -302,15 +235,11 @@ public class IntroVideoActivity extends AppCompatActivity implements View.OnClic
                     wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
                     runAddDenomination(-6);
                     wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runAddDenomination(-4);
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
                     runCalculate();
                     wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
                     runClear();
                     wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
                     runAddDenomination(-8);
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runAddDenomination(-7);
                     wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
                     runSwitchToMultiplication();
                     break;
@@ -318,180 +247,10 @@ public class IntroVideoActivity extends AppCompatActivity implements View.OnClic
                     wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
                     runAddDenomination(-2);
                     wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runAddDenomination(-4);
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
                     runCalculate();
                     wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
                     runClear();
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runAddDenomination(-6);
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runAddDenomination(-4);
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runSwitchToAddition(); // every time we switch to a new operation, we must end the switch case with a break and start a new one
-                    break;
-                case 4:
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runAddDenomination(-5);
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runAddDenomination(-4);
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runCalculate();
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runSwitchToAddition(); // every time we switch to a new operation, we must end the switch case with a break and start a new one
-                    break;
-                case 5:
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runAddDenomination(-7);
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runAddDenomination(-6);
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runCalculate();
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runSwitchToAddition(); // every time we switch to a new operation, we must end the switch case with a break and start a new one
-                    break;
-                case 6:
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runAddDenomination(-4);
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runAddDenomination(-7);
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runCalculate();
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runClear();
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runAddDenomination(-8);
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runAddDenomination(-7);
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runSwitchToSubtraction();
-                    break;
-                case 7:
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runAddDenomination(-7);
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runAddDenomination(-6);
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runSwitchToSubtraction();
-                    break;
-                case 8:
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runAddDenomination(-4);
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runAddDenomination(-5);
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runSwitchToSubtraction();
-                    break;
-                case 9:
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runAddDenomination(-6);
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runAddDenomination(-4);
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runCalculate();
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-
-                    runClear();
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
                     runExit();
-                    break;
-//                switch (7) {
-//                case 0:
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runAddDenomination(-5); // add the fifth smallest denomination (use -n for nth smallest, +n for (n+1)th biggest)
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runRemoveDenomination(); // removes denomination only if there is only one type
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runAddDenomination(-4);
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runRemoveDenomination();
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runFadeOutAndIn(); // fades the screen to black and then fades back in
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runAddDenomination(-5);
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runSwitchToAddition(); // every time we switch to a new operation, we must end the switch case with a break and start a new one
-//                    break;
-//                case 1:
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runAddDenomination(-4);
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runCalculate();
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runClear();
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runFadeOutAndIn();
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runAddDenomination(-7);
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runSwitchToSubtraction();
-//                    break;
-//                case 2:
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runAddDenomination(-5);
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runAddDenomination(-5);
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runCalculate();
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runClear();
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runFadeOutAndIn();
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runAddDenomination(3);
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runSwitchToMultiplication();
-//                    break;
-//                case 3:
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runAddDenomination(-2);
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runCalculate();
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runClear();
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runFadeOutAndIn();
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runAddDenomination(-4);
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runSwitchToMultiplication();
-//                    break;
-//                case 4:
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runAddDenomination(-2);
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runCalculate();
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runSwitchToAddition();
-//                    break;
-//                case 5:
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runAddDenomination(-1);
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runCalculate();
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runClear();
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runFadeOutAndIn();
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runAddDenomination(-4);
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runSwitchToMultiplication();
-//                    break;
-//                case 6:
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runAddDenomination(-1);
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runSwitchToAddition();
-//                    break;
-//                case 7:
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runAddDenomination(-1);
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runCalculate();
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runExit();
             }
         }
         AnimatorSet set = new AnimatorSet();
@@ -695,9 +454,10 @@ public class IntroVideoActivity extends AppCompatActivity implements View.OnClic
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(IntroVideoActivity.this, MainActivity.class);
-                intent.putExtra("currencyCode", currencyName);
+                Intent intent = new Intent(ZeroVideoActivity_3.this, ZeroVideoActivity_2.class);
+                intent.putExtra("currencyName", currencyName);
                 intent.putExtra("numericMode", numericMode);
+                intent.putExtra("pageNumber", 4);
                 startActivity(intent);
                 finish();
             }

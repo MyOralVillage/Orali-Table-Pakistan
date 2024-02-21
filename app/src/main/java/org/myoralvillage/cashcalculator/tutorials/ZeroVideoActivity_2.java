@@ -1,59 +1,83 @@
-package org.myoralvillage.cashcalculator;
+package org.myoralvillage.cashcalculator.tutorials;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import org.myoralvillage.cashcalculator.tutorials.AdvancedVideoActivity;
-import org.myoralvillage.cashcalculator.tutorials.IntroVideoActivity;
-import org.myoralvillage.cashcalculator.tutorials.NumericVideoActivity;
-import org.myoralvillage.cashcalculator.tutorials.ThirdVideoActivity;
-import org.myoralvillage.cashcalculator.tutorials.ZeroVideoActivity;
-
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.myoralvillage.cashcalculator.MainActivity;
+import org.myoralvillage.cashcalculator.R;
 
 
-public class TutorialActivity extends AppCompatActivity implements View.OnClickListener {
+public class ZeroVideoActivity_2 extends AppCompatActivity implements View.OnClickListener {
 
     String currencyName = null;
     boolean numericMode = false;
-
+    private ImageView finger, goto_main;
+    private Button intro_video,advanced_video,numeric_video;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        setContentView(R.layout.activity_tutorial);
+        setContentView(R.layout.activity_zero_animation_3);
 
         Bundle extras = getIntent().getExtras();
 
         if (extras != null) {
-            if (extras.containsKey("currencyCode")) {
-                currencyName = extras.getString("currencyCode");
-            }
-            if (extras.containsKey("numericMode")) {
-                numericMode = extras.getBoolean("numericMode", false);
-            }
-
+            currencyName = getIntent().getStringExtra("currencyName");
+            numericMode = getIntent().getBooleanExtra("numericMode", false);
         }
 
-//        numericMode = getIntent().getBooleanExtra("numericMode", false);
-//        currencyName = getIntent().getStringExtra("currencyName");
-//        currencyName = "PKR";
-        Button intro_video = findViewById(R.id.intro_video);
-        intro_video.setOnClickListener(this);
-        Button advanced_video = findViewById(R.id.advanced_video);
-        advanced_video.setOnClickListener(this);
-        Button numeric_video = findViewById(R.id.numeric_video);
-        numeric_video.setOnClickListener(this);
-        ImageView goto_main = (ImageView) findViewById(R.id.goto_main);
-        goto_main.setOnClickListener(this);
+        finger = findViewById(R.id.finger);
 
+        intro_video = findViewById(R.id.intro_video);
+        advanced_video = findViewById(R.id.advanced_video);
+        numeric_video = findViewById(R.id.numeric_video);
+        goto_main = (ImageView) findViewById(R.id.goto_main);
+        int pageNumber = extras.getInt("pageNumber");
+        if(pageNumber==1){
+            (new Handler()).postDelayed(()->handAnimation(finger, 130, 200, 500), 2000);
+            (new Handler()).postDelayed(()->ImageAnimation(intro_video, 0.1f, 1.0f), 3000);
+            (new Handler()).postDelayed(()-> {
+                switchtozerovideo3();
+            }, 3500);
+        }
+        else if (pageNumber==4){
+            (new Handler()).postDelayed(()->handAnimation(finger, 1130, 200, 500), 2000);
+            (new Handler()).postDelayed(()->ImageAnimation(goto_main, 0.1f, 1.0f), 3000);
+            (new Handler()).postDelayed(()-> {
+                switchtomain();
+            }, 3500);
+        }
     }
 
+    public void handAnimation(ImageView code, float x, float y, int milliSecond) {
+        code.animate().x(x).y(y).setDuration(milliSecond);
+    }
+    public void ImageAnimation(View code, float x, float y) {
+        Animation anim = new AlphaAnimation(x, y);
+        anim.setDuration(50); //You can manage the blinking time with this parameter
+        anim.setStartOffset(20);
+        anim.setRepeatMode(Animation.REVERSE);
+        anim.setRepeatCount(Animation.ABSOLUTE);
+        code.startAnimation(anim);
+    }
+
+    private void switchtozerovideo3() {
+        Intent intent = new Intent(this, ZeroVideoActivity_3.class);
+        intent.putExtra("currencyName", currencyName);
+        intent.putExtra("numericMode", numericMode);
+        intent.putExtra("animationStage", 0);
+        startActivity(intent);
+        finish();
+    }
     private void switchtozerovideo() {
         System.out.println("Test here");
         Intent intent = new Intent(this, ZeroVideoActivity.class);
@@ -105,6 +129,7 @@ public class TutorialActivity extends AppCompatActivity implements View.OnClickL
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("currencyCode", currencyName);
         intent.putExtra("numericMode", getIntent().getBooleanExtra("numericMode", false));
+//        intent.putExtra("firstComplete", true);
         startActivity(intent);
         finish();
     }
@@ -114,8 +139,8 @@ public class TutorialActivity extends AppCompatActivity implements View.OnClickL
         switch (v.getId()) {
 
             case R.id.intro_video:
-                switchtointrovideo();
-//                switchtozerovideo();
+//                switchtointrovideo();
+                switchtozerovideo();
                 break;
 
             case R.id.advanced_video:
