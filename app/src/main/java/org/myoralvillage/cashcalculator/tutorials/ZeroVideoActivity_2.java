@@ -20,6 +20,7 @@ public class ZeroVideoActivity_2 extends AppCompatActivity implements View.OnCli
 
     String currencyName = null;
     boolean numericMode = false;
+    int pageNumber;
     private ImageView finger, goto_main;
     private Button intro_video,advanced_video,numeric_video;
     @Override
@@ -40,21 +41,35 @@ public class ZeroVideoActivity_2 extends AppCompatActivity implements View.OnCli
         intro_video = findViewById(R.id.intro_video);
         advanced_video = findViewById(R.id.advanced_video);
         numeric_video = findViewById(R.id.numeric_video);
-        goto_main = (ImageView) findViewById(R.id.goto_main);
-        int pageNumber = extras.getInt("pageNumber");
+//        goto_main = (ImageView) findViewById(R.id.goto_main);
+        pageNumber = extras.getInt("pageNumber");
         if(pageNumber==1){
-            (new Handler()).postDelayed(()->handAnimation(finger, 130, 200, 500), 2000);
+            (new Handler()).postDelayed(()->handAnimation(finger, 350, 200, 500), 2000);
             (new Handler()).postDelayed(()->ImageAnimation(intro_video, 0.1f, 1.0f), 3000);
             (new Handler()).postDelayed(()-> {
                 switchtozerovideo3();
             }, 3500);
         }
+        else if(pageNumber==2){
+            (new Handler()).postDelayed(()->handAnimation(finger, 750, 200, 500), 2000);
+            (new Handler()).postDelayed(()->ImageAnimation(advanced_video, 0.1f, 1.0f), 3000);
+            (new Handler()).postDelayed(()-> {
+                switchtozerovideo4();
+            }, 3500);
+        }
+        else if(pageNumber==3){
+            (new Handler()).postDelayed(()->handAnimation(finger, 1050, 200, 500), 2000);
+            (new Handler()).postDelayed(()->ImageAnimation(numeric_video, 0.1f, 1.0f), 3000);
+            (new Handler()).postDelayed(()-> {
+                switchtozerovideo5();
+            }, 3500);
+        }
         else if (pageNumber==4){
-            (new Handler()).postDelayed(()->handAnimation(finger, 1130, 200, 500), 2000);
-            (new Handler()).postDelayed(()->ImageAnimation(goto_main, 0.1f, 1.0f), 3000);
+//            (new Handler()).postDelayed(()->handAnimation(finger, 1130, 200, 500), 2000);
+//            (new Handler()).postDelayed(()->ImageAnimation(goto_main, 0.1f, 1.0f), 3000);
             (new Handler()).postDelayed(()-> {
                 switchtomain();
-            }, 3500);
+            }, 1500);
         }
     }
 
@@ -72,6 +87,25 @@ public class ZeroVideoActivity_2 extends AppCompatActivity implements View.OnCli
 
     private void switchtozerovideo3() {
         Intent intent = new Intent(this, ZeroVideoActivity_3.class);
+//        intent.putExtra("pageNumber", "1");
+        intent.putExtra("currencyName", currencyName);
+        intent.putExtra("numericMode", numericMode);
+        intent.putExtra("animationStage", 0);
+        startActivity(intent);
+        finish();
+    }
+    private void switchtozerovideo4() {
+        Intent intent = new Intent(this, ZeroVideoActivity_4.class);
+//        intent.putExtra("pageNumber", "1");
+        intent.putExtra("currencyName", currencyName);
+        intent.putExtra("numericMode", numericMode);
+        intent.putExtra("animationStage", 0);
+        startActivity(intent);
+        finish();
+    }
+    private void switchtozerovideo5() {
+        Intent intent = new Intent(this, ZeroVideoActivity_5.class);
+//        intent.putExtra("pageNumber", "1");
         intent.putExtra("currencyName", currencyName);
         intent.putExtra("numericMode", numericMode);
         intent.putExtra("animationStage", 0);
@@ -151,9 +185,9 @@ public class ZeroVideoActivity_2 extends AppCompatActivity implements View.OnCli
                 switchtothirdvideo();
                 break;
 
-            case R.id.goto_main:
-                switchtomain();
-                break;
+//            case R.id.goto_main:
+//                switchtomain();
+//                break;
         }
     }
 }

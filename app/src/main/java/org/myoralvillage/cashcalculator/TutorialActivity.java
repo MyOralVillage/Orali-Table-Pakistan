@@ -49,8 +49,8 @@ public class TutorialActivity extends AppCompatActivity implements View.OnClickL
         advanced_video.setOnClickListener(this);
         Button numeric_video = findViewById(R.id.numeric_video);
         numeric_video.setOnClickListener(this);
-        ImageView goto_main = (ImageView) findViewById(R.id.goto_main);
-        goto_main.setOnClickListener(this);
+//        ImageView goto_main = (ImageView) findViewById(R.id.goto_main);
+//        goto_main.setOnClickListener(this);
 
     }
 
@@ -126,9 +126,9 @@ public class TutorialActivity extends AppCompatActivity implements View.OnClickL
                 switchtothirdvideo();
                 break;
 
-            case R.id.goto_main:
-                switchtomain();
-                break;
+//            case R.id.goto_main:
+//                switchtomain();
+//                break;
         }
     }
 }

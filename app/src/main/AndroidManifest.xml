@@ -23,24 +23,6 @@
             android:screenOrientation="landscape"
             android:configChanges="keyboardHidden|orientation|screenSize">
         </activity>
-        <activity android:name=".tutorials.VideoPlayer1Activity"
-            android:screenOrientation="landscape"
-            android:configChanges="keyboardHidden|orientation|screenSize">
-        </activity>
-        <activity android:name=".tutorials.VideoPlayer2Activity"
-            android:screenOrientation="landscape"
-            android:configChanges="keyboardHidden|orientation|screenSize">
-        </activity>
-
-        <activity android:name=".tutorials.VideoPlayer3Activity"
-            android:screenOrientation="landscape"
-            android:configChanges="keyboardHidden|orientation|screenSize">
-        </activity>
-
-        <activity android:name=".tutorials.IntroActivity"
-            android:screenOrientation="landscape"
-            android:configChanges="keyboardHidden|orientation|screenSize">
-        </activity>
 
         <activity android:name=".tutorials.IntroVideoActivity"
             android:screenOrientation="landscape"
@@ -69,6 +51,14 @@
             android:configChanges="keyboardHidden|orientation|screenSize">
         </activity>
         <activity android:name=".tutorials.ZeroVideoActivity_3"
+            android:screenOrientation="landscape"
+            android:configChanges="keyboardHidden|orientation|screenSize">
+        </activity>
+        <activity android:name=".tutorials.ZeroVideoActivity_4"
+            android:screenOrientation="landscape"
+            android:configChanges="keyboardHidden|orientation|screenSize">
+        </activity>
+        <activity android:name=".tutorials.ZeroVideoActivity_5"
             android:screenOrientation="landscape"
             android:configChanges="keyboardHidden|orientation|screenSize">
         </activity>

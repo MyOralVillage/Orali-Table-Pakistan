@@ -380,10 +380,10 @@ public class ThirdVideoActivity extends AppCompatActivity {
 
     public void makeCurrencyChange(boolean singleFinger) {
         if(singleFinger){
-            finger.setImageResource(R.drawable.pointing_hand3);
+            finger.setImageResource(R.drawable.pointing_half_hand);
         }
         else{
-            finger.setImageResource(R.drawable.pointing_two_hand);
+            finger.setImageResource(R.drawable.pointing_half_two_hand);
         }
     }
     private void runAddDenomination(int denominationIndex) {
@@ -521,7 +521,7 @@ public class ThirdVideoActivity extends AppCompatActivity {
         ImageView button = findViewById(org.myoralvillage.cashcalculatormodule.R.id.clear_button);
         int coords[] = new int[2];
         button.getLocationOnScreen(coords);
-        animateFingerTap(coords[0] + button.getWidth() / 2 - finger.getWidth() / 2, coords[1], elapsed, CashCalculatorConstants.ADV_VIDEO_DURATION_TIME);
+        animateFingerTap(coords[0] + button.getWidth() / 2 - finger.getWidth() / 2, coords[1]-25, elapsed, CashCalculatorConstants.ADV_VIDEO_DURATION_TIME);
         elapsed += CashCalculatorConstants.ADV_VIDEO_ELAPSED_TIME;
         pressClear(elapsed);
     }
@@ -530,7 +530,7 @@ public class ThirdVideoActivity extends AppCompatActivity {
         ImageView button = findViewById(org.myoralvillage.cashcalculatormodule.R.id.calculate_button);
         int coords[] = new int[2];
         button.getLocationOnScreen(coords);
-        animateFingerTap(coords[0] + button.getWidth() / 2 - finger.getWidth() / 2, coords[1] - button.getWidth() / 2, elapsed, CashCalculatorConstants.ADV_VIDEO_DURATION_TIME);
+        animateFingerTap(coords[0] + button.getWidth() / 2 - finger.getWidth() / 2, coords[1] - button.getWidth() / 2 - 30, elapsed, CashCalculatorConstants.ADV_VIDEO_DURATION_TIME);
         elapsed += CashCalculatorConstants.ADV_VIDEO_ELAPSED_TIME;
         pressCalculate(elapsed);
     }
@@ -539,7 +539,7 @@ public class ThirdVideoActivity extends AppCompatActivity {
         ImageView button = findViewById(org.myoralvillage.cashcalculatormodule.R.id.enter_history_button);
         int coords[] = new int[2];
         button.getLocationOnScreen(coords);
-        animateFingerTap(coords[0] + button.getWidth() / 2 - finger.getWidth() / 2, coords[1], elapsed, CashCalculatorConstants.ADV_VIDEO_DURATION_TIME);
+        animateFingerTap(coords[0] + button.getWidth() / 2 - finger.getWidth() / 2, coords[1]-50, elapsed, CashCalculatorConstants.ADV_VIDEO_DURATION_TIME);
         elapsed += CashCalculatorConstants.ADV_VIDEO_ELAPSED_TIME;
         pressEnterHistory(elapsed);
     }
@@ -548,7 +548,7 @@ public class ThirdVideoActivity extends AppCompatActivity {
         ImageView button = findViewById(org.myoralvillage.cashcalculatormodule.R.id.right_history_button);
         int coords[] = new int[2];
         button.getLocationOnScreen(coords);
-        animateFingerTap(coords[0] + button.getWidth() / 2 - finger.getWidth() / 2, coords[1], elapsed, CashCalculatorConstants.ADV_VIDEO_DURATION_TIME);
+        animateFingerTap(coords[0] + button.getWidth() / 2 - finger.getWidth() / 2, coords[1]-55, elapsed, CashCalculatorConstants.ADV_VIDEO_DURATION_TIME);
         elapsed += CashCalculatorConstants.ADV_VIDEO_ELAPSED_TIME;
         pressNext(elapsed);
     }

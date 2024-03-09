@@ -3,8 +3,6 @@ package org.myoralvillage.cashcalculator.tutorials;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -20,7 +18,6 @@ import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.util.Pair;
 
-import org.myoralvillage.cashcalculator.MainActivity;
 import org.myoralvillage.cashcalculator.R;
 import org.myoralvillage.cashcalculator.config.CashCalculatorConstants;
 import org.myoralvillage.cashcalculatormodule.fragments.CashCalculatorFragment;
@@ -35,7 +32,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class ZeroVideoActivity_3 extends AppCompatActivity implements View.OnClickListener  {
+public class ZeroVideoActivity_4 extends AppCompatActivity implements View.OnClickListener  {
     private CashCalculatorFragment fragment;
     private CountingTableView countingTable;
     private CurrencyScrollbarView currencyScrollbar;
@@ -212,25 +209,37 @@ public class ZeroVideoActivity_3 extends AppCompatActivity implements View.OnCli
         else {
             switch (getIntent().getIntExtra("animationStage", 0)) {
                 case 0:
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runAddDenomination(-10); // add the fifth smallest denomination (use -n for nth smallest, +n for (n+1)th biggest)
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runRemoveDenomination(); // removes denomination only if there is only one type
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runAddDenomination(-4);
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runRemoveDenomination(); // removes denomination only if there is only one type
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runAddDenomination(-6);
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runSwitchToAddition(); // every time we switch to a new operation, we must end the switch case with a break and start a new one
+                    wait(CashCalculatorConstants.ADV_VIDEO_WAIT_TIME);
+                    runAddDenomination(-8);
+                    wait(CashCalculatorConstants.ADV_VIDEO_WAIT_TIME);
+                    runSwitchToSubtraction();
                     break;
                 case 1:
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
+                    wait(CashCalculatorConstants.ADV_VIDEO_WAIT_TIME);
+                    runAddDenomination(-6);
+                    wait(CashCalculatorConstants.ADV_VIDEO_WAIT_TIME);
+                    runSwitchToAddition();
+                    break;
+                case 2:
+                    wait(CashCalculatorConstants.ADV_VIDEO_WAIT_TIME);
+                    runAddDenomination(-5);
+                    wait(CashCalculatorConstants.ADV_VIDEO_WAIT_TIME);
                     runAddDenomination(-4);
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
+                    wait(CashCalculatorConstants.ADV_VIDEO_WAIT_TIME);
                     runCalculate();
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
+                    wait(CashCalculatorConstants.ADV_VIDEO_WAIT_TIME);
+                    runEnterHistory();
+                    wait(CashCalculatorConstants.ADV_VIDEO_WAIT_TIME);
+                    runNext();
+                    wait(CashCalculatorConstants.ADV_VIDEO_WAIT_TIME);
+                    runNext();
+                    wait(CashCalculatorConstants.ADV_VIDEO_WAIT_TIME);
+                    runPrev();
+                    wait(CashCalculatorConstants.ADV_VIDEO_WAIT_TIME);
+                    runNext();
+                    wait(CashCalculatorConstants.ADV_VIDEO_WAIT_TIME);
+                    runNext();
+                    wait(CashCalculatorConstants.ADV_VIDEO_WAIT_TIME);
                     runClear();
                     runExit();
             }
@@ -378,7 +387,7 @@ public class ZeroVideoActivity_3 extends AppCompatActivity implements View.OnCli
         ImageView button = findViewById(org.myoralvillage.cashcalculatormodule.R.id.calculate_button);
         int coords[] = new int[2];
         button.getLocationOnScreen(coords);
-        animateFingerTap(coords[0] + button.getWidth() / 2 - finger.getWidth() / 2, coords[1] - button.getWidth() / 2 - 30, elapsed, CashCalculatorConstants.INTRO_VIDEO_DURATION_TIME);
+        animateFingerTap(coords[0] + button.getWidth() / 2 - finger.getWidth() / 2, coords[1] - button.getWidth() / 2, elapsed, CashCalculatorConstants.INTRO_VIDEO_DURATION_TIME);
         elapsed += CashCalculatorConstants.INTRO_VIDEO_ELAPSED_TIME;
         pressCalculate(elapsed);
     }
@@ -466,10 +475,10 @@ public class ZeroVideoActivity_3 extends AppCompatActivity implements View.OnCli
 //                // Show the Alert Dialog box
 //                alertDialog.show();
 
-                Intent intent = new Intent(ZeroVideoActivity_3.this, ZeroVideoActivity_2.class);
+                Intent intent = new Intent(ZeroVideoActivity_4.this, ZeroVideoActivity_2.class);
                 intent.putExtra("currencyName", currencyName);
                 intent.putExtra("numericMode", numericMode);
-                intent.putExtra("pageNumber", 2);
+                intent.putExtra("pageNumber", 3);
                 startActivity(intent);
                 finish();
 

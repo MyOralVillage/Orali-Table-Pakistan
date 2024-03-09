@@ -23,7 +23,7 @@
         android:layout_width="190dp"
         android:layout_height="134dp"
         android:layout_marginLeft="5dp"
-        android:background="@drawable/advanced_video_icon">
+        android:background="@drawable/second_video_icon">
 
     </androidx.appcompat.widget.AppCompatButton>
 
@@ -32,13 +32,13 @@
         android:layout_marginLeft="5dp"
         android:layout_width="190dp"
         android:layout_height="134dp"
-        android:background="@drawable/numeric_video_icon">
+        android:background="@drawable/third_video_icon">
     </androidx.appcompat.widget.AppCompatButton>
 
-    <ImageView
-        android:id="@+id/goto_main"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        app:srcCompat="@drawable/forward_arrow" />
+<!--    <ImageView-->
+<!--        android:id="@+id/goto_main"-->
+<!--        android:layout_width="80dp"-->
+<!--        android:layout_height="80dp"-->
+<!--        app:srcCompat="@drawable/forward_arrow" />-->
 
 </LinearLayout>

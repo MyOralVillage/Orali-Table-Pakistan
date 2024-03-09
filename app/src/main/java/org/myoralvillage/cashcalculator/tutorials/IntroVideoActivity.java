@@ -93,6 +93,9 @@ public class IntroVideoActivity extends AppCompatActivity implements View.OnClic
         scrollbarLocation = new int[2];
         finger = findViewById(R.id.finger);
         black = findViewById(R.id.black_view);
+        ImageView gotomain = (ImageView) findViewById(R.id.gotomain);
+        gotomain.setOnClickListener(this);
+
         ViewTreeObserver vto = currencyScrollbar.getViewTreeObserver();
         vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
@@ -101,17 +104,6 @@ public class IntroVideoActivity extends AppCompatActivity implements View.OnClic
                 currencyScrollbar.getViewTreeObserver().removeGlobalOnLayoutListener(this);
             }
         });
-
-//        ImageView gototutorial = (ImageView) findViewById(R.id.gototutorial);
-//        gototutorial.setOnClickListener(this);
-//        gototutorial.setOnClickListener(new View.OnClickListener()
-//        {
-//            @Override
-//            public void onClick(View v)
-//            {
-//                Toast.makeText(getApplicationContext(),"Hello Javatpoint",Toast.LENGTH_SHORT).show();
-//            }
-//        });
     }
 
 
@@ -119,20 +111,14 @@ public class IntroVideoActivity extends AppCompatActivity implements View.OnClic
     public void onClick(View v) {
         switch (v.getId()) {
 
-            case R.id.gototutorial:
-                switchtoTutorial();
+            case R.id.gotomain:
+                switchtoMain();
                 break;
         }
     }
 
-    private void switchtoTutorial() {
-//        System.out.println("Test here");
-//        Intent intent = new Intent(this, TutorialActivity.class);
-//        intent.putExtra("currencyCode", currencyName);
-//        intent.putExtra("numericMode", getIntent().getBooleanExtra("numericMode", false));
-//        startActivity(intent);
-//        finish();
-        runExit();
+    private void switchtoMain() {
+        exit(elapsed);
     }
     long enterTime = 0, exitTime = 0;
     @Override
@@ -396,102 +382,6 @@ public class IntroVideoActivity extends AppCompatActivity implements View.OnClic
                     wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
                     runExit();
                     break;
-//                switch (7) {
-//                case 0:
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runAddDenomination(-5); // add the fifth smallest denomination (use -n for nth smallest, +n for (n+1)th biggest)
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runRemoveDenomination(); // removes denomination only if there is only one type
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runAddDenomination(-4);
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runRemoveDenomination();
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runFadeOutAndIn(); // fades the screen to black and then fades back in
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runAddDenomination(-5);
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runSwitchToAddition(); // every time we switch to a new operation, we must end the switch case with a break and start a new one
-//                    break;
-//                case 1:
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runAddDenomination(-4);
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runCalculate();
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runClear();
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runFadeOutAndIn();
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runAddDenomination(-7);
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runSwitchToSubtraction();
-//                    break;
-//                case 2:
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runAddDenomination(-5);
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runAddDenomination(-5);
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runCalculate();
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runClear();
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runFadeOutAndIn();
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runAddDenomination(3);
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runSwitchToMultiplication();
-//                    break;
-//                case 3:
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runAddDenomination(-2);
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runCalculate();
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runClear();
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runFadeOutAndIn();
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runAddDenomination(-4);
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runSwitchToMultiplication();
-//                    break;
-//                case 4:
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runAddDenomination(-2);
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runCalculate();
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runSwitchToAddition();
-//                    break;
-//                case 5:
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runAddDenomination(-1);
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runCalculate();
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runClear();
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runFadeOutAndIn();
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runAddDenomination(-4);
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runSwitchToMultiplication();
-//                    break;
-//                case 6:
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runAddDenomination(-1);
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runSwitchToAddition();
-//                    break;
-//                case 7:
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runAddDenomination(-1);
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runCalculate();
-//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-//                    runExit();
             }
         }
         AnimatorSet set = new AnimatorSet();
@@ -628,7 +518,7 @@ public class IntroVideoActivity extends AppCompatActivity implements View.OnClic
         ImageView button = findViewById(org.myoralvillage.cashcalculatormodule.R.id.clear_button);
         int coords[] = new int[2];
         button.getLocationOnScreen(coords);
-        animateFingerTap(coords[0] + button.getWidth() / 2 - finger.getWidth() / 2, coords[1], elapsed, CashCalculatorConstants.INTRO_VIDEO_DURATION_TIME);
+        animateFingerTap(coords[0] + button.getWidth() / 2 - finger.getWidth() / 2, coords[1]-25, elapsed, CashCalculatorConstants.INTRO_VIDEO_DURATION_TIME);
         elapsed += CashCalculatorConstants.INTRO_VIDEO_ELAPSED_TIME;
         pressClear(elapsed);
     }
@@ -637,7 +527,7 @@ public class IntroVideoActivity extends AppCompatActivity implements View.OnClic
         ImageView button = findViewById(org.myoralvillage.cashcalculatormodule.R.id.calculate_button);
         int coords[] = new int[2];
         button.getLocationOnScreen(coords);
-        animateFingerTap(coords[0] + button.getWidth() / 2 - finger.getWidth() / 2, coords[1] - button.getWidth() / 2, elapsed, CashCalculatorConstants.INTRO_VIDEO_DURATION_TIME);
+        animateFingerTap(coords[0] + button.getWidth() / 2 - finger.getWidth() / 2, coords[1] - button.getWidth() / 2 - 30, elapsed, CashCalculatorConstants.INTRO_VIDEO_DURATION_TIME);
         elapsed += CashCalculatorConstants.INTRO_VIDEO_ELAPSED_TIME;
         pressCalculate(elapsed);
     }
@@ -646,7 +536,7 @@ public class IntroVideoActivity extends AppCompatActivity implements View.OnClic
         ImageView button = findViewById(org.myoralvillage.cashcalculatormodule.R.id.enter_history_button);
         int coords[] = new int[2];
         button.getLocationOnScreen(coords);
-        animateFingerTap(coords[0] + button.getWidth() / 2 - finger.getWidth() / 2, coords[1], elapsed, CashCalculatorConstants.INTRO_VIDEO_DURATION_TIME);
+        animateFingerTap(coords[0] + button.getWidth() / 2 - finger.getWidth() / 2, coords[1]-50, elapsed, CashCalculatorConstants.INTRO_VIDEO_DURATION_TIME);
         elapsed += CashCalculatorConstants.INTRO_VIDEO_ELAPSED_TIME;;
         pressEnterHistory(elapsed);
     }
@@ -655,7 +545,7 @@ public class IntroVideoActivity extends AppCompatActivity implements View.OnClic
         ImageView button = findViewById(org.myoralvillage.cashcalculatormodule.R.id.right_history_button);
         int coords[] = new int[2];
         button.getLocationOnScreen(coords);
-        animateFingerTap(coords[0] + button.getWidth() / 2 - finger.getWidth() / 2, coords[1], elapsed, CashCalculatorConstants.INTRO_VIDEO_DURATION_TIME);
+        animateFingerTap(coords[0] + button.getWidth() / 2 - finger.getWidth() / 2, coords[1]-55, elapsed, CashCalculatorConstants.INTRO_VIDEO_DURATION_TIME);
         elapsed += CashCalculatorConstants.INTRO_VIDEO_ELAPSED_TIME;;
         pressNext(elapsed);
     }
