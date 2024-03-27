@@ -6,17 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".TutorialActivity">
 
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-
-
         <fragment
             android:id="@+id/TutorialFragment"
             android:name="org.myoralvillage.cashcalculatormodule.fragments.CashCalculatorFragment"
@@ -28,18 +17,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
+
         <ImageView
             android:id="@+id/gototutorial"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:layout_gravity="right"
-            android:layout_marginStart="698dp"
             android:layout_marginTop="56dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/play_button"
             android:scaleType="fitCenter"
-            />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/play_button" />
 
         <ImageView
             android:id="@+id/finger"
@@ -48,10 +35,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/pointing_hand3" />
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
