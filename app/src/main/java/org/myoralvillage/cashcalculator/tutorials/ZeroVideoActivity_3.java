@@ -15,6 +15,8 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -56,7 +58,7 @@ public class ZeroVideoActivity_3 extends AppCompatActivity implements View.OnCli
 
     private int elapsed = 0;
 
-    private ImageView finger;
+    private ImageView finger,gotomain;
     private View black;
 
     private String currencyName;
@@ -94,6 +96,7 @@ public class ZeroVideoActivity_3 extends AppCompatActivity implements View.OnCli
         fingerLocation = new int[2];
         scrollbarLocation = new int[2];
         finger = findViewById(R.id.finger);
+        gotomain = findViewById(R.id.gotomain);
         black = findViewById(R.id.black_view);
 
 
@@ -118,7 +121,25 @@ public class ZeroVideoActivity_3 extends AppCompatActivity implements View.OnCli
 //        });
     }
 
+    public void startAnimation() {
+        (new Handler()).postDelayed(()->handAnimation(finger, gotomain.getWidth()*8.20f, gotomain.getWidth(), 500), 2000);
+        (new Handler()).postDelayed(()->ImageAnimation(gotomain, 0.1f, 1.0f), 3000);
+        (new Handler()).postDelayed(()-> {
+            runExit();
+        }, 3500);
 
+    }
+    public void handAnimation(ImageView code, float x, float y, int milliSecond) {
+        code.animate().x(x).y(y).setDuration(milliSecond);
+    }
+    public void ImageAnimation(ImageView code, float x, float y) {
+        Animation anim = new AlphaAnimation(x, y);
+        anim.setDuration(50); //You can manage the blinking time with this parameter
+        anim.setStartOffset(20);
+        anim.setRepeatMode(Animation.REVERSE);
+        anim.setRepeatCount(Animation.ABSOLUTE);
+        code.startAnimation(anim);
+    }
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -163,81 +184,83 @@ public class ZeroVideoActivity_3 extends AppCompatActivity implements View.OnCli
         currencyScrollbar.getLocationOnScreen(scrollbarLocation);
         scrollbarWidth = currencyScrollbar.getChildAt(0).getWidth();
         scrollbarScrollPosition = (scrollbarWidth - width) / 2;
-        getFadeOut(finger, 0).start();
+//        getFadeOut(finger, 0).start();
         getFadeOut(black, 0).start();
-        if (usesDecimal()) {
-            switch (getIntent().getIntExtra("animationStage", 0)) { //tells you what level of tutorial we are at
-                case 0: //demonstrating putting notes on table
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runAddDenomination(-9);
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runRemoveDenomination();
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runAddDenomination(-6);
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runRemoveDenomination();
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runFadeOutAndIn();
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runAddDenomination(-7);
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runSwitchToAddition();
-                    break;
-                case 1: // demonstrating addition
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runAddDenomination(-6);
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runCalculate();
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runClear();
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runFadeOutAndIn();
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runAddDenomination(-9);
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runSwitchToSubtraction();
-                    break;
-                case 2: //..and so on
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runAddDenomination(-7);
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runAddDenomination(-7);
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runCalculate();
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runClear();
-                    runExit();
-            }
-        }
-        else {
-            switch (getIntent().getIntExtra("animationStage", 0)) {
-                case 0:
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runAddDenomination(-10); // add the fifth smallest denomination (use -n for nth smallest, +n for (n+1)th biggest)
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runRemoveDenomination(); // removes denomination only if there is only one type
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runAddDenomination(-4);
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runRemoveDenomination(); // removes denomination only if there is only one type
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runAddDenomination(-6);
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runSwitchToAddition(); // every time we switch to a new operation, we must end the switch case with a break and start a new one
-                    break;
-                case 1:
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runAddDenomination(-4);
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runCalculate();
-                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
-                    runClear();
-                    runExit();
-            }
-        }
-        AnimatorSet set = new AnimatorSet();
-        set.playTogether(animations);
-        set.start();
+        startAnimation();
+        return;
+//        if (usesDecimal()) {
+//            switch (getIntent().getIntExtra("animationStage", 0)) { //tells you what level of tutorial we are at
+//                case 0: //demonstrating putting notes on table
+//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
+//                    runAddDenomination(-9);
+//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
+//                    runRemoveDenomination();
+//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
+//                    runAddDenomination(-6);
+//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
+//                    runRemoveDenomination();
+//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
+//                    runFadeOutAndIn();
+//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
+//                    runAddDenomination(-7);
+//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
+//                    runSwitchToAddition();
+//                    break;
+//                case 1: // demonstrating addition
+//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
+//                    runAddDenomination(-6);
+//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
+//                    runCalculate();
+//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
+//                    runClear();
+//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
+//                    runFadeOutAndIn();
+//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
+//                    runAddDenomination(-9);
+//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
+//                    runSwitchToSubtraction();
+//                    break;
+//                case 2: //..and so on
+//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
+//                    runAddDenomination(-7);
+//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
+//                    runAddDenomination(-7);
+//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
+//                    runCalculate();
+//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
+//                    runClear();
+//                    runExit();
+//            }
+//        }
+//        else {
+//            switch (getIntent().getIntExtra("animationStage", 0)) {
+//                case 0:
+//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
+////                    runAddDenomination(-10); // add the fifth smallest denomination (use -n for nth smallest, +n for (n+1)th biggest)
+////                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
+////                    runRemoveDenomination(); // removes denomination only if there is only one type
+////                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
+//                    runAddDenomination(-4);
+//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
+//                    runRemoveDenomination(); // removes denomination only if there is only one type
+//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
+//                    runAddDenomination(-5);
+//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
+//                    runSwitchToAddition(); // every time we switch to a new operation, we must end the switch case with a break and start a new one
+//                    break;
+//                case 1:
+//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
+//                    runAddDenomination(-4);
+//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
+//                    runCalculate();
+//                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
+//                    runClear();
+//                    runExit();
+//            }
+//        }
+//        AnimatorSet set = new AnimatorSet();
+//        set.playTogether(animations);
+//        set.start();
     }
 
     private void runAddDenomination(int denominationIndex) {
@@ -251,13 +274,13 @@ public class ZeroVideoActivity_3 extends AppCompatActivity implements View.OnCli
         } else if (denominationIndex > 1 && scrollbarWidth - horizontalOffsets.get(denominationIndex) <= width / 2) {
             runScrollBarScroll(scrollbarWidth - width);
             elapsed += CashCalculatorConstants.INTRO_VIDEO_ELAPSED_TIME;;
-            animateFingerTap(width - scrollbarWidth + horizontalOffsets.get(denominationIndex), scrollbarLocation[1] + verticalOffsets.get(denominationIndex), elapsed, CashCalculatorConstants.INTRO_VIDEO_DURATION_TIME);
+            animateFingerTap(width - scrollbarWidth + horizontalOffsets.get(denominationIndex) - (width/13), scrollbarLocation[1] + verticalOffsets.get(denominationIndex) + (width / 13), elapsed, CashCalculatorConstants.INTRO_VIDEO_DURATION_TIME);
             elapsed += CashCalculatorConstants.INTRO_VIDEO_ELAPSED_TIME;;
             addDenomination(denominationIndex, elapsed);
         } else {
             runScrollBarScroll(horizontalOffsets.get(denominationIndex) - width / 2);
             elapsed += CashCalculatorConstants.INTRO_VIDEO_ELAPSED_TIME;;
-            animateFingerTap(width / 2, scrollbarLocation[1] + verticalOffsets.get(denominationIndex), elapsed, CashCalculatorConstants.INTRO_VIDEO_DURATION_TIME);
+            animateFingerTap(width / 2 - (width /15), scrollbarLocation[1] + verticalOffsets.get(denominationIndex) + (width/16), elapsed, CashCalculatorConstants.INTRO_VIDEO_DURATION_TIME);
             elapsed += CashCalculatorConstants.INTRO_VIDEO_ELAPSED_TIME;;
             addDenomination(denominationIndex, elapsed);
         }
@@ -283,11 +306,10 @@ public class ZeroVideoActivity_3 extends AppCompatActivity implements View.OnCli
     }
 
     private void runRemoveDenomination() {
-        animateFingerTap(0, 0, elapsed, CashCalculatorConstants.INTRO_VIDEO_DURATION_TIME);
+        animateFingerTap(width/-13, 0, elapsed, CashCalculatorConstants.INTRO_VIDEO_DURATION_TIME);
         removeDenomination(elapsed + CashCalculatorConstants.INTRO_VIDEO_ELAPSED_TIME);
         elapsed += CashCalculatorConstants.INTRO_VIDEO_ELAPSED_TIME;;
     }
-
     private void runClickNumber(int num) {
         View button;
         switch (num) {
@@ -466,7 +488,8 @@ public class ZeroVideoActivity_3 extends AppCompatActivity implements View.OnCli
 //                // Show the Alert Dialog box
 //                alertDialog.show();
 
-                Intent intent = new Intent(ZeroVideoActivity_3.this, ZeroVideoActivity_2.class);
+                Intent intent = new Intent(ZeroVideoActivity_3.this, ZeroVideoActivity_1.class);
+//                Intent intent = new Intent(ZeroVideoActivity_3.this, ZeroVideoActivity_2.class);
                 intent.putExtra("currencyName", currencyName);
                 intent.putExtra("numericMode", numericMode);
                 intent.putExtra("pageNumber", 2);

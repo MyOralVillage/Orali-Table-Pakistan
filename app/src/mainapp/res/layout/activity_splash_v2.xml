@@ -55,7 +55,15 @@
                 android:gravity="center"
                 android:orientation="vertical"/>
 
+
         </ScrollView>
+        <ImageView
+            android:id="@+id/gotovideo"
+            android:layout_width="150dp"
+            android:layout_height="75dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="0dp"
+            app:srcCompat="@drawable/intro_video_icon" />
 
         <TextView
             android:id="@+id/btn_privacy_policy"
@@ -70,5 +78,12 @@
             android:textSize="12dp"
             android:clickable="true"
             android:textAppearance="@style/Widget.AppCompat.Spinner.Underlined" />
+<!--        <ImageView-->
+<!--            android:id="@+id/finger"-->
+<!--            android:layout_width="130dp"-->
+<!--            android:layout_height="260dp"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:srcCompat="@drawable/one_finger_hand" />-->
     </RelativeLayout>
 </LinearLayout>

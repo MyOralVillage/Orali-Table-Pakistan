@@ -56,7 +56,6 @@
                 android:orientation="vertical"/>
 
         </ScrollView>
-
         <TextView
             android:id="@+id/btn_privacy_policy"
             android:layout_width="wrap_content"
@@ -70,14 +69,22 @@
             android:textSize="12dp"
             android:clickable="true"
             android:textAppearance="@style/Widget.AppCompat.Spinner.Underlined" />
-            <ImageView
-                android:id="@+id/pointing_hand"
-                android:layout_width="83dp"
-                android:layout_height="239dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:contentDescription="@string/app_name"
-                android:src="@drawable/pointing_hand3" />
+
+        <ImageView
+            android:id="@+id/gotovideo"
+            android:layout_width="150dp"
+            android:layout_height="75dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="0dp"
+            app:srcCompat="@drawable/intro_video_icon" />
+
+        <ImageView
+            android:id="@+id/finger"
+            android:layout_width="260dp"
+            android:layout_height="260dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/one_finger_hand_big" />
 
     </RelativeLayout>
 </LinearLayout>

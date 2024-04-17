@@ -22,11 +22,13 @@ import androidx.core.util.Pair;
 
 import org.myoralvillage.cashcalculator.MainActivity;
 import org.myoralvillage.cashcalculator.R;
+import org.myoralvillage.cashcalculator.SplashActivity;
 import org.myoralvillage.cashcalculator.config.CashCalculatorConstants;
 import org.myoralvillage.cashcalculatormodule.fragments.CashCalculatorFragment;
 import org.myoralvillage.cashcalculatormodule.models.CurrencyModel;
 import org.myoralvillage.cashcalculatormodule.models.DenominationModel;
 import org.myoralvillage.cashcalculatormodule.services.AnalyticsLogger;
+import org.myoralvillage.cashcalculatormodule.services.SettingService;
 import org.myoralvillage.cashcalculatormodule.views.CountingTableView;
 import org.myoralvillage.cashcalculatormodule.views.CurrencyScrollbarView;
 import org.myoralvillage.cashcalculatormodule.views.NumberPadView;
@@ -63,6 +65,7 @@ public class ZeroVideoActivity_1 extends AppCompatActivity {
     private String currencyName;
     private boolean numericMode;
     private ImageView gototutorial;
+    int pageNumber=1;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -73,6 +76,15 @@ public class ZeroVideoActivity_1 extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_zero_animation_2);
         gototutorial = (ImageView) findViewById(R.id.gototutorial);
+
+        Bundle extras = getIntent().getExtras();
+
+        if (extras != null) {
+            currencyName = getIntent().getStringExtra("currencyName");
+            numericMode = getIntent().getBooleanExtra("numericMode", false);
+            pageNumber = extras.getInt("pageNumber");
+        }
+
         currencyName = getIntent().getStringExtra("currencyName");
         numericMode = getIntent().getBooleanExtra("numericMode", false);
         fragment = (CashCalculatorFragment) getSupportFragmentManager()
@@ -95,7 +107,21 @@ public class ZeroVideoActivity_1 extends AppCompatActivity {
         width = displayMetrics.widthPixels;
         fingerLocation = new int[2];
         scrollbarLocation = new int[2];
-        finger = findViewById(R.id.finger);
+
+
+        if(pageNumber == 2){
+            (new Handler()).postDelayed(()-> {
+                switchtosplash();
+            }, 3000);
+        }
+        else {
+            (new Handler()).postDelayed(()-> {
+                switchtosplash2();
+            }, 3000);
+        }
+
+
+//        finger = findViewById(R.id.finger);
 
 //        ViewTreeObserver vto = currencyScrollbar.getViewTreeObserver();
 //        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -106,14 +132,32 @@ public class ZeroVideoActivity_1 extends AppCompatActivity {
 //            }
 //        });
 
-        (new Handler()).postDelayed(()->handAnimation(finger, 1300, 130, 500), 2000);
-        (new Handler()).postDelayed(()->ImageAnimation(gototutorial, 0.1f, 1.0f), 3000);
-        (new Handler()).postDelayed(()-> {
-            switchtozerovideo2();
-        }, 3500);
+//        (new Handler()).postDelayed(()->handAnimation(finger, 1300, 130, 500), 2000);
+//        (new Handler()).postDelayed(()->ImageAnimation(gototutorial, 0.1f, 1.0f), 3000);
+//        (new Handler()).postDelayed(()-> {
+//            switchtozerovideo2();
+//        }, 3500);
 
     }
-
+    private void switchtosplash() {
+        System.out.println("Test here");
+        Intent intent = new Intent(ZeroVideoActivity_1.this, ZeroVideoActivity.class);
+        intent.putExtra("currencyName", currencyName);
+        intent.putExtra("numericMode", numericMode);
+        intent.putExtra("pageNumber", 2);
+        startActivity(intent);
+        finish();
+    }
+    private void switchtosplash2() {
+        System.out.println("Test here");
+        Intent intent = new Intent(this, SplashActivity.class);
+        intent.putExtra("currencyName", currencyName);
+        intent.putExtra("numericMode", numericMode);
+        intent.putExtra("animationStage", 1);
+        intent.putExtra("pageNumber", 1);
+        startActivity(intent);
+        finish();
+    }
     private void switchtozerovideo2() {
         Intent intent = new Intent(this, ZeroVideoActivity_2.class);
         intent.putExtra("currencyName", currencyName);

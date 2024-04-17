@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static boolean numericMode;
     private ImageView gototutorial;
 
+    private String status="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +41,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         boolean firstComplete = false;
         //extras.getBoolean("firstComplete");
 
+
+
         if (extras != null) {
             if (extras.containsKey("currencyCode")) {
                 currencyCode = extras.getString("currencyCode");
@@ -49,6 +53,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if (extras.containsKey("firstComplete")) {
                 firstComplete = extras.getBoolean("firstComplete");
             }
+            if (extras.containsKey("status")) {
+                status = extras.getString("status");
+                Log.d("Status", status);
+            }
 
         }
 
@@ -58,14 +66,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 fragment.switchToNumericMode();
             }
         }
-        if(firstComplete){
-            // play video 0
-            (new Handler()).postDelayed(()-> {
-                switchtozerovideo();
-            }, 1000);
-        }
+//        if(firstComplete){
+//            // play video 0
+//            (new Handler()).postDelayed(()-> {
+//                switchtozerovideo();
+//            }, 1000);
+//        }
+
         gototutorial = (ImageView) findViewById(R.id.gototutorial);
         gototutorial.setOnClickListener(this);
+        if(status.compareTo("notstarted")==0)
+        {
+            gototutorial.setVisibility(View.VISIBLE);
+        }
+        else{
+            gototutorial.setVisibility(View.INVISIBLE);
+        }
+
+
     }
 
     @Override
@@ -73,6 +91,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
 
             case R.id.gototutorial:
+//                switchtoVideo1();
                 switchtoTutorial();
                 break;
         }
@@ -83,6 +102,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Intent intent = new Intent(this, TutorialActivity.class);
         intent.putExtra("currencyCode", currencyCode);
         intent.putExtra("numericMode", getIntent().getBooleanExtra("numericMode", false));
+        startActivity(intent);
+        finish();
+    }
+    private void switchtoVideo1() {
+        Intent intent = new Intent(this, IntroVideoActivity.class);
+        intent.putExtra("currencyName", currencyCode);
+        intent.putExtra("numericMode", numericMode);
+        intent.putExtra("animationStage", 0);
         startActivity(intent);
         finish();
     }

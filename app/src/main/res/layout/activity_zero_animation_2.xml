@@ -6,51 +6,35 @@
     android:layout_height="match_parent"
     tools:context=".TutorialActivity">
 
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    <fragment
+        android:id="@+id/TutorialFragment"
+        android:name="org.myoralvillage.cashcalculatormodule.fragments.CashCalculatorFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
+    <ImageView
+        android:id="@+id/gototutorial"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="56dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/play_button" />
 
-
-        <fragment
-            android:id="@+id/TutorialFragment"
-            android:name="org.myoralvillage.cashcalculatormodule.fragments.CashCalculatorFragment"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
-        <ImageView
-            android:id="@+id/gototutorial"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_gravity="right"
-            android:layout_marginStart="698dp"
-            android:layout_marginTop="56dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/play_button"
-            android:scaleType="fitCenter"
-            />
-
-        <ImageView
-            android:id="@+id/finger"
-            android:layout_width="83dp"
-            android:layout_height="239dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/pointing_hand3" />
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+<!--    <ImageView-->
+<!--        android:id="@+id/finger"-->
+<!--        android:layout_width="260dp"-->
+<!--        android:layout_height="260dp"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:srcCompat="@drawable/one_finger_hand_big" />-->
 
 
 

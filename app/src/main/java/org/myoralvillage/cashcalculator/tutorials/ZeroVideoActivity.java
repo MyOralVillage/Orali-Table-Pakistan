@@ -62,8 +62,10 @@ public class ZeroVideoActivity extends AppCompatActivity {
     private int scrollbarScrollPosition;
 
     private int elapsed = 0;
+    int pageNumber=1;
 
-    private ImageView finger;
+    private ImageView finger, gotovideo;
+
     private View black;
     private NumberPadView numberPadView;
     private View view;
@@ -77,20 +79,73 @@ public class ZeroVideoActivity extends AppCompatActivity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_zero_animation_1);
-        pointing_hand = (ImageView) findViewById(R.id.pointing_hand);
+        finger = (ImageView) findViewById(R.id.finger);
+        Bundle extras = getIntent().getExtras();
+
+        if (extras != null) {
+            currencyName = getIntent().getStringExtra("currencyName");
+            numericMode = getIntent().getBooleanExtra("numericMode", false);
+            pageNumber = extras.getInt("pageNumber");
+        }
+
         view1 = getLayoutInflater().inflate(R.layout.activity_zero_animation_1, null);
         view2 = getLayoutInflater().inflate(R.layout.activity_main, null);
 //        setContentView(view1);
         settingService = new SettingService(getApplicationContext(), getResources());
         buildLayout();
+        gotovideo = (ImageView) findViewById(R.id.gotovideo);
+        if(pageNumber == 1){
+//            startHandAnimation();
+            startAnimation();
+        }
+        else {
+//            startFlagAnimation();
+            startAnimation2();
+        }
+    }
+
+    public void startHandAnimation() {
+        int wait = 2000;
+        (new Handler()).postDelayed(()->ImageAnimation(gotovideo, 0.1f, 1.0f), wait);
+        wait += 1000;
+        (new Handler()).postDelayed(()->ImageAnimation(gotovideo, 0.1f, 1.0f), wait);
+        wait += 1000;
+        (new Handler()).postDelayed(()->ImageAnimation(gotovideo, 0.1f, 1.0f), wait);
+        wait += 1000;
+        (new Handler()).postDelayed(()-> {
+            switchtozerovideo2();
+        }, wait);
+    }
+
+    public void startFlagAnimation() {
+        int wait = 500;
+        (new Handler()).postDelayed(()->ImageAnimation(button, 0.1f, 1.0f), wait);
+        wait += 1000;
+        (new Handler()).postDelayed(()->ImageAnimation(button, 0.1f, 1.0f), wait);
+        wait += 1000;
+        (new Handler()).postDelayed(()->ImageAnimation(button, 0.1f, 1.0f), wait);
+        wait += 1000;
+        (new Handler()).postDelayed(()->ImageAnimation(button, 0.1f, 1.0f), wait);
+
+        (new Handler()).postDelayed(()-> {
+            switchtozerovideo1();
+        }, wait);
     }
 
     public void startAnimation() {
-        (new Handler()).postDelayed(()->handAnimation(pointing_hand, 350, 300, 500), 2000);
+        (new Handler()).postDelayed(()->handAnimation(finger, button.getWidth()- (button.getWidth()*1.1f), button.getWidth() + (button.getWidth()*0.3f), 500), 2000);
+        (new Handler()).postDelayed(()->ImageAnimation(gotovideo, 0.1f, 1.0f), 3000);
+        (new Handler()).postDelayed(()-> {
+            switchtozerovideo2();
+        }, 3500);
+
+    }
+    public void startAnimation2() {
+        (new Handler()).postDelayed(()->handAnimation(finger, button.getWidth()*0.4f, button.getWidth() - (button.getWidth()*0.3f) , 500), 2000);
         (new Handler()).postDelayed(()->ImageAnimation(button, 0.1f, 1.0f), 3000);
         (new Handler()).postDelayed(()-> {
             switchtozerovideo1();
-
+//            switchtozerovideo2();
         }, 3500);
 
     }
@@ -154,6 +209,7 @@ public class ZeroVideoActivity extends AppCompatActivity {
                         paddingTopBottom);
                 button.setBackgroundResource(R.drawable.white_rectangle);
                 button.setImageResource(CurrencyService.getCurrencyResource(currency));
+
 //                button.setOnClickListener(e -> switchToMainActivity(currency));
                 view.addView(button);
             }
@@ -165,7 +221,7 @@ public class ZeroVideoActivity extends AppCompatActivity {
 //                startActivity(browserIntent);
             }
         });
-        startAnimation();
+//        startAnimation();
     }
 
     private void switchToMainActivity(String currencyCode) {
@@ -179,6 +235,14 @@ public class ZeroVideoActivity extends AppCompatActivity {
     }
     private void switchtozerovideo1() {
         Intent intent = new Intent(this, ZeroVideoActivity_1.class);
+        intent.putExtra("currencyName", currencyName);
+        intent.putExtra("numericMode", numericMode);
+        intent.putExtra("animationStage", 0);
+        startActivity(intent);
+        finish();
+    }
+    private void switchtozerovideo2() {
+        Intent intent = new Intent(this, ZeroVideoActivity_2.class);
         intent.putExtra("currencyName", currencyName);
         intent.putExtra("numericMode", numericMode);
         intent.putExtra("animationStage", 0);
