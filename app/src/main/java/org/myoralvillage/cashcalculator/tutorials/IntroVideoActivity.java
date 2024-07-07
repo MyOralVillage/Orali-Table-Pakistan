@@ -265,18 +265,25 @@ public class IntroVideoActivity extends AppCompatActivity implements View.OnClic
 //                    wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
 //                    runRemoveDenomination(); // removes denomination only if there is only one type
                     wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
+                    Toast.makeText(this, "Test Message 1", Toast.LENGTH_SHORT).show();
                     runAddDenomination(-4);
                     wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
+                    Toast.makeText(this, "Test Message 2", Toast.LENGTH_SHORT).show();
                     runRemoveDenomination(); // removes denomination only if there is only one type
                     wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
+                    Toast.makeText(this, "Test Message 3", Toast.LENGTH_SHORT).show();
                     runAddDenomination(-5);
                     wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
+                    Toast.makeText(this, "Test Message 4", Toast.LENGTH_SHORT).show();
                     runRemoveDenomination(); // removes denomination only if there is only one type
                     wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
+                    Toast.makeText(this, "Test Message 5", Toast.LENGTH_SHORT).show();
                     runAddDenomination(-5);
                     wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
+                    Toast.makeText(this, "Test Message 6", Toast.LENGTH_SHORT).show();
                     runAddDenomination(-4);
                     wait(CashCalculatorConstants.INTRO_VIDEO_WAIT_TIME);
+                    Toast.makeText(this, "Test Message 7", Toast.LENGTH_SHORT).show();
                     runSwitchToAddition(); // every time we switch to a new operation, we must end the switch case with a break and start a new one
                     break;
                 case 1:
@@ -808,9 +815,10 @@ public class IntroVideoActivity extends AppCompatActivity implements View.OnClic
 //        }
     }
 
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        return true;
-    }
+    // TODO If this method is uncommented, the "Go back" button and any other view doesn't get any touch input
+//    @Override
+//    public boolean dispatchTouchEvent(MotionEvent ev) {
+//        return true;
+//    }
 
 }
