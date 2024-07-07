@@ -17,7 +17,6 @@ import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import org.myoralvillage.cashcalculator.MainActivity;
 import org.myoralvillage.cashcalculator.R;
@@ -808,9 +807,10 @@ public class IntroVideoActivity extends AppCompatActivity implements View.OnClic
 //        }
     }
 
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        return true;
-    }
+    // TODO If this method is uncommented, the "Go back" button and any other view doesn't get any touch input
+//    @Override
+//    public boolean dispatchTouchEvent(MotionEvent ev) {
+//        return true;
+//    }
 
 }

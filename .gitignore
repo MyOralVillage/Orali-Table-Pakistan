@@ -11,3 +11,5 @@ build/
 *.iml
 
 /app/release/
+.DS_Store
+app/.DS_Store
