@@ -910,8 +910,8 @@ public class AdvancedVideoActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        return true;
-    }
+    // @Override
+    // public boolean dispatchTouchEvent(MotionEvent ev) {
+    //     return true;
+    // }
 }
